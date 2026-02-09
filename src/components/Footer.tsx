@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { designTokens } from '../tokens';
 
 export default function Footer() {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
   return (
     <footer
       className="relative overflow-hidden"
@@ -19,7 +20,13 @@ export default function Footer() {
           {/* Column 1: Brand Info */}
           <div>
             <div className="mb-4 sm:mb-5">
-              <span className="text-xl sm:text-2xl font-bold tracking-wide text-white">Khan Consultants</span>
+              <div className="inline-flex items-center rounded-lg bg-white/95 px-2.5 py-2">
+                <img
+                  src={logoSrc}
+                  alt="Khan Consultants"
+                  className="h-9 sm:h-10 w-auto object-contain"
+                />
+              </div>
             </div>
             <p className="text-sm sm:text-base leading-relaxed max-w-sm" style={{ color: '#cfe7d6' }}>
               One stop. 1000 experts. Your solution starts here. From business to property, legal to taxation.

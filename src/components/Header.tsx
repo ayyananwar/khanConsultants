@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { designTokens } from '../tokens';
 
 export default function Navbar() {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -45,7 +46,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Left: Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-wide text-[#53785b]">Khan Consultants</span>
+            <img
+              src={logoSrc}
+              alt="Khan Consultants"
+              className="h-8 sm:h-10 md:h-12 w-auto object-contain"
+            />
+            <span className="sr-only">Khan Consultants</span>
           </Link>
 
           {/* Center: Desktop Navigation Links */}
@@ -165,7 +171,11 @@ export default function Navbar() {
 
           {/* Logo */}
           <div className="mb-8 mt-2">
-            <span className="text-lg font-bold tracking-wide" style={{ color: designTokens.colors.sage[600] }}>Khan Consultants</span>
+            <img
+              src={logoSrc}
+              alt="Khan Consultants"
+              className="h-9 w-auto object-contain"
+            />
           </div>
 
           {/* Mobile Navigation */}
