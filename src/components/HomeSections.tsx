@@ -32,7 +32,7 @@ function AboutSection() {
           <p className="text-xs sm:text-sm tracking-widest text-[#53785b] font-bold mb-3 sm:mb-4">ABOUT KHAN CONSULTANTS</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2c4d3f] mb-5 leading-tight">
             Your Trusted Partner for<br className="hidden sm:block" />
-            <span className="text-[#53785b]">Business Success</span>
+            <span className="text-[#53785b]"> Business Success</span>
           </h2>
           <p className="text-[#2c4d3f] text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
             From legal consultations to international trade, government compliance to financial management—Khan Consultants provides comprehensive solutions under one roof.
@@ -114,9 +114,9 @@ function AboutSection() {
               </div>
             </div>
             
-            <div className="bg-white rounded-3xl p-8 sm:p-9 border border-[#d6fadc] shadow-lg hover:shadow-xl transition-all">
-              <h4 className="text-2xl sm:text-3xl font-bold text-[#2c4d3f] mb-6">Our Services Include:</h4>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-9 border border-[#d6fadc] shadow-lg hover:shadow-xl transition-all">
+              <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2c4d3f] mb-4 sm:mb-5 md:mb-6">Our Services Include:</h4>
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3 md:gap-4">
                 {[
                   { icon: FaBalanceScale, text: 'Legal & Trademark' },
                   { icon: MdAccountBalance, text: 'GST & Accounting' },
@@ -127,16 +127,16 @@ function AboutSection() {
                 ].map((service, idx) => {
                   const Icon = service.icon;
                   return (
-                    <div key={idx} className="flex items-center gap-3 bg-gradient-to-br from-[#d6fadc] to-[#e8f0eb] border border-[#d6fadc] rounded-xl p-4 hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer">
-                      <Icon className="text-[#53785b] text-2xl sm:text-3xl flex-shrink-0" />
-                      <span className="text-sm sm:text-base text-[#2c4d3f] font-bold">{service.text}</span>
+                    <div key={idx} className="flex items-center gap-2 sm:gap-2.5 md:gap-3 bg-gradient-to-br from-[#d6fadc] to-[#e8f0eb] border border-[#d6fadc] rounded-lg sm:rounded-xl p-3 sm:p-3.5 md:p-4 hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer">
+                      <Icon className="text-[#53785b] text-xl sm:text-2xl md:text-3xl flex-shrink-0" />
+                      <span className="text-xs sm:text-sm md:text-base text-[#2c4d3f] font-bold leading-tight">{service.text}</span>
                     </div>
                   );
                 })}
               </div>
               <Link 
                 to="/contact" 
-                className="mt-8 block text-center rounded-xl px-8 py-4 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] text-white text-base sm:text-lg font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shadow-lg active:scale-[0.98]"
+                className="mt-6 sm:mt-7 md:mt-8 block text-center rounded-lg sm:rounded-xl px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] text-white text-sm sm:text-base md:text-lg font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shadow-lg active:scale-[0.98]"
               >
                 Get Started Today →
               </Link>
