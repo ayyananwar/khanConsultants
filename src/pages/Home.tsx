@@ -63,11 +63,12 @@ export default function Home() {
       <section
         className="relative bg-cover bg-center min-h-[420px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px]"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&h=900&fit=crop')",
+          backgroundImage: "url('/khanConsultants/hero.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a2d23]/95 via-[#2c4d3f]/90 to-[#1f3a2f]/95" />
         <div className="relative max-w-7xl mx-auto px-3 sm:px-4 md:px-6 pt-14 sm:pt-16 md:pt-20 lg:pt-24 xl:pt-28 pb-8 sm:pb-10 md:pb-14 lg:pb-16 xl:pb-20 text-white">
           <div className="max-w-4xl mx-auto text-center">
             {/* Trust Badge */}

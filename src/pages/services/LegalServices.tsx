@@ -81,10 +81,12 @@ const LegalServices = () => {
       <section
         className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=1200&h=600&fit=crop')",
+          backgroundImage: "url('/khanConsultants/hero.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a2d23]/92 via-[#2c4d3f]/85 to-[#1f3a2f]/90" />
         <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
           <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-emerald-300">{service.title}</p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">{service.heroDescription}</h1>

@@ -10,7 +10,7 @@ export const designTokens = {
       100: '#e8f0eb',     // Sage Extra Light - Gradient endpoints
       300: '#b3e5c2',     // Sage Light variant
       500: '#6b9373',     // Sage Medium
-      600: '#53785b',     // Sage Primary - Main brand color
+      600: '#517358',     // Sage Primary - Main brand color
       700: '#4a6b50',     // Sage Dark variant
       900: '#2c4d3f',     // Sage Dark - Headings & dark text
       950: '#1a2d23',     // Sage Darkest
@@ -287,17 +287,17 @@ export const sageBackgrounds = {
   light: {
     background: '#d6fadc',      // Light sage for section backgrounds
     heading: '#2c4d3f',         // Dark sage for headings
-    text: '#53785b',            // Primary sage for body text
+    text: '#000000',            // Primary sage for body text
     border: '#d6fadc',          // Sage light border
   },
   dark: {
-    background: '#53785b',      // Sage primary for dark sections
+    background: '#517358',      // Sage primary for dark sections
     heading: '#ffffff',         // White text
     text: '#ffffff',            // White text
     border: 'rgba(255, 255, 255, 0.1)',  // Subtle white border
   },
   gradient: {
-    darkGradient: 'from-[#53785b] to-[#2c4d3f]',      // Dark sage gradient
+    darkGradient: 'from-[#517358] to-[#2c4d3f]',      // Dark sage gradient
     lightGradient: 'from-[#d6fadc] to-[#e8f0eb]',     // Light sage gradient
     accentGradient: 'from-[#6b9373] to-[#86ac8d]',    // Accent sage gradient
   },
