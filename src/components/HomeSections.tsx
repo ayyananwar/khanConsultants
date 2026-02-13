@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { MdLocationOn, MdPhone, MdEmail, MdAccountBalance, MdLocalHospital, MdComputer, MdShoppingBag, MdFactory, MdSchool, MdEmojiTransportation, MdHome, MdHotel, MdWifi, MdGavel, MdLocalShipping } from 'react-icons/md';
-import { BsFacebook, BsInstagram, BsWhatsapp, BsLightning } from 'react-icons/bs';
-import { HiGlobeAlt, HiBuildingOffice2, HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser, HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
-import { FaBalanceScale, FaIdCard } from 'react-icons/fa';
+import { MdLocationOn, MdPhone, MdEmail } from 'react-icons/md';
+import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs';
+import { HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser, HiChevronLeft, HiChevronRight, HiDocumentText, HiHomeModern, HiBuildingOffice2 } from 'react-icons/hi2';
+import { FaBalanceScale, FaFileInvoiceDollar, FaShippingFast, FaPassport } from 'react-icons/fa';
 
 // Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAEgg9-IYwX_ca2mXMQOEAPPwzJYZq6T5t7b1dpdanOr8OpXky/exec";
@@ -11,51 +11,47 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAE
 // About Section Component
 function AboutSection() {
   const values = [
-    { icon: FaBalanceScale, title: 'Legal Excellence', description: 'Expert guidance in trademark, company formation & legal matters', color: 'bg-blue-600' },
-    { icon: MdAccountBalance, title: 'Financial Expertise', description: 'Complete GST, accounting & tax compliance solutions', color: 'bg-green-600' },
-    { icon: HiGlobeAlt, title: 'Global Reach', description: 'International trade, visas & immigration services', color: 'bg-teal-700' },
-    { icon: HiCheckCircle, title: 'Client Success', description: 'Trusted by 500+ businesses for their growth journey', color: 'bg-green-600' },
+    { title: 'Legal Excellence', description: 'Expert guidance in trademark, company formation & legal matters' },
+    { title: 'Financial Expertise', description: 'Complete GST, accounting & tax compliance solutions' },
+    { title: 'Global Reach', description: 'International trade, visas & immigration services' },
+    { title: 'Client Success', description: 'Trusted by 500+ businesses for their growth journey' },
   ];
 
 
   return (
-    <section id="about" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-white">
+    <section id="about" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#517358]">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-white px-4">About Khan Consultants</span>
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-white font-bold mb-3 uppercase relative">
+              <span className="relative z-10 bg-[#517358] px-4">About Khan Consultants</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
             </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c4d3f] mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3 sm:mb-4 leading-tight">
             Your Trusted Partner for Business Success
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-6 sm:mb-8 rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
         </div>
 
         {/* Core Values Grid - Mobile Optimized */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5 mb-10 sm:mb-12">
           {values.map((value, index) => {
-            const IconComponent = value.icon;
             return (
-              <div key={index} className="group bg-white border border-[#d6fadc] shadow-lg rounded-2xl p-4 sm:p-5 md:p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className={`w-12 h-12 sm:w-14 sm:h-14 ${value.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className="text-white text-2xl sm:text-3xl" />
-                </div>
-                <h4 className="font-bold text-[#2c4d3f] text-base sm:text-lg mb-2">{value.title}</h4>
-                <p className="text-[#53785b] text-sm sm:text-base leading-relaxed">{value.description}</p>
+              <div key={index} className="group  border border-emerald-400/20 shadow-lg rounded-2xl p-4 sm:p-5 md:p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
+                <h4 className="font-bold text-[#b3e5c2] text-base sm:text-lg mb-2">{value.title}</h4>
+                <p className="text-white text-sm sm:text-base leading-relaxed">{value.description}</p>
               </div>
             );
           })}
         </div>
 
         {/* Why Choose Us - Mobile Optimized */}
-        <div className="bg-gradient-to-br from-white via-[#fafffe] to-white border border-[#e8f0eb] shadow-2xl hover:shadow-3xl rounded-3xl p-8 sm:p-10 md:p-14 lg:p-16 transition-all duration-300">
+        <div className="border border-emerald-400/20 shadow-2xl hover:shadow-3xl rounded-3xl p-8 sm:p-10 md:p-14 lg:p-16 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             <div>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2c4d3f] mb-6 sm:mb-8 leading-tight">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 leading-tight">
                 Why Choose Khan Consultants?
               </h3>
               <div className="space-y-5 sm:space-y-6">
@@ -64,8 +60,8 @@ function AboutSection() {
                     <HiCheckCircle className="text-white text-xl sm:text-2xl" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#2c4d3f] text-lg sm:text-xl mb-2">One-Stop Solution</h4>
-                    <p className="text-[#53785b] text-base sm:text-lg leading-relaxed">All services—legal, financial, trade, and government—under one roof</p>
+                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">One-Stop Solution</h4>
+                    <p className="text-white text-base sm:text-lg leading-relaxed">All services—legal, financial, trade, and government—under one roof</p>
                   </div>
                 </div>
                 <div className="flex gap-4 sm:gap-5 items-start">
@@ -73,8 +69,8 @@ function AboutSection() {
                     <HiUserGroup className="text-white text-xl sm:text-2xl" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#2c4d3f] text-lg sm:text-xl mb-2">Expert Team</h4>
-                    <p className="text-[#53785b] text-base sm:text-lg leading-relaxed">1000+ experts across legal, financial, and trade domains</p>
+                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">Expert Team</h4>
+                    <p className="text-white text-base sm:text-lg leading-relaxed">1000+ experts across legal, financial, and trade domains</p>
                   </div>
                 </div>
                 <div className="flex gap-4 sm:gap-5 items-start">
@@ -82,36 +78,38 @@ function AboutSection() {
                     <HiRocketLaunch className="text-white text-xl sm:text-2xl" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#2c4d3f] text-lg sm:text-xl mb-2">Fast Processing</h4>
-                    <p className="text-[#53785b] text-base sm:text-lg leading-relaxed">Quick turnaround times without compromising on quality</p>
+                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">Fast Processing</h4>
+                    <p className="text-white text-base sm:text-lg leading-relaxed">Quick turnaround times without compromising on quality</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-9 border border-[#d6fadc] shadow-lg hover:shadow-xl transition-all">
-              <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2c4d3f] mb-4 sm:mb-5 md:mb-6">Our Services Include:</h4>
-              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5 sm:gap-3 md:gap-4">
+            <div className=" rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-7 lg:p-9 border border-emerald-400/20 shadow-lg hover:shadow-xl transition-all" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
+              <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#b3e5c2] mb-3 sm:mb-4 md:mb-5 lg:mb-6">Our Services Include:</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-2.5 md:gap-3 lg:gap-4 mb-4 sm:mb-5 md:mb-6 lg:mb-8">
                 {[
-                  { icon: FaBalanceScale, text: 'Legal & Trademark' },
-                  { icon: MdAccountBalance, text: 'GST & Accounting' },
-                  { icon: MdLocalShipping, text: 'Import & Export' },
-                  { icon: HiGlobeAlt, text: 'Visas & Immigration' },
-                  { icon: HiBuildingOffice2, text: 'Corporation Services' },
-                  { icon: FaIdCard, text: 'Government IDs' },
+                  { icon: HiBuildingOffice2, text: 'Kolkata Corp', color: '#2563eb', path: '/services/kolkata-corporation' },
+                  { icon: HiDocumentText, text: 'Certificates', color: '#14b8a6', path: '/services/certificates' },
+                  { icon: HiClipboardDocumentCheck, text: 'Licenses', color: '#6366f1', path: '/services/licenses' },
+                  { icon: HiHomeModern, text: 'Property', color: '#f59e0b', path: '/services/property' },
+                  { icon: FaBalanceScale, text: 'Legal', color: '#7c3aed', path: '/services/legal' },
+                  { icon: FaFileInvoiceDollar, text: 'GST', color: '#059669', path: '/services/gst-accounting' },
+                  { icon: FaShippingFast, text: 'Import/Export', color: '#dc2626', path: '/services/import-export' },
+                  { icon: FaPassport, text: 'Visas', color: '#ea580c', path: '/services/visas-immigration' },
                 ].map((service, idx) => {
                   const Icon = service.icon;
                   return (
-                    <div key={idx} className="flex items-center gap-2 sm:gap-2.5 md:gap-3 bg-gradient-to-br from-[#d6fadc] to-[#e8f0eb] border border-[#d6fadc] rounded-lg sm:rounded-xl p-3 sm:p-3.5 md:p-4 hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer">
-                      <Icon className="text-[#53785b] text-xl sm:text-2xl md:text-3xl flex-shrink-0" />
-                      <span className="text-xs sm:text-sm md:text-base text-[#2c4d3f] font-bold leading-tight">{service.text}</span>
-                    </div>
+                    <Link key={idx} to={service.path} className="flex flex-col items-center gap-2  border border-emerald-400/20 rounded-lg sm:rounded-xl p-2.5 sm:p-3 md:p-3.5 lg:p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer group no-underline" style={{ background: 'linear-gradient(135deg, #b3e5c2, #b3e5c2)' }}>
+                      <Icon className="text-lg sm:text-xl md:text-2xl lg:text-3xl group-hover:scale-110 transition-transform" style={{ color: service.color }} />
+                      <span className="text-[11px] sm:text-xs md:text-sm lg:text-base text-[#2c4d3f] font-bold text-center leading-tight">{service.text}</span>
+                    </Link>
                   );
                 })}
               </div>
               <Link 
                 to="/contact" 
-                className="mt-6 sm:mt-7 md:mt-8 block text-center rounded-lg sm:rounded-xl px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] text-white text-sm sm:text-base md:text-lg font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shadow-lg active:scale-[0.98]"
+                className="block text-center rounded-lg sm:rounded-xl px-4 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-[#10b981] to-[#14b8a6] text-white text-xs sm:text-sm md:text-base lg:text-lg font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shadow-lg active:scale-[0.98]"
               >
                 Get Started Today →
               </Link>
@@ -125,31 +123,22 @@ function AboutSection() {
 
 function IndustriesSection() {
   const industries = [
-    { title: 'Financial Services', subtitle: 'Banking, Insurance & Investment', icon: MdAccountBalance, color: 'text-emerald-600' },
-    { title: 'Healthcare', subtitle: 'Medical & Pharmaceutical', icon: MdLocalHospital, color: 'text-red-600' },
-    { title: 'Technology', subtitle: 'Software & IT Services', icon: MdComputer, color: 'text-sage-600' },
-    { title: 'Retail', subtitle: 'E-commerce & Consumer Goods', icon: MdShoppingBag, color: 'text-sage-700' },
-    { title: 'Manufacturing', subtitle: 'Industrial & Production', icon: MdFactory, color: 'text-sage-700' },
-    { title: 'Education', subtitle: 'Academic & E-learning', icon: MdSchool, color: 'text-indigo-600' },
-    { title: 'Energy', subtitle: 'Oil, Gas & Renewables', icon: BsLightning, color: 'text-yellow-600' },
-    { title: 'Transportation', subtitle: 'Logistics & Supply Chain', icon: MdEmojiTransportation, color: 'text-sky-600' },
-  ];
-
-  const extra = [
-    { title: 'Real Estate', icon: MdHome, color: 'text-sage-500' },
-    { title: 'Hospitality', icon: MdHotel, color: 'text-pink-500' },
-    { title: 'Telecom', icon: MdWifi, color: 'text-cyan-500' },
-    { title: 'Legal Services', icon: MdGavel, color: 'text-amber-600' },
+    { title: 'Financial Services', subtitle: 'Banking, Insurance & Investment' },
+    { title: 'Healthcare', subtitle: 'Medical & Pharmaceutical' },
+    { title: 'Technology', subtitle: 'Software & IT Services' },
+    { title: 'Retail', subtitle: 'E-commerce & Consumer Goods' },
+    { title: 'Manufacturing', subtitle: 'Industrial & Production' },
+    { title: 'Education', subtitle: 'Academic & E-learning' },
   ];
 
   return (
-    <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#d6fadc]">
+    <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <div className="inline-block">
             <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-[#d6fadc] px-4">Industry Expertise</span>
+              <span className="relative z-10 bg-white px-4">Industry Expertise</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
             </p>
           </div>
@@ -159,40 +148,25 @@ function IndustriesSection() {
           <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-6 sm:mb-8 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 mb-10 sm:mb-14">
-          {industries.map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <div key={index} className="border border-[#d6fadc] rounded-2xl p-6 sm:p-7 text-center bg-white hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group cursor-pointer">
-                <IconComponent className={`text-5xl sm:text-6xl mx-auto mb-4 ${item.color} group-hover:scale-110 transition-transform duration-300`} />
-                <p className="text-sm sm:text-base font-bold text-[#2c4d3f] mb-2">{item.title}</p>
-                <p className="text-xs sm:text-sm text-[#53785b]">{item.subtitle}</p>
-              </div>
-            );
-          })}
+        {/* Industries Grid - Mobile First */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-10 sm:mb-14">
+          {industries.map((item, index) => (
+            <div key={index} className="border border-[#d6fadc] rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 bg-gradient-to-br from-[#f8fdf9] to-[#e8f5e9] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-[#2c4d3f] mb-1 sm:mb-2">{item.title}</p>
+              <p className="text-[11px] sm:text-xs md:text-sm text-[#53785b] leading-relaxed">{item.subtitle}</p>
+            </div>
+          ))}
         </div>
 
-        <div className="bg-gradient-to-br from-[#53785b] to-[#2c4d3f] text-white rounded-3xl p-8 sm:p-10 md:p-12 grid lg:grid-cols-2 gap-8 sm:gap-10 items-center shadow-xl">
-          <div>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight">Don't See Your Industry?</h3>
-            <p className="text-white/85 text-base sm:text-lg mb-7 leading-relaxed">
-              Our adaptable methodologies and diverse expertise allow us to serve clients across virtually any sector. Let's discuss how we can help your business thrive.
-            </p>
-            <Link to="/contact" className="inline-block rounded-xl px-8 py-4 bg-[#d6fadc] text-[#53785b] text-base sm:text-lg font-bold hover:bg-white hover:shadow-lg transition-all duration-300 cursor-pointer">
-              Contact Us Today →
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {extra.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div key={index} className="bg-white/10 border border-white/30 rounded-2xl p-5 sm:p-6 text-center hover:bg-white/20 transition-all duration-300 group cursor-pointer backdrop-blur-sm">
-                  <IconComponent className={`text-4xl sm:text-5xl mb-3 mx-auto ${item.color} group-hover:scale-110 transition-transform duration-300`} />
-                  <p className="text-sm sm:text-base font-bold text-white">{item.title}</p>
-                </div>
-              );
-            })}
-          </div>
+        {/* CTA Section */}
+        <div className="bg-gradient-to-br from-[#53785b] to-[#2c4d3f] text-white rounded-xl sm:rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 text-center shadow-xl">
+          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight">Don't See Your Industry?</h3>
+          <p className="text-white/85 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
+            Our adaptable methodologies and diverse expertise allow us to serve clients across virtually any sector. Let's discuss how we can help your business thrive.
+          </p>
+          <Link to="/contact" className="inline-block rounded-lg sm:rounded-xl px-6 sm:px-8 py-3 sm:py-4 bg-[#d6fadc] text-[#53785b] text-sm sm:text-base font-bold hover:bg-white hover:shadow-lg transition-all duration-300">
+            Contact Us Today →
+          </Link>
         </div>
       </div>
     </section>
@@ -202,11 +176,11 @@ function IndustriesSection() {
 // Process Timeline Component
 function ProcessTimeline() {
   const steps = [
-    { icon: HiMagnifyingGlass, title: 'Discovery', description: 'Deep dive into your business, challenges, and objectives through comprehensive analysis.', color: 'bg-pink-500' },
-    { icon: HiClipboardDocumentCheck, title: 'Assessment', description: 'Evaluate current state, identify gaps, and benchmark against industry standards.', color: 'bg-blue-500' },
-    { icon: HiLightBulb, title: 'Strategy', description: 'Develop tailored solutions and actionable roadmaps aligned with your goals.', color: 'bg-yellow-500' },
-    { icon: HiRocketLaunch, title: 'Implementation', description: 'Execute strategies with precision, managing change and ensuring adoption.', color: 'bg-orange-500' },
-    { icon: HiChartBar, title: 'Optimization', description: 'Monitor performance, measure results, and continuously improve outcomes.', color: 'bg-green-500' },
+    { icon: HiMagnifyingGlass, title: 'Discovery', description: 'Deep dive into your business, challenges, and objectives through comprehensive analysis.', color: 'bg-gradient-to-br from-blue-600 to-blue-700' },
+    { icon: HiClipboardDocumentCheck, title: 'Assessment', description: 'Evaluate current state, identify gaps, and benchmark against industry standards.', color: 'bg-gradient-to-br from-emerald-600 to-emerald-700' },
+    { icon: HiLightBulb, title: 'Strategy', description: 'Develop tailored solutions and actionable roadmaps aligned with your goals.', color: 'bg-gradient-to-br from-teal-600 to-teal-700' },
+    { icon: HiRocketLaunch, title: 'Implementation', description: 'Execute strategies with precision, managing change and ensuring adoption.', color: 'bg-gradient-to-br from-green-600 to-green-700' },
+    { icon: HiChartBar, title: 'Optimization', description: 'Monitor performance, measure results, and continuously improve outcomes.', color: 'bg-gradient-to-br from-cyan-600 to-teal-600' },
   ];
 
   const benefits = [
@@ -216,45 +190,45 @@ function ProcessTimeline() {
   ];
 
   return (
-    <section id="process" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-white">
+    <section id="process" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#517358]">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-white px-4">Our Process</span>
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-white font-bold mb-3 uppercase relative">
+              <span className="relative z-10 bg-[#517358] px-4">Our Process</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
             </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c4d3f] mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3 sm:mb-4 leading-tight">
             How We Drive Success
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-6 sm:mb-8 rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-5 lg:gap-6 mb-12 sm:mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-12 sm:mb-16">
           {steps.map((step, index) => {
             const IconComponent = step.icon;
             return (
-              <div key={index} className="bg-white border border-[#d6fadc] shadow-lg rounded-2xl p-4 sm:p-6 text-center hover:shadow-xl hover:-translate-y-3 transition-all duration-300 group cursor-pointer">
-                <div className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-18 lg:h-18 rounded-full ${step.color} text-white flex items-center justify-center mx-auto mb-3 sm:mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className="text-2xl sm:text-3xl lg:text-4xl" />
+              <div key={index} className="border border-emerald-400/20 shadow-lg rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full ${step.color} text-white flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className="text-lg sm:text-xl md:text-2xl" />
                 </div>
-                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-[#2c4d3f] mb-2 sm:mb-3">{step.title}</h3>
-                <p className="text-xs sm:text-sm text-[#53785b] leading-relaxed">{step.description}</p>
+                <h3 className="text-[11px] sm:text-xs md:text-sm lg:text-base font-bold text-[#b3e5c2] mb-1 sm:mb-2 leading-tight">{step.title}</h3>
+                <p className="text-[10px] sm:text-[11px] md:text-xs text-white leading-relaxed flex-grow">{step.description}</p>
               </div>
             );
           })}
         </div>
 
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
           {benefits.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div key={index} className="bg-white border border-[#d6fadc] shadow-lg rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-7 text-center hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                <IconComponent className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl mx-auto mb-2 sm:mb-3 md:mb-4 ${item.color} group-hover:scale-110 transition-transform duration-300`} />
-                <h4 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-[#2c4d3f] mb-1 sm:mb-2 md:mb-3 leading-tight">{item.title}</h4>
-                <p className="text-[10px] sm:text-xs md:text-sm text-[#53785b] leading-relaxed">{item.description}</p>
+              <div key={index} className="border border-emerald-400/20 shadow-lg rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
+                <IconComponent className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mx-auto mb-2 sm:mb-3 md:mb-4 text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
+                <h4 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-[#b3e5c2] mb-1 sm:mb-2 leading-tight">{item.title}</h4>
+                <p className="text-[10px] sm:text-[11px] md:text-sm text-white leading-relaxed flex-grow">{item.description}</p>
               </div>
             );
           })}
@@ -342,14 +316,14 @@ function Testimonials() {
 
 
   return (
-    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-br from-[#f8fdf9] via-[#e8f5e9] to-[#d6fadc]">
+    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-8 sm:mb-10">
           <div className="inline-block">
             <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-gradient-to-br from-[#f8fdf9] via-[#e8f5e9] to-[#d6fadc] px-4">Client Testimonials</span>
-              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <span className="relative z-10 bg-white px-4">Client Testimonials</span>
+              <span className="absolute left-0 right-0 top-1/2 h-px bg-white to-transparent"></span>
             </p>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c4d3f] mb-3 sm:mb-4 leading-tight">

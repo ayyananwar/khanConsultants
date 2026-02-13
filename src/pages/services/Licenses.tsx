@@ -110,7 +110,7 @@ const Licenses = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white service-page">
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
@@ -151,29 +151,40 @@ const Licenses = () => {
       </section>
 
       {/* License Services */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.sage[50] }}>
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-6xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#f0f4f1] px-3 sm:px-4">LICENSING SERVICES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">LICENSING SERVICES</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: designTokens.colors.sage[900] }}>Our Comprehensive Licencing Services</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2" style={{ color: designTokens.colors.sage[600] }}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Our Comprehensive Licencing Services</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-white/80">
               We assist with a wide range of trade and commercial licences issued or linked to the Kolkata Municipal Corporation.
             </p>
           </div>
 
           <div className="space-y-6 sm:space-y-8 md:space-y-10">
-            {service.licenseServices.map((license, index) => (
+            {service.licenseServices.map((license, index) => {
+              const serviceIcons = [IoMdDocument, FaCheckCircle, FaBalanceScale];
+              const serviceIconColors = [
+                { bg: 'bg-blue-100', text: 'text-blue-700' },
+                { bg: 'bg-violet-100', text: 'text-violet-700' },
+                { bg: 'bg-amber-100', text: 'text-amber-700' }
+              ];
+              const checklistColors = ['text-cyan-700', 'text-fuchsia-700', 'text-orange-700'];
+              const ServiceIcon = serviceIcons[index % serviceIcons.length];
+              const iconColor = serviceIconColors[index % serviceIconColors.length];
+
+              return (
               <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border border-[#e8f0eb] hover:shadow-lg transition">
                 <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: designTokens.colors.sage[100] }}>
-                    <RiBriefcaseFill className="text-2xl sm:text-3xl" style={{ color: designTokens.colors.sage[600] }} />
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0 ${iconColor.bg}`}>
+                    <ServiceIcon className={`text-2xl sm:text-3xl ${iconColor.text}`} />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3" style={{ color: designTokens.colors.sage[900] }}>{license.title}</h3>
@@ -186,14 +197,14 @@ const Licenses = () => {
                   <ul className="space-y-2 sm:space-y-3">
                     {license.services.map((service, idx) => (
                       <li key={idx} className="flex items-start gap-2 sm:gap-3">
-                        <FaCheckCircle className="text-lg sm:text-xl text-emerald-600 flex-shrink-0 mt-0.5" />
+                        <FaCheckCircle className={`text-lg sm:text-xl ${checklistColors[index % checklistColors.length]} flex-shrink-0 mt-0.5`} />
                         <span className="text-xs sm:text-sm md:text-base" style={{ color: designTokens.colors.sage[700] }}>{service}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
 
           <div className="mt-8 sm:mt-10 md:mt-12 text-center">
@@ -208,31 +219,36 @@ const Licenses = () => {
       </section>
 
       {/* Compliance Ecosystem */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6" style={{ background: 'linear-gradient(135deg, #fef2f2, #fff7ed)' }}>
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-red-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-transparent px-3 sm:px-4">COMPLIANCE ECOSYSTEM</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-white px-3 sm:px-4">COMPLIANCE ECOSYSTEM</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-red-900 leading-tight">The "Hidden" Requirements</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-red-600 to-orange-600 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base text-red-800 max-w-3xl mx-auto px-2">A Trade License does not exist in isolation. KMC authorities often cross-verify other statutory documents before issuance. We ensure your entire compliance ecosystem is healthy so your license isn't blocked.</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">The "Hidden" Requirements</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-xs sm:text-sm md:text-base text-[#53785b] max-w-3xl mx-auto px-2">A Trade License does not exist in isolation. KMC authorities often cross-verify other statutory documents before issuance. We ensure your entire compliance ecosystem is healthy so your license isn't blocked.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
             {service.complianceEcosystem.map((item, index) => {
               const IconComponent = item.icon;
+              const complianceIconStyles = [
+                'from-blue-500 to-blue-600',
+                'from-violet-500 to-violet-600',
+                'from-amber-500 to-orange-600'
+              ];
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-red-300 hover:border-red-500 hover:shadow-xl transition-all">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mb-4 sm:mb-5">
+                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-[#e8f0eb] hover:shadow-xl transition-all">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-to-br ${complianceIconStyles[index % complianceIconStyles.length]} flex items-center justify-center mb-4 sm:mb-5`}>
                     <IconComponent className="text-2xl sm:text-3xl text-white" />
                   </div>
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3 text-red-900">{item.title}</h3>
-                  <p className="text-xs sm:text-sm md:text-base text-red-800">{item.description}</p>
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3 text-[#2c4d3f]">{item.title}</h3>
+                  <p className="text-xs sm:text-sm md:text-base text-[#53785b]">{item.description}</p>
                 </div>
               );
             })}
@@ -260,30 +276,34 @@ const Licenses = () => {
       </section>
 
       {/* Legal Advantage */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-white">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">LEGAL ADVANTAGE</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">LEGAL ADVANTAGE</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: designTokens.colors.sage[900] }}>Backed by Legal Expertise, Not Just Agents</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2" style={{ color: designTokens.colors.sage[600] }}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Backed by Legal Expertise, Not Just Agents</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-white/80">
               Many KMC licence matters require legal documentation beyond basic forms. Our work is supported by a strong local legal network.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-8 sm:mb-10 md:mb-12">
-            {service.legalAdvantage.map((item, index) => (
+            {service.legalAdvantage.map((item, index) => {
+              const legalIcons = [IoMdDocument, FaCheckCircle, FaBalanceScale, RiBriefcaseFill];
+              const legalColors = ['text-blue-700', 'text-emerald-700', 'text-amber-700', 'text-violet-700'];
+              const LegalIcon = legalIcons[index % legalIcons.length];
+              return (
               <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-[#e8f0eb] hover:shadow-xl transition-all flex items-center gap-3 sm:gap-4">
-                <FaShieldAlt className="text-3xl sm:text-4xl md:text-5xl text-emerald-600 flex-shrink-0" />
+                <LegalIcon className={`text-3xl sm:text-4xl md:text-5xl ${legalColors[index % legalColors.length]} flex-shrink-0`} />
                 <p className="text-sm sm:text-base md:text-lg font-semibold" style={{ color: designTokens.colors.sage[900] }}>{item}</p>
               </div>
-            ))}
+            )})}
           </div>
 
           <div className="text-center">
@@ -293,13 +313,13 @@ const Licenses = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#d6fadc]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="relative z-10 bg-white px-3 sm:px-4">OUR PROCESS</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
               </p>
             </div>
@@ -314,10 +334,10 @@ const Licenses = () => {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
               <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
-                <div className="absolute top-0 left-0 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-br-xl sm:rounded-br-2xl flex items-center justify-center">
-                  <span className="text-white text-lg sm:text-xl md:text-2xl font-bold">{item.step}</span>
+                <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
-                <div className="pl-4 sm:pl-5 md:pl-6 pt-3 sm:pt-4">
+                <div className="pt-4 sm:pt-5">
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
                   <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
                 </div>
@@ -328,28 +348,32 @@ const Licenses = () => {
       </section>
 
       {/* Why Work With Us */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">WHY CHOOSE US</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: designTokens.colors.sage[900] }}>A Practical, Accountable Approach</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">What sets us apart:</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">A Practical, Accountable Approach</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">What sets us apart:</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
-            {service.whyChoose.map((reason, index) => (
+            {service.whyChoose.map((reason, index) => {
+              const whyIcons = [RiBriefcaseFill, FaBalanceScale, FaShieldAlt, IoMdDocument, FaCheckCircle, MdPhone];
+              const whyIconColors = ['text-blue-700', 'text-amber-700', 'text-violet-700', 'text-cyan-700', 'text-emerald-700', 'text-rose-700'];
+              const WhyIcon = whyIcons[index % whyIcons.length];
+              return (
               <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex items-center gap-3">
-                <FaCheckCircle className="text-2xl sm:text-3xl text-emerald-600 flex-shrink-0" />
+                <WhyIcon className={`text-2xl sm:text-3xl ${whyIconColors[index % whyIconColors.length]} flex-shrink-0`} />
                 <p className="text-sm sm:text-base font-semibold" style={{ color: designTokens.colors.sage[900] }}>{reason}</p>
               </div>
-            ))}
+            )})}
           </div>
 
           <div className="text-center">

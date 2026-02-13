@@ -1,5 +1,5 @@
 import { SectionHero } from '../components';
-import { OurStory, LeadershipTeam, ValuesSection } from '../components/AboutSections';
+import { OurStory, LeadershipTeam, ValuesSection } from '../components/AboutSections.tsx';
 import { designTokens } from '../tokens';
 
 export default function About() {
@@ -9,6 +9,7 @@ export default function About() {
       <SectionHero
         title="Our Vision & Legacy"
         subtitle="Building trusted partnerships and delivering transformative consulting solutions for over 15 years."
+        bgImage="/khanConsultants/hero.png"
       />
 
       {/* Our Story Timeline */}

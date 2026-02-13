@@ -16,7 +16,6 @@ import KolkataCorporation from './pages/services/KolkataCorporation'
 import Certificates from './pages/services/Certificates'
 import Licenses from './pages/services/Licenses'
 import Property from './pages/services/Property'
-import GovernmentIDs from './pages/services/GovernmentIDs'
 
 // Main application with routing configuration
 function App() {
@@ -35,7 +34,6 @@ function App() {
           <Route path="/services/certificates" element={<Certificates />} />
           <Route path="/services/licenses" element={<Licenses />} />
           <Route path="/services/property" element={<Property />} />
-          <Route path="/services/government-ids" element={<GovernmentIDs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />

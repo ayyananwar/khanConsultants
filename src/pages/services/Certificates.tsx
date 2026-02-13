@@ -67,7 +67,7 @@ const Certificates = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white service-page">
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
@@ -141,40 +141,40 @@ const Certificates = () => {
       </section>
 
       {/* Common Problems */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6" style={{ background: 'linear-gradient(135deg, #fef2f2, #fff7ed)' }}>
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-red-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-transparent px-3 sm:px-4">COMMON ISSUES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">COMMON ISSUES</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-red-900 leading-tight">Facing Issues With Your Birth Certificate?</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-red-600 to-orange-600 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-red-800 max-w-3xl mx-auto px-2">Here are some common Birth Certificate problems we handle:</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">Facing Issues With Your Birth Certificate?</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-3xl mx-auto px-2">Here are some common Birth Certificate problems we handle:</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
             {service.commonProblems.map((problem, index) => (
               <div 
                 key={index} 
-                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-red-300 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white/10 backdrop-blur border-2 border-emerald-400/30 hover:border-emerald-400/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
                     ⚠️
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg font-semibold text-red-900">{problem}</p>
+                  <p className="text-sm sm:text-base md:text-lg font-semibold text-white">{problem}</p>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="text-center">
-            <p className="text-sm sm:text-base md:text-lg text-red-900 font-semibold mb-6 sm:mb-8">If your case has been rejected earlier or seems complicated, we can review it and guide you properly.</p>
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 hover:shadow-lg transform hover:scale-105">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 font-semibold mb-6 sm:mb-8">If your case has been rejected earlier or seems complicated, we can review it and guide you properly.</p>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 hover:shadow-lg transform hover:scale-105">
               <RiWhatsappFill className="text-xl sm:text-2xl" /> WhatsApp Us
             </a>
           </div>
@@ -182,19 +182,18 @@ const Certificates = () => {
       </section>
 
       {/* Other Important Certificates */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.sage[50] }}>
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#f0f4f1] px-3 sm:px-4">OTHER SERVICES</span>
+                <span className="relative z-10 bg-white px-3 sm:px-4">OTHER SERVICES</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: designTokens.colors.sage[900] }}>Other Civil Documents We Manage</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-[#2c4d3f]">Other Civil Documents We Manage</h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2" style={{ color: designTokens.colors.sage[600] }}>
+            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-[#53785b]">
               We provide the same expert fast-tracking for other essential life documents.
             </p>
           </div>
@@ -221,13 +220,13 @@ const Certificates = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#d6fadc]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="relative z-10 bg-white px-3 sm:px-4">OUR PROCESS</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
               </p>
             </div>
@@ -242,10 +241,10 @@ const Certificates = () => {
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
               <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
-                <div className="absolute top-0 left-0 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-br-xl sm:rounded-br-2xl flex items-center justify-center">
-                  <span className="text-white text-lg sm:text-xl md:text-2xl font-bold">{item.step}</span>
+                <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
-                <div className="pl-4 sm:pl-5 md:pl-6 pt-3 sm:pt-4">
+                <div className="pt-4 sm:pt-5">
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
                   <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
                 </div>

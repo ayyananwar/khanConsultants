@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { designTokens } from '../tokens';
 
 export default function Footer() {
@@ -50,12 +51,13 @@ export default function Footer() {
               </Link>
             </div>
 
-            {/* Row 2: Services, Contact, Social (3 Columns on Mobile) */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:col-span-3 lg:gap-8 xl:gap-12">
+            {/* Row 2: Services, KMC, Contact, Social */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 lg:col-span-3 xl:gap-12">
               {/* Column 2: Services Links */}
               <div>
                 <h4 className="text-xs sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4 text-white">Services</h4>
                 <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm lg:text-base" style={{ color: '#cfe7d6' }}>
+                  <li><Link to="/services/kolkata-corporation" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">KMC Services</Link></li>
                   <li><Link to="/services/legal" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Trade Mark & Legal</Link></li>
                   <li><Link to="/services/gst-accounting" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">GST & Accounting</Link></li>
                   <li><Link to="/services/import-export" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Import & Export</Link></li>
@@ -63,7 +65,18 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Column 3: Contact Info */}
+              {/* Column 3: KMC Sub Pages */}
+              <div>
+                <h4 className="text-xs sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4 text-white">KMC Sub Pages</h4>
+                <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm lg:text-base" style={{ color: '#cfe7d6' }}>
+                  <li><Link to="/services/kolkata-corporation" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Kolkata Corporation</Link></li>
+                  <li><Link to="/services/certificates" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Certificates</Link></li>
+                  <li><Link to="/services/licenses" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Licenses</Link></li>
+                  <li><Link to="/services/property" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Property</Link></li>
+                </ul>
+              </div>
+
+              {/* Column 4: Contact Info */}
               <div>
                 <h4 className="text-xs sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4 text-white">Contact</h4>
                 <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm lg:text-base" style={{ color: '#cfe7d6' }}>
@@ -74,14 +87,44 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Column 4: Social Links */}
+              {/* Column 5: Social Links */}
               <div>
                 <h4 className="text-xs sm:text-base lg:text-lg font-semibold mb-3 sm:mb-4 text-white">Follow Us</h4>
                 <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm lg:text-base" style={{ color: '#cfe7d6' }}>
-                  <li><a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Facebook</a></li>
-                  <li><a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Instagram</a></li>
+                  <li>
+                    <a
+                      href="https://www.facebook.com/KhanConsultants2025"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]"
+                    >
+                      <FaFacebookF className="text-sm sm:text-base" aria-hidden="true" />
+                      <span>Facebook</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.instagram.com/khanconsultants2025/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]"
+                    >
+                      <FaInstagram className="text-sm sm:text-base" aria-hidden="true" />
+                      <span>Instagram</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://wa.me/916291139691"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]"
+                    >
+                      <FaWhatsapp className="text-sm sm:text-base" aria-hidden="true" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </li>
                   <li><Link to="/contact" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">Get in Touch</Link></li>
-                  <li><a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a2d23]">WhatsApp</a></li>
                 </ul>
               </div>
             </div>

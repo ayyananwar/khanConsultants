@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { designTokens } from '../../tokens';
 import { FaBalanceScale } from 'react-icons/fa';
-import { MdPhone} from 'react-icons/md';
+import { MdPhone, MdWarningAmber } from 'react-icons/md';
 import { IoMdCheckmarkCircle, IoMdClose, IoMdPeople, IoMdGlobe, IoMdTrophy, IoMdSchool } from 'react-icons/io';
 import { FaShieldAlt} from 'react-icons/fa';
 
@@ -76,7 +76,7 @@ const LegalServices = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white service-page">
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
@@ -103,19 +103,19 @@ const LegalServices = () => {
       </section>
 
       {/* Warning Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6" style={{ background: 'linear-gradient(135deg, #fef2f2, #fff7ed)' }}>
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-red-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-transparent px-3 sm:px-4">IMPORTANT WARNING</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-white px-3 sm:px-4">IMPORTANT WARNING</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-red-900 leading-tight">{service.warning}</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-red-600 to-orange-600 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-red-800 max-w-2xl mx-auto">Don't risk your business on incomplete or careless filings</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">{service.warning}</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-[#53785b] max-w-2xl mx-auto">Don't risk your business on incomplete or careful filings</p>
           </div>
 
           {/* Warning Cards - 2x2 Grid */}
@@ -123,25 +123,17 @@ const LegalServices = () => {
             {service.warningPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-red-300 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-amber-300 hover:border-amber-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
-                {/* Decorative Corner */}
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-10 group-hover:opacity-20 transition-all">
-                  <div className="absolute top-0 right-0 w-full h-full bg-red-500 transform rotate-45 translate-x-8 -translate-y-8"></div>
-                </div>
-                
                 {/* Warning Icon Badge */}
                 <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
-                    ⚠️
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                    <MdWarningAmber />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-red-900">{point}</p>
+                    <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-amber-900">{point}</p>
                   </div>
                 </div>
-
-                {/* Bottom Accent Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
               </div>
             ))}
           </div>
@@ -149,31 +141,31 @@ const LegalServices = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#d6fadc]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
               The Safe-Start Protocol
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">Securing your {service.title} in {service.process.length} proven steps</p>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Securing your {service.title} in {service.process.length} proven steps</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
               <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
-                <div className="absolute top-0 left-0 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-br-xl sm:rounded-br-2xl flex items-center justify-center">
-                  <span className="text-white text-lg sm:text-xl md:text-2xl font-bold">{item.step}</span>
+                <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
-                <div className="pl-4 sm:pl-5 md:pl-6 pt-3 sm:pt-4">
+                <div className="pt-4 sm:pt-5">
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
                   <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
                 </div>
@@ -229,7 +221,7 @@ const LegalServices = () => {
                 <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   {pkg.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base text-[#2c4d3f]">
-                      <span className={`text-lg sm:text-xl flex-shrink-0 ${pkg.popular ? 'text-emerald-500' : 'text-teal-500'}`}>✓</span>
+                      <span className="text-lg sm:text-xl flex-shrink-0 text-[#2c4d3f]">✓</span>
                       <span className="leading-snug">{feature}</span>
                     </li>
                   ))}
@@ -257,28 +249,28 @@ const LegalServices = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#d6fadc]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-4xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">TIMELINE</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">TIMELINE</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
               What You'll Receive & When
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">Clear expectations throughout the process</p>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Clear expectations throughout the process</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.timeline.map((item, index) => (
               <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex gap-4 sm:gap-5 md:gap-6">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg sm:text-xl md:text-2xl">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg sm:text-xl md:text-2xl">
                   {index + 1}
                 </div>
                 <div className="flex-1">
@@ -313,15 +305,15 @@ const LegalServices = () => {
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-2 gap-5 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8 lg:gap-10">
             <div className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-emerald-200 shadow-lg hover:shadow-xl transition-all">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 md:mb-6 flex items-center gap-2 sm:gap-3 text-emerald-600">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 md:mb-6 flex items-center gap-2 sm:gap-3 text-[#2c4d3f]">
                 <IoMdCheckmarkCircle className="text-2xl sm:text-3xl flex-shrink-0" /> This Service Is Ideal For
               </h3>
               <ul className="space-y-3 sm:space-y-4">
                 {service.idealFor.good.map((item, index) => (
                   <li key={index} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-[#2c4d3f]">
-                    <span className="text-xl sm:text-2xl text-emerald-500 flex-shrink-0">✓</span>
+                    <span className="text-xl sm:text-2xl text-[#2c4d3f] flex-shrink-0">✓</span>
                     <span className="leading-relaxed">{item}</span>
                   </li>
                 ))}
@@ -346,31 +338,33 @@ const LegalServices = () => {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#d6fadc]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">WHY CHOOSE US</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight px-2">Why Khan Consultants?</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">Excellence in every step of your journey</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight px-2">Why Khan Consultants?</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Excellence in every step of your journey</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
+              const iconColorClasses = ['text-blue-700', 'text-violet-700', 'text-amber-700', 'text-cyan-700'];
+              const iconBgClasses = ['bg-blue-100', 'bg-violet-100', 'bg-amber-100', 'bg-cyan-100'];
               return (
                 <div
                   key={index}
                   className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
                 >
-                  <div className="text-3xl sm:text-4xl md:text-5xl text-emerald-500">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center ${iconBgClasses[index % iconBgClasses.length]} ${iconColorClasses[index % iconColorClasses.length]}`}>
                     <IconComponent />
                   </div>
                   <p className="text-sm sm:text-base md:text-lg text-[#2c4d3f] font-semibold leading-relaxed">{reason.text}</p>
@@ -385,7 +379,7 @@ const LegalServices = () => {
             <div className="text-center mb-6 sm:mb-8 md:mb-10">
               <div className="inline-block">
                 <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                  <span className="relative z-10 bg-[#d6fadc] px-3 sm:px-4">THE TRUTH</span>
+                  <span className="relative z-10 bg-[#517358] px-3 sm:px-4">THE TRUTH</span>
                   <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></span>
                 </p>
               </div>
@@ -396,7 +390,7 @@ const LegalServices = () => {
             </div>
 
             {/* Comparison Cards */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-6 sm:mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-6 sm:mb-8">
               <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border-2 border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
                 <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl">
@@ -444,27 +438,6 @@ const LegalServices = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 text-white bg-gradient-to-br from-[#1a2d23] via-[#2c4d3f] to-[#1f3a2f]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-5 lg:mb-6">Ready to Get Started?</h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-10 md:mb-12 text-emerald-100 px-2">Book your free consultation with our experts today</p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 lg:gap-6 justify-center">
-            <a 
-              href="tel:+916291139691" 
-              className="px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:shadow-emerald-500/50 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white inline-flex items-center justify-center gap-2 sm:gap-3"
-            >
-              <MdPhone className="text-lg sm:text-xl md:text-2xl" /> Call +91-6291-139-691
-            </a>
-            <Link 
-              to="/contact" 
-              className="px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 border-2 border-emerald-400 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:bg-emerald-500/20 hover:shadow-lg hover:-translate-y-1 text-white inline-flex items-center justify-center"
-            >
-              Book a Free Call →
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

@@ -8,52 +8,66 @@ import {
 } from '../components/HomeSections';
 import { Link } from 'react-router-dom';
 import { designTokens } from '../tokens';
-import { HiScale, HiGlobeAlt, HiBuildingOffice2, HiIdentification } from 'react-icons/hi2';
-import { MdAccountBalance, MdLocalShipping } from 'react-icons/md';
+import { HiBuildingOffice2, HiDocumentText, HiClipboardDocumentCheck, HiHomeModern } from 'react-icons/hi2';
+import { FaPassport, FaBalanceScale, FaFileInvoiceDollar, FaShippingFast } from 'react-icons/fa';
 
 export default function Home() {
   const services = [
     {
-      icon: <HiBuildingOffice2 className="text-inherit" />,
+      icon: <HiBuildingOffice2 className="text-inherit" style={{ color: '#2563eb' }} />,
       title: 'Kolkata Corporation',
       description: 'End-to-end municipal support: certificates, licenses, and property matters handled with legal backing.',
       features: ['Birth & Death Certificates', 'Trade Licenses', 'Property Mutation', 'Full Legal Support'],
       href: '/services/kolkata-corporation',
     },
     {
-      icon: <HiScale className="text-inherit" />,
+      icon: <HiDocumentText className="text-inherit" style={{ color: '#14b8a6' }} />,
+      title: 'KMC Certificates',
+      description: 'Birth, death, marriage, and succession certificates with complete legal assistance and fast processing.',
+      features: ['Birth Certificates', 'Death Certificates', 'Marriage Certificates', 'Legal Support'],
+      href: '/services/certificates',
+    },
+    {
+      icon: <HiClipboardDocumentCheck className="text-inherit" style={{ color: '#6366f1' }} />,
+      title: 'KMC Licenses',
+      description: 'Trade licenses, hawker licenses, and commercial permits with compliance management.',
+      features: ['Trade License', 'Hawker License', 'Compliance Support', 'Renewal Services'],
+      href: '/services/licenses',
+    },
+    {
+      icon: <HiHomeModern className="text-inherit" style={{ color: '#f59e0b' }} />,
+      title: 'KMC Property',
+      description: 'Property mutation, tax assessment, and Thika Tenancy matters with expert guidance.',
+      features: ['Property Mutation', 'Tax Assessment', 'Thika Tenancy', 'Building Plans'],
+      href: '/services/property',
+    },
+    {
+      icon: <FaBalanceScale className="text-inherit" style={{ color: '#7c3aed' }} />,
       title: 'Trade Mark & Legal',
       description: 'Expert legal consultations, court matters, and company formation services.',
       features: ['Legal Consultations', 'Court Representation', 'Company Formation', 'Contract Advisory'],
       href: '/services/legal',
     },
     {
-      icon: <MdAccountBalance className="text-inherit" />,
+      icon: <FaFileInvoiceDollar className="text-inherit" style={{ color: '#059669' }} />,
       title: 'GST & Accounting',
       description: 'Complete GST filing, bookkeeping, and tax planning solutions.',
       features: ['GST Filing', 'Book-keeping', 'Tax Planning', 'Compliance Management'],
       href: '/services/gst-accounting',
     },
     {
-      icon: <MdLocalShipping className="text-inherit" />,
+      icon: <FaShippingFast className="text-inherit" style={{ color: '#dc2626' }} />,
       title: 'Import & Export',
       description: 'IEC registration, compliance management, and logistics guidance.',
       features: ['IEC Registration', 'Compliance Guidance', 'Documentation Support', 'Logistics Advisory'],
       href: '/services/import-export',
     },
     {
-      icon: <HiGlobeAlt className="text-inherit" />,
+      icon: <FaPassport className="text-inherit" style={{ color: '#ea580c' }} />,
       title: 'Visas & Immigration',
       description: 'Study abroad, business visas, and family immigration services.',
       features: ['Study Abroad Guidance', 'Entrepreneur Visa', 'Business Visas', 'Family Immigration'],
       href: '/services/visas-immigration',
-    },
-    {
-      icon: <HiIdentification className="text-inherit" />,
-      title: 'Government IDs',
-      description: 'Complete assistance with government identity and compliance documents.',
-      features: ['PAN/Aadhaar', 'Voter ID', 'Passport Support', 'License Registration'],
-      href: '/services/government-ids',
     },
   ];
 
@@ -73,7 +87,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mb-4 sm:mb-5 md:mb-6 lg:mb-8 backdrop-blur-sm border-2 border-emerald-400/30" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(20, 184, 166, 0.15))' }}>
-              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold" style={{ background: 'linear-gradient(to right, #10b981, #14b8a6)' }}>★</span>
+              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold" style={{ background: 'linear-gradient(to right, #73516C, #73516C)' }}>★</span>
               <span className="font-semibold text-emerald-50">Trusted by 500+ Clients Worldwide</span>
             </div>
 
@@ -101,7 +115,7 @@ export default function Home() {
               </Link>
               <a
                 href="#services"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl px-5 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-3 sm:py-3.5 md:py-4 border-2 border-emerald-400 text-white text-sm sm:text-base md:text-lg font-bold hover:bg-emerald-500/20 backdrop-blur-sm transition-all transform hover:-translate-y-1"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-lg sm:rounded-xl px-5 sm:px-6 md:px-8 lg:px-9 xl:px-10 py-3 sm:py-3.5 md:py-4 border-2 border-emerald-400/20 text-white text-sm sm:text-base md:text-lg font-bold hover:bg-emerald-500/20 backdrop-blur-sm transition-all transform hover:-translate-y-1"
               >
                 <span>Explore Services</span>
               </a>
@@ -119,7 +133,7 @@ export default function Home() {
               <div className="text-[10px] sm:text-xs md:text-sm lg:text-base font-medium text-emerald-100 leading-tight">Years Experience</div>
             </div>
             <div className="rounded-lg sm:rounded-xl md:rounded-2xl p-2.5 sm:p-3 md:p-4 lg:p-5 text-center backdrop-blur-sm border border-emerald-400/20" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 sm:mb-1 md:mb-2 bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">6+</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 sm:mb-1 md:mb-2 bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">8+</div>
               <div className="text-[10px] sm:text-xs md:text-sm lg:text-base font-medium text-emerald-100 leading-tight">Core Services</div>
             </div>
             <div className="rounded-lg sm:rounded-xl md:rounded-2xl p-2.5 sm:p-3 md:p-4 lg:p-5 text-center backdrop-blur-sm border border-emerald-400/20" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
@@ -148,7 +162,7 @@ export default function Home() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
             {services.map((service, index) => (
               <ServiceCard
                 key={index}

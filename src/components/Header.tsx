@@ -23,7 +23,6 @@ export default function Navbar() {
     { name: 'GST & Accounting', path: '/services/gst-accounting' },
     { name: 'Import & Export', path: '/services/import-export' },
     { name: 'Visas & Immigration', path: '/services/visas-immigration' },
-    { name: 'Government IDs', path: '/services/government-ids' },
   ];
 
   useEffect(() => {
@@ -63,14 +62,14 @@ export default function Navbar() {
           </Link>
 
           {/* Center: Desktop Navigation Links */}
-          <ul className="hidden lg:flex gap-4 xl:gap-6 2xl:gap-8 font-medium text-xs lg:text-sm xl:text-base" style={{ color: designTokens.colors.sage[600] }}>
-            <li><Link to="/" className="hover:text-gray-800 transition">Home</Link></li>
+          <ul className="hidden lg:flex gap-4 xl:gap-6 2xl:gap-8 font-medium text-xs lg:text-sm xl:text-base" style={{ color: 'black' }}>
+            <li><Link to="/" className="hover:text-gray-700 transition">Home</Link></li>
             <li 
               className="relative"
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <button className="hover:text-gray-800 transition flex items-center gap-1">
+              <button className="hover:text-gray-700 transition flex items-center gap-1">
                 Services
                 <svg className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -94,15 +93,15 @@ export default function Navbar() {
                               onClick={() => setIsServicesOpen(false)}
                               className="block px-4 py-2.5 text-sm font-semibold transition"
                               style={{
-                                color: designTokens.colors.sage[900],
+                                color: 'black',
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                                e.currentTarget.style.backgroundColor = '#111827';
                                 e.currentTarget.style.color = 'white';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = 'transparent';
-                                e.currentTarget.style.color = designTokens.colors.sage[900];
+                                e.currentTarget.style.color = 'black';
                               }}
                             >
                               {service.name}
@@ -114,15 +113,15 @@ export default function Navbar() {
                                 onClick={() => setIsServicesOpen(false)}
                                 className="block pl-8 pr-4 py-2 text-sm transition"
                                 style={{
-                                  color: designTokens.colors.sage[700],
+                                  color: 'black',
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = designTokens.colors.sage[100];
-                                  e.currentTarget.style.color = designTokens.colors.sage[900];
+                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
+                                  e.currentTarget.style.color = '#111827';
                                 }}
                                 onMouseLeave={(e) => {
                                   e.currentTarget.style.backgroundColor = 'transparent';
-                                  e.currentTarget.style.color = designTokens.colors.sage[700];
+                                  e.currentTarget.style.color = 'black';
                                 }}
                               >
                                 → {subItem.name}
@@ -135,15 +134,15 @@ export default function Navbar() {
                             onClick={() => setIsServicesOpen(false)}
                             className="block px-4 py-2.5 text-sm transition"
                             style={{
-                              color: designTokens.colors.sage[900],
+                              color: 'black',
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                              e.currentTarget.style.backgroundColor = '#111827';
                               e.currentTarget.style.color = 'white';
                             }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.backgroundColor = 'transparent';
-                              e.currentTarget.style.color = designTokens.colors.sage[900];
+                              e.currentTarget.style.color = 'black';
                             }}
                           >
                             {service.name}
@@ -155,8 +154,8 @@ export default function Navbar() {
                 </div>
               )}
             </li>
-            <li><Link to="/about" className="hover:text-gray-800 transition">About Us</Link></li>
-            <li><Link to="/contact" className="hover:text-gray-800 transition">Contact</Link></li>
+            <li><Link to="/about" className="hover:text-gray-700 transition">About Us</Link></li>
+            <li><Link to="/contact" className="hover:text-gray-700 transition">Contact</Link></li>
           </ul>
 
           {/* Right: CTA Button + Mobile Menu Toggle */}
@@ -183,9 +182,9 @@ export default function Navbar() {
               className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 flex flex-col justify-center items-center gap-1 sm:gap-1.5 rounded-lg hover:bg-gray-100 transition"
               aria-label="Toggle menu"
             >
-              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5 sm:translate-y-2' : ''}`} style={{ backgroundColor: designTokens.colors.sage[600] }}></span>
-              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: designTokens.colors.sage[600] }}></span>
-              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5 sm:-translate-y-2' : ''}`} style={{ backgroundColor: designTokens.colors.sage[600] }}></span>
+              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5 sm:translate-y-2' : ''}`} style={{ backgroundColor: 'black' }}></span>
+              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? 'opacity-0' : ''}`} style={{ backgroundColor: 'black' }}></span>
+              <span className={`w-5 sm:w-6 h-0.5 transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5 sm:-translate-y-2' : ''}`} style={{ backgroundColor: 'black' }}></span>
             </button>
           </div>
         </div>
@@ -233,7 +232,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                e.currentTarget.style.backgroundColor = '#111827';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
@@ -251,7 +250,7 @@ export default function Navbar() {
                 className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] transition"
                 style={{ color: 'black' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                  e.currentTarget.style.backgroundColor = '#111827';
                   e.currentTarget.style.color = 'white';
                 }}
                 onMouseLeave={(e) => {
@@ -283,7 +282,7 @@ export default function Navbar() {
                             className="block px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold min-h-[44px] flex items-center transition"
                             style={{ color: 'black' }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                              e.currentTarget.style.backgroundColor = '#111827';
                               e.currentTarget.style.color = 'white';
                             }}
                             onMouseLeave={(e) => {
@@ -300,14 +299,14 @@ export default function Navbar() {
                                 to={subItem.path}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="block px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm min-h-[40px] flex items-center transition"
-                                style={{ color: designTokens.colors.sage[700] }}
+                                style={{ color: 'black' }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = designTokens.colors.sage[100];
-                                  e.currentTarget.style.color = designTokens.colors.sage[900];
+                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
+                                  e.currentTarget.style.color = '#111827';
                                 }}
                                 onMouseLeave={(e) => {
                                   e.currentTarget.style.backgroundColor = 'transparent';
-                                  e.currentTarget.style.color = designTokens.colors.sage[700];
+                                  e.currentTarget.style.color = 'black';
                                 }}
                               >
                                 → {subItem.name}
@@ -322,7 +321,7 @@ export default function Navbar() {
                           className="block px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm min-h-[44px] flex items-center transition"
                           style={{ color: 'black' }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                            e.currentTarget.style.backgroundColor = '#111827';
                             e.currentTarget.style.color = 'white';
                           }}
                           onMouseLeave={(e) => {
@@ -345,7 +344,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                e.currentTarget.style.backgroundColor = '#111827';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
@@ -361,7 +360,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
+                e.currentTarget.style.backgroundColor = '#111827';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
