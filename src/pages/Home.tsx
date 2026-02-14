@@ -77,7 +77,7 @@ export default function Home() {
       <section
         className="relative bg-cover bg-center min-h-[420px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px]"
         style={{
-          backgroundImage: "url('/khanConsultants/hero.png')",
+          backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

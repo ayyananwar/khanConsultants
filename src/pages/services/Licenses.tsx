@@ -115,7 +115,7 @@ const Licenses = () => {
       <section
         className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
         style={{
-          backgroundImage: "url('/khanConsultants/hero.png')",
+          backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

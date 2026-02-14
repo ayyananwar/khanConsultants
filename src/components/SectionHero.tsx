@@ -11,7 +11,7 @@ export default function SectionHero({ title, subtitle, bgImage }: SectionHeroPro
     <section
       className="relative min-h-[280px] sm:min-h-[350px] md:min-h-[420px] lg:min-h-[500px] xl:h-screen bg-cover bg-center flex items-center justify-center"
       style={{
-        backgroundImage: bgImage ? `url(${bgImage})` : "url('/khanConsultants/hero.png')",
+        backgroundImage: bgImage ? `url(${bgImage})` : "url('/hero.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
