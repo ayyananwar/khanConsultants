@@ -97,13 +97,13 @@ export default function Home() {
             {/* Main Heading */}
             <h1 className="text-2xl sm:text-2xl mt-5 md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-[1.15] mb-4 sm:mb-4 md:mb-5 lg:mb-6 xl:mb-7">
               <span className="inline-block">One Stop.</span>
-              <span className="inline-block text-amber-300"> 1000 Experts.</span>
+              <span className="inline-block text-amber-300"> 10000 Experts.</span>
               <span className="block mt-1.5 sm:mt-2 md:mt-3">Your Solution Starts Here</span>
             </h1>
 
             {/* Description */}
             <p className="text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 leading-relaxed text-white/90 max-w-3xl mx-auto px-1">
-              From business to property, legal to taxation—we've got you covered with our team of 1000+ experts.
+              From business to property, legal to taxation—we've got you covered with our team of 10000+ experts.
             </p>
 
           </div>
