@@ -315,3 +315,29 @@ export const brandColors = {
     return colors[index % colors.length];
   },
 };
+
+// Consistent icon color palette — use for service icons, feature icons, etc.
+// Each service gets a distinct, vibrant color that works on both white and dark bgs
+export const iconColors = {
+  kolkataCorp: '#2563eb',     // Blue
+  gst:         '#059669',     // Emerald
+  legal:       '#7c3aed',     // Violet
+  property:    '#d97706',     // Amber
+  certificates:'#0891b2',     // Cyan
+  licenses:    '#6366f1',     // Indigo
+  export:      '#dc2626',     // Red
+  immigration: '#ea580c',     // Orange
+  // Utility icon colors for features / process steps
+  blue:    '#2563eb',
+  emerald: '#059669',
+  violet:  '#7c3aed',
+  amber:   '#d97706',
+  cyan:    '#0891b2',
+  indigo:  '#6366f1',
+  red:     '#dc2626',
+  orange:  '#ea580c',
+  teal:    '#0d9488',
+  rose:    '#e11d48',
+  fuchsia: '#c026d3',
+  sky:     '#0284c7',
+} as const;

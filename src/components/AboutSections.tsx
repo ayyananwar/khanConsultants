@@ -51,19 +51,19 @@ function OurStory() {
           {milestones.map((milestone, index) => (
             <div key={index} className="relative flex gap-4 sm:gap-5 md:gap-6 lg:gap-8">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center font-bold text-white flex-shrink-0 text-sm sm:text-base md:text-lg" style={{ background: 'linear-gradient(to right, #111827, #374151)' }}>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center font-bold text-white flex-shrink-0 text-sm sm:text-base md:text-lg" style={{ background: '#111827' }}>
                   {milestone.year % 10}
                 </div>
                 {index < milestones.length - 1 && (
-                  <div className="w-1 h-12 sm:h-14 md:h-16 lg:h-20" style={{ backgroundColor: '#d1d5db' }}></div>
+                  <div className="w-1 h-12 sm:h-14 md:h-16 lg:h-20" style={{ backgroundColor: '#d6fadc' }}></div>
                 )}
               </div>
 
               <div className="flex-1 pb-4 sm:pb-5 md:pb-6 lg:pb-8">
-                <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 transition-all border-2 hover:shadow-xl hover:-translate-y-2" style={{ background: 'linear-gradient(to bottom right, white, rgba(243, 244, 246, 0.7))', borderColor: '#e5e7eb' }}>
+                <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 transition-all border-2 hover:shadow-xl hover:-translate-y-2" style={{ background: 'linear-gradient(to bottom right, white, rgba(214, 250, 220, 0.2))', borderColor: '#e8f0eb' }}>
                   <p className="font-bold text-lg sm:text-xl md:text-2xl" style={{ color: '#111827' }}>{milestone.year}</p>
                   <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mt-1 sm:mt-2 mb-1 sm:mb-2" style={{ color: '#111827' }}>{milestone.title}</h3>
-                  <p className="text-xs sm:text-sm md:text-base lg:text-lg" style={{ color: '#374151' }}>{milestone.description}</p>
+                  <p className="text-xs sm:text-sm md:text-base lg:text-lg" style={{ color: '#4b5563' }}>{milestone.description}</p>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@ function LeadershipTeam() {
   ];
 
   return (
-    <section id="team" className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6" style={{ backgroundColor: '#517358' }}>
+    <section id="team" className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6" style={{ background: '#3d6b56' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 pb-6 sm:pb-8 md:pb-10 lg:pb-12" style={{ borderBottom: '2px solid rgba(255,255,255,0.2)' }}>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 text-white">
@@ -101,7 +101,7 @@ function LeadershipTeam() {
               key={index}
               className="bg-gradient-to-br from-white/10 to-white/5 rounded-xl sm:rounded-2xl shadow-md overflow-hidden border-2 border-white/20 transition-all hover:shadow-xl hover:-translate-y-2 backdrop-blur"
             >
-              <div className="h-32 sm:h-36 md:h-40 flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #111827, #374151)' }}>
+              <div className="h-32 sm:h-36 md:h-40 flex items-center justify-center" style={{ background: 'linear-gradient(to bottom right, #2c4d3f, #3d6b56)' }}>
                 <HiUserCircle className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 text-white" />
               </div>
 
@@ -146,25 +146,25 @@ function LeadershipTeam() {
 function ValuesSection() {
   const values = [
     {
-      icon: <MdBalance className="w-12 h-12" style={{ color: '#111827' }} />,
+      icon: <MdBalance className="w-12 h-12" style={{ color: '#7c3aed' }} />,
       title: 'Integrity',
       description:
         'We operate with unwavering honesty and ethical principles. Trust is the foundation of every relationship we build.',
     },
     {
-      icon: <MdEmojiEvents className="w-12 h-12" style={{ color: '#111827' }} />,
+      icon: <MdEmojiEvents className="w-12 h-12" style={{ color: '#d97706' }} />,
       title: 'Excellence',
       description:
         'We pursue excellence in every engagement. Quality and attention to detail define our work and results.',
     },
     {
-      icon: <MdLightbulb className="w-12 h-12" style={{ color: '#111827' }} />,
+      icon: <MdLightbulb className="w-12 h-12" style={{ color: '#0891b2' }} />,
       title: 'Innovation',
       description:
         'We embrace creative thinking and forward-looking solutions. We challenge conventions to drive progress.',
     },
     {
-      icon: <MdHandshake className="w-12 h-12" style={{ color: '#111827' }} />,
+      icon: <MdHandshake className="w-12 h-12" style={{ color: '#059669' }} />,
       title: 'Collaboration',
       description:
         'We believe in the power of teamwork. Success comes from diverse perspectives working toward shared goals.',
@@ -178,7 +178,7 @@ function ValuesSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3" style={{ color: '#111827' }}>
             Our Core Values
           </h2>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto" style={{ color: '#374151' }}>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto" style={{ color: '#4b5563' }}>
             These principles guide everything we do and define who we are as an organization.
           </p>
         </div>
@@ -189,13 +189,13 @@ function ValuesSection() {
               key={index}
               className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-200 border-2"
               style={{
-                background: 'linear-gradient(to bottom right, white, rgba(243, 244, 246, 0.7))',
-                borderColor: '#e5e7eb',
+                background: 'linear-gradient(to bottom right, white, rgba(214, 250, 220, 0.2))',
+                borderColor: '#e8f0eb',
               }}
             >
-              <div className="flex justify-center mb-4 sm:mb-5 md:mb-6 text-3xl sm:text-4xl md:text-5xl" style={{ color: '#111827' }}>{value.icon}</div>
+              <div className="flex justify-center mb-4 sm:mb-5 md:mb-6 text-3xl sm:text-4xl md:text-5xl">{value.icon}</div>
               <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 text-center" style={{ color: '#111827' }}>{value.title}</h3>
-              <p className="leading-relaxed text-xs sm:text-sm md:text-base lg:text-lg text-center" style={{ color: '#374151' }}>{value.description}</p>
+              <p className="leading-relaxed text-xs sm:text-sm md:text-base lg:text-lg text-center" style={{ color: '#4b5563' }}>{value.description}</p>
             </div>
           ))}
         </div>

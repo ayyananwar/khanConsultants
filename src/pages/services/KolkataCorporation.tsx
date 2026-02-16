@@ -103,11 +103,12 @@ const KolkataCorporation = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
         <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-emerald-300">{service.title}</p>
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-amber-300">{service.title}</p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">{service.heroTitle}</h1>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 md:mb-5 max-w-3xl mx-auto leading-relaxed text-white/90">{service.heroDescription}</p>
-          <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-8 md:mb-10 text-emerald-200">{service.heroSubtitle}</p>
+          <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-8 md:mb-10 text-white/80">{service.heroSubtitle}</p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center">
             <Link to="/contact" className="inline-flex items-center justify-center px-5 sm:px-6 md:px-7 lg:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base text-white rounded-lg sm:rounded-xl font-bold transition bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 hover:shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105">
               Get in Touch
@@ -122,12 +123,12 @@ const KolkataCorporation = () => {
       {/* Intro Section */}
       <section className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 md:px-8" style={{ backgroundColor: designTokens.colors.neutral.white }}>
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-7 md:mb-8 leading-snug" style={{ color: designTokens.colors.sage[900] }}>Your Bridge to the Kolkata Municipal Corporation</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-7 md:mb-8 leading-snug" style={{ color: '#111827' }}>Your Bridge to the Kolkata Municipal Corporation</h2>
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: designTokens.colors.sage[600] }}>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: '#4b5563' }}>
               Dealing with KMC often involves complicated processes, endless queues, and complex documentation. Whether you are a citizen securing a birth certificate, a business owner needing a trade license, or a property owner resolving tax disputes, mistakes are costly.
             </p>
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: designTokens.colors.sage[600] }}>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: '#4b5563' }}>
               At Khan Consultants, we combine administrative expertise with strong legal backing to ensure your files are processed correctly, legally, and efficiently.
             </p>
           </div>
@@ -135,18 +136,18 @@ const KolkataCorporation = () => {
       </section>
 
       {/* Core Services Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-24 px-4 sm:px-6 md:px-8 bg-[#517358]">
+      <section className="py-10 sm:py-14 md:py-18 lg:py-24 px-4 sm:px-6 md:px-8 bg-[#3d6b56]">
         <div className="max-w-7xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
             <div className="inline-block">
-              <p className="text-[11px] sm:text-xs md:text-sm tracking-[0.3em] text-emerald-300 font-bold mb-3 sm:mb-4 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">SERVICES UNDER KMC</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[11px] sm:text-xs md:text-sm tracking-[0.3em] text-amber-300 font-bold mb-3 sm:mb-4 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">SERVICES UNDER KMC</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-5 text-white leading-snug">Our Core Services</h2>
-            <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2 text-white/85 leading-relaxed">
               Our KMC services are broadly divided into three key areas:
             </p>
@@ -157,7 +158,7 @@ const KolkataCorporation = () => {
               const IconComponent = item.icon;
               const iconColors = ['#3b82f6', '#f59e0b', '#8b5cf6']; // Blue, Amber, Purple
               return (
-                <div key={index} className="rounded-lg sm:rounded-xl md:rounded-2xl p-6 sm:p-7 md:p-8 hover:shadow-2xl hover:-translate-y-2 transition-all bg-white/10 backdrop-blur-sm border border-emerald-400/20 hover:border-emerald-400/40">
+                <div key={index} className="rounded-lg sm:rounded-xl md:rounded-2xl p-6 sm:p-7 md:p-8 hover:shadow-2xl hover:-translate-y-2 transition-all bg-white/10 backdrop-blur-sm border border-white/10 hover:border-white/30">
                   <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-5 sm:mb-6 md:mb-7 shadow-lg" style={{ backgroundColor: iconColors[index] }}>
                     <IconComponent className="text-3xl sm:text-4xl md:text-5xl text-white" />
                   </div>
@@ -166,7 +167,7 @@ const KolkataCorporation = () => {
                   <ul className="space-y-2 sm:space-y-2.5 mb-6 sm:mb-7">
                     {item.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-white/85 leading-relaxed">
-                        <span className="flex-shrink-0 font-bold text-emerald-300 mt-0.5">•</span>
+                        <span className="flex-shrink-0 font-bold text-amber-300 mt-0.5">•</span>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -187,14 +188,14 @@ const KolkataCorporation = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">OUR USP</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">More Than Just Filing—We Handle the Legal Hurdles</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base text-[#53785b] max-w-3xl mx-auto px-2">KMC processes often get stuck due to missing "legal links." Unlike standard agents, Khan Consultants is backed by a robust team of lawyers. We handle the drafting and execution of all necessary legal supports in-house:</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">More Than Just Filing—We Handle the Legal Hurdles</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-3xl mx-auto px-2">KMC processes often get stuck due to missing "legal links." Unlike standard agents, Khan Consultants is backed by a robust team of lawyers. We handle the drafting and execution of all necessary legal supports in-house:</p>
           </div>
 
           {/* Legal Advantage Cards - 2x2 Grid */}
@@ -202,63 +203,63 @@ const KolkataCorporation = () => {
             {service.legalAdvantage.map((item, index) => (
               <div 
                 key={index} 
-                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-red-300 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 hover:border-[#517358] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Decorative Corner */}
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-10 group-hover:opacity-20 transition-all">
-                  <div className="absolute top-0 right-0 w-full h-full bg-red-500 transform rotate-45 translate-x-8 -translate-y-8"></div>
+                  <div className="absolute top-0 right-0 w-full h-full bg-[#2c4d3f] transform rotate-45 translate-x-8 -translate-y-8"></div>
                 </div>
                 
                 {/* Icon Badge */}
                 <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[#517358] to-[#2c4d3f] flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
                     <FaCheckCircle />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-red-900">{item}</p>
+                    <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-gray-900">{item}</p>
                   </div>
                 </div>
 
                 {/* Bottom Accent Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#517358] to-[#2c4d3f] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
               </div>
             ))}
           </div>
 
           <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-            <p className="text-sm sm:text-base md:text-lg text-red-900 font-semibold">This ensures your matter is not handled in isolation, but as part of a complete solution.</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold">This ensures your matter is not handled in isolation, but as part of a complete solution.</p>
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
               How We Work
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Our approach is simple, transparent, and structured:</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
-              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
+              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all">
                 <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
                   <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
                 <div className="pt-4 sm:pt-5">
-                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
+                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-gray-900">{item.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -272,43 +273,44 @@ const KolkataCorporation = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight px-2">Why Work With Us</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">What sets us apart:</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight px-2">Why Work With Us</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 px-2">What sets us apart:</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
+              const iconColors = ['#2563eb', '#7c3aed', '#d97706', '#0891b2'];
               return (
                 <div
                   key={index}
-                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/30 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
+                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/30 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center bg-[#3b82f6] rounded-xl text-white shadow-lg">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-xl text-white shadow-lg" style={{ backgroundColor: iconColors[index] }}>
                     <IconComponent className="text-2xl sm:text-3xl md:text-4xl" />
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg text-[#2c4d3f] font-semibold leading-relaxed">{reason.text}</p>
+                  <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">{reason.text}</p>
                 </div>
               );
             })}
           </div>
 
           <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 max-w-3xl mx-auto text-center space-y-3 sm:space-y-4">
-            <p className="text-sm sm:text-base md:text-lg text-[#2c4d3f] font-semibold">Ethical, compliant, and documentation-first approach</p>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#2c4d3f] font-bold">We don't promise shortcuts. We promise correct handling, clarity, and accountability.</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold">Ethical, compliant, and documentation-first approach</p>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-900 font-bold">We don't promise shortcuts. We promise correct handling, clarity, and accountability.</p>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-gradient-to-br from-[#1a2d23] via-[#2c4d3f] to-[#1f3a2f]">
+      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[#3d6b56]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">Ready to Get Started?</h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 text-emerald-100">If you need assistance with any KMC-related matter, get in touch with us for an initial review. We'll assess your situation and advise the right process, required documents, and realistic next steps.</p>

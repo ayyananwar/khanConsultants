@@ -123,11 +123,12 @@ const Property = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
         <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-emerald-300">KMC Services</p>
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-amber-300">KMC Services</p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">{service.heroTitle}</h1>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-3 sm:mb-4 md:mb-5 max-w-3xl mx-auto leading-relaxed text-white/90">{service.heroDescription}</p>
-          <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-8 md:mb-10 text-emerald-200">{service.heroSubtitle}</p>
+          <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-8 md:mb-10 text-white/80">{service.heroSubtitle}</p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center">
             <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 md:px-7 lg:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base text-white rounded-lg sm:rounded-xl font-bold transition bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 hover:shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105">
               <RiWhatsappFill className="text-xl" /> WhatsApp Us
@@ -142,40 +143,40 @@ const Property = () => {
       {/* Intro Section */}
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.neutral.white }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 sm:mb-5 md:mb-6" style={{ color: designTokens.colors.sage[900] }}>We get it. Property Issues With KMC Can Get Complicated — Fast</h2>
-          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: designTokens.colors.sage[600] }}>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 sm:mb-5 md:mb-6" style={{ color: '#111827' }}>We get it. Property Issues With KMC Can Get Complicated — Fast</h2>
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#4b5563' }}>
             Property-related matters in Kolkata often involve multiple departments, old records, unclear ownership, and outdated documentation.
           </p>
-          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: designTokens.colors.sage[600] }}>
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#4b5563' }}>
             People usually come to us when:
           </p>
           <ul className="space-y-2 mb-4 sm:mb-6">
             {['Their mutation is stuck', 'Property tax disputes keep repeating', 'Ownership records don\'t match', 'Tenancy or Thika issues block transactions', 'KMC hearings are confusing or intimidating'].map((item, index) => (
-              <li key={index} className="flex items-start gap-2 text-xs sm:text-sm md:text-base" style={{ color: designTokens.colors.sage[700] }}>
-                <span className="flex-shrink-0 font-bold" style={{ color: designTokens.colors.sage[600] }}>•</span>
+              <li key={index} className="flex items-start gap-2 text-xs sm:text-sm md:text-base" style={{ color: '#374151' }}>
+                <span className="flex-shrink-0 font-bold" style={{ color: '#4b5563' }}>•</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-          <p className="text-xs sm:text-sm md:text-base leading-relaxed" style={{ color: designTokens.colors.sage[600] }}>
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed" style={{ color: '#4b5563' }}>
             At Khan Consultants, we help you navigate Kolkata Municipal Corporation property matters swiftly, with administrative handling and legal support where required.
           </p>
         </div>
       </section>
 
       {/* High-Demand Services */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-6xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">HIGH-DEMAND SERVICES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">HIGH-DEMAND SERVICES</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">The Big Issues</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           <div className="space-y-8 sm:space-y-10 md:space-y-12">
@@ -188,14 +189,14 @@ const Property = () => {
               const demandCheckStyles = ['text-cyan-700', 'text-orange-700'];
               const demandStyle = demandIconStyles[index % demandIconStyles.length];
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border border-[#e8f0eb] hover:shadow-lg transition">
+                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border border-gray-200 hover:shadow-lg transition">
                   <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-5 sm:mb-6 md:mb-8">
                     <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center flex-shrink-0 ${demandStyle.bg}`}>
                       <IconComponent className={`text-3xl sm:text-4xl ${demandStyle.text}`} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4" style={{ color: designTokens.colors.sage[900] }}>{service.title}</h3>
-                      <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: designTokens.colors.sage[600] }}>{service.description}</p>
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4" style={{ color: '#111827' }}>{service.title}</h3>
+                      <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: '#4b5563' }}>{service.description}</p>
                     </div>
                   </div>
                   
@@ -204,14 +205,14 @@ const Property = () => {
                       {service.services.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <FaCheckCircle className={`text-xl sm:text-2xl ${demandCheckStyles[index % demandCheckStyles.length]} flex-shrink-0 mt-0.5`} />
-                          <span className="text-sm sm:text-base md:text-lg" style={{ color: designTokens.colors.sage[700] }}>{item}</span>
+                          <span className="text-sm sm:text-base md:text-lg" style={{ color: '#374151' }}>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <Link to="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base text-center" style={{ backgroundColor: designTokens.colors.sage[600] }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = designTokens.colors.sage[700]} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = designTokens.colors.sage[600]}>
+                    <Link to="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base text-center bg-gray-900 hover:bg-gray-800">
                       {service.cta}
                     </Link>
                     <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500">
@@ -231,13 +232,13 @@ const Property = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">SPECIALIZED SERVICES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">Specialized Property Matters</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">Specialized Property Matters</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
@@ -245,19 +246,19 @@ const Property = () => {
               const IconComponent = item.icon;
               const specializedIconStyles = ['from-violet-500 to-violet-600', 'from-cyan-500 to-cyan-600'];
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-[#e8f0eb] hover:shadow-xl transition-all">
+                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 hover:shadow-xl transition-all">
                   <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-gradient-to-br ${specializedIconStyles[index % specializedIconStyles.length]} flex items-center justify-center mb-4 sm:mb-5 md:mb-6`}>
                     <IconComponent className="text-3xl sm:text-4xl text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-[#2c4d3f]">{item.title}</h3>
-                  <p className="text-sm sm:text-base md:text-lg text-[#53785b] mb-4 sm:mb-5">{item.description}</p>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">{item.title}</h3>
+                  <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 sm:mb-5">{item.description}</p>
                   
                   {item.services && item.services.length > 0 && (
                     <ul className="space-y-2 sm:space-y-3">
                       {item.services.map((service, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <span className="flex-shrink-0 font-bold text-[#53785b]">•</span>
-                          <span className="text-xs sm:text-sm md:text-base text-[#2c4d3f]">{service}</span>
+                          <span className="flex-shrink-0 font-bold text-gray-600">•</span>
+                          <span className="text-xs sm:text-sm md:text-base text-gray-900">{service}</span>
                         </li>
                       ))}
                     </ul>
@@ -270,18 +271,18 @@ const Property = () => {
       </section>
 
       {/* Legal Property Support */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-6xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">LEGAL PROPERTY SUPPORT</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">LEGAL PROPERTY SUPPORT</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Legal Due Diligence (BLRO & Registration)</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-white/80">
               Beyond KMC, we handle the legal side of property ownership. For such cases, we work closely with experienced local lawyers to ensure correct handling.
             </p>
@@ -292,12 +293,12 @@ const Property = () => {
               const IconComponent = item.icon;
               const legalSupportColors = ['text-indigo-700', 'text-emerald-700', 'text-amber-700', 'text-rose-700'];
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all text-center">
+                <div key={index} className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all text-center">
                   <div className="flex justify-center mb-3 sm:mb-4">
                     <IconComponent className={`text-4xl sm:text-5xl ${legalSupportColors[index % legalSupportColors.length]}`} />
                   </div>
-                  <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2" style={{ color: designTokens.colors.sage[900] }}>{item.title}</h3>
-                  <p className="text-xs sm:text-sm" style={{ color: designTokens.colors.sage[600] }}>{item.description}</p>
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2" style={{ color: '#111827' }}>{item.title}</h3>
+                  <p className="text-xs sm:text-sm" style={{ color: '#4b5563' }}>{item.description}</p>
                 </div>
               );
             })}
@@ -317,27 +318,27 @@ const Property = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">
               How We Handle Property Matters
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
-              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all">
                 <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
                   <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
                 <div className="pt-4 sm:pt-5">
-                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
+                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-gray-900">{item.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -346,18 +347,18 @@ const Property = () => {
       </section>
 
       {/* Why Choose Khan Consultants */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">WHY CHOOSE US</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">We Go to the Hearings for You.</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-white/80">
               Most agents just submit forms and leave. But Property Tax and Mutation often require attending official "Hearings" with KMC officers to argue your case. Since we have a legal team, we personally attend these hearings to represent you. We ensure your files don't get stuck in the pile.
             </p>
@@ -369,9 +370,9 @@ const Property = () => {
               const whyIconColors = ['text-blue-700', 'text-violet-700', 'text-emerald-700', 'text-amber-700', 'text-cyan-700', 'text-rose-700'];
               const WhyIcon = whyIcons[index % whyIcons.length];
               return (
-              <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex items-center gap-3">
+              <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex items-center gap-3">
                 <WhyIcon className={`text-2xl sm:text-3xl ${whyIconColors[index % whyIconColors.length]} flex-shrink-0`} />
-                <p className="text-sm sm:text-base font-semibold" style={{ color: designTokens.colors.sage[900] }}>{reason}</p>
+                <p className="text-sm sm:text-base font-semibold" style={{ color: '#111827' }}>{reason}</p>
               </div>
             )})}
           </div>
@@ -379,7 +380,7 @@ const Property = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-gradient-to-br from-[#1a2d23] via-[#2c4d3f] to-[#1f3a2f]">
+      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[#3d6b56]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">Ready to Resolve Your Property Issues?</h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 text-emerald-100">If you're facing any property-related issue in Kolkata — mutation, tax, tenancy, or documentation — get in touch with us for an initial review. We'll assess your case and guide you on the right process and next steps.</p>

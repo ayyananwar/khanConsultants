@@ -2,170 +2,106 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { MdLocationOn, MdPhone, MdEmail } from 'react-icons/md';
 import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs';
-import { HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser, HiChevronLeft, HiChevronRight, HiDocumentText, HiHomeModern, HiBuildingOffice2 } from 'react-icons/hi2';
-import { FaBalanceScale, FaFileInvoiceDollar, FaShippingFast, FaPassport } from 'react-icons/fa';
+import { HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser, HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 
 // Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAEgg9-IYwX_ca2mXMQOEAPPwzJYZq6T5t7b1dpdanOr8OpXky/exec";
 
 // About Section Component
 function AboutSection() {
-  const values = [
-    { title: 'Legal Excellence', description: 'Expert guidance in trademark, company formation & legal matters' },
-    { title: 'Financial Expertise', description: 'Complete GST, accounting & tax compliance solutions' },
-    { title: 'Global Reach', description: 'International trade, visas & immigration services' },
-    { title: 'Client Success', description: 'Trusted by 500+ businesses for their growth journey' },
-  ];
-
-
   return (
-    <section id="about" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#517358]">
-      <div className="max-w-7xl mx-auto">
-        {/* Professional Header - Compact */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-white font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-[#517358] px-4">About Khan Consultants</span>
-              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
-            </p>
+    <section id="about" className="py-10 sm:py-14 md:py-20 lg:py-28 px-4 sm:px-6 bg-[#3d6b56] relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-48 sm:w-72 h-48 sm:h-72 bg-white/5 rounded-full -mr-24 sm:-mr-36 -mt-24 sm:-mt-36 blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full -ml-32 sm:-ml-48 -mb-32 sm:-mb-48 blur-3xl"></div>
+
+      <div className="relative max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8 sm:mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 mb-4 sm:mb-5">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span className="text-[10px] sm:text-xs md:text-sm tracking-wider text-amber-300 font-semibold uppercase">About Khan Consultants</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3 sm:mb-4 leading-tight">
-            Your Trusted Partner for Business Success
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+            Your Trusted Partner for
+            <span className="block text-amber-300">Business Success</span>
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
-        </div>
-
-        {/* Core Values Grid - Mobile Optimized */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-5 mb-10 sm:mb-12">
-          {values.map((value, index) => {
-            return (
-              <div key={index} className="group  border border-emerald-400/20 shadow-lg rounded-2xl p-4 sm:p-5 md:p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-                <h4 className="font-bold text-[#b3e5c2] text-base sm:text-lg mb-2">{value.title}</h4>
-                <p className="text-white text-sm sm:text-base leading-relaxed">{value.description}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Why Choose Us - Mobile Optimized */}
-        <div className="border border-emerald-400/20 shadow-2xl hover:shadow-3xl rounded-3xl p-8 sm:p-10 md:p-14 lg:p-16 transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-            <div>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 leading-tight">
-                Why Choose Khan Consultants?
-              </h3>
-              <div className="space-y-5 sm:space-y-6">
-                <div className="flex gap-4 sm:gap-5 items-start">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <HiCheckCircle className="text-white text-xl sm:text-2xl" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">One-Stop Solution</h4>
-                    <p className="text-white text-base sm:text-lg leading-relaxed">All services—legal, financial, trade, and government—under one roof</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 sm:gap-5 items-start">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-600 to-green-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <HiUserGroup className="text-white text-xl sm:text-2xl" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">Expert Team</h4>
-                    <p className="text-white text-base sm:text-lg leading-relaxed">1000+ experts across legal, financial, and trade domains</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 sm:gap-5 items-start">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <HiRocketLaunch className="text-white text-xl sm:text-2xl" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#b3e5c2] text-lg sm:text-xl mb-2">Fast Processing</h4>
-                    <p className="text-white text-base sm:text-lg leading-relaxed">Quick turnaround times without compromising on quality</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className=" rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-7 lg:p-9 border border-emerald-400/20 shadow-lg hover:shadow-xl transition-all" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-              <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#b3e5c2] mb-3 sm:mb-4 md:mb-5 lg:mb-6">Our Services Include:</h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-2.5 md:gap-3 lg:gap-4 mb-4 sm:mb-5 md:mb-6 lg:mb-8">
-                {[
-                  { icon: HiBuildingOffice2, text: 'Kolkata Corp', color: '#2563eb', path: '/services/kolkata-corporation' },
-                  { icon: HiDocumentText, text: 'Certificates', color: '#14b8a6', path: '/services/certificates' },
-                  { icon: HiClipboardDocumentCheck, text: 'Licenses', color: '#6366f1', path: '/services/licenses' },
-                  { icon: HiHomeModern, text: 'Property', color: '#f59e0b', path: '/services/property' },
-                  { icon: FaBalanceScale, text: 'Legal', color: '#7c3aed', path: '/services/legal' },
-                  { icon: FaFileInvoiceDollar, text: 'GST', color: '#059669', path: '/services/gst-accounting' },
-                  { icon: FaShippingFast, text: 'Import/Export', color: '#dc2626', path: '/services/import-export' },
-                  { icon: FaPassport, text: 'Visas', color: '#ea580c', path: '/services/visas-immigration' },
-                ].map((service, idx) => {
-                  const Icon = service.icon;
-                  return (
-                    <Link key={idx} to={service.path} className="flex flex-col items-center gap-2  border border-emerald-400/20 rounded-lg sm:rounded-xl p-2.5 sm:p-3 md:p-3.5 lg:p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer group no-underline" style={{ background: 'linear-gradient(135deg, #b3e5c2, #b3e5c2)' }}>
-                      <Icon className="text-lg sm:text-xl md:text-2xl lg:text-3xl group-hover:scale-110 transition-transform" style={{ color: service.color }} />
-                      <span className="text-[11px] sm:text-xs md:text-sm lg:text-base text-[#2c4d3f] font-bold text-center leading-tight">{service.text}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-              <Link 
-                to="/contact" 
-                className="block text-center rounded-lg sm:rounded-xl px-4 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 md:py-3.5 lg:py-4 bg-gradient-to-r from-[#10b981] to-[#14b8a6] text-white text-xs sm:text-sm md:text-base lg:text-lg font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shadow-lg active:scale-[0.98]"
-              >
-                Get Started Today →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function IndustriesSection() {
-  const industries = [
-    { title: 'Financial Services', subtitle: 'Banking, Insurance & Investment' },
-    { title: 'Healthcare', subtitle: 'Medical & Pharmaceutical' },
-    { title: 'Technology', subtitle: 'Software & IT Services' },
-    { title: 'Retail', subtitle: 'E-commerce & Consumer Goods' },
-    { title: 'Manufacturing', subtitle: 'Industrial & Production' },
-    { title: 'Education', subtitle: 'Academic & E-learning' },
-  ];
-
-  return (
-    <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Professional Header - Compact */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-white px-4">Industry Expertise</span>
-              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
-            </p>
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c4d3f] mb-3 sm:mb-4 leading-tight">
-            Serving Diverse Industries
-          </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-6 sm:mb-8 rounded-full"></div>
-        </div>
-
-        {/* Industries Grid - Mobile First */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-10 sm:mb-14">
-          {industries.map((item, index) => (
-            <div key={index} className="border border-[#d6fadc] rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 bg-gradient-to-br from-[#f8fdf9] to-[#e8f5e9] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <p className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-[#2c4d3f] mb-1 sm:mb-2">{item.title}</p>
-              <p className="text-[11px] sm:text-xs md:text-sm text-[#53785b] leading-relaxed">{item.subtitle}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-gradient-to-br from-[#53785b] to-[#2c4d3f] text-white rounded-xl sm:rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 text-center shadow-xl">
-          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight">Don't See Your Industry?</h3>
-          <p className="text-white/85 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
-            Our adaptable methodologies and diverse expertise allow us to serve clients across virtually any sector. Let's discuss how we can help your business thrive.
+          <p className="text-white/70 text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+            For over 50 years, Khan Consultants has been Kolkata's most trusted name in business consulting, legal services, and government compliance.
           </p>
-          <Link to="/contact" className="inline-block rounded-lg sm:rounded-xl px-6 sm:px-8 py-3 sm:py-4 bg-[#d6fadc] text-[#53785b] text-sm sm:text-base font-bold hover:bg-white hover:shadow-lg transition-all duration-300">
-            Contact Us Today →
+        </div>
+
+        {/* Why Choose Us — clean inline list */}
+        <div className="space-y-4 sm:space-y-5 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-6 mb-10 sm:mb-12 md:mb-14">
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+              <HiCheckCircle className="text-blue-400 text-base sm:text-lg" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-white text-sm sm:text-base leading-tight">One-Stop Solution</h4>
+              <p className="text-white/60 text-xs sm:text-sm leading-relaxed mt-0.5">Legal, financial, trade, and government—all under one roof.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+              <HiUserGroup className="text-emerald-400 text-base sm:text-lg" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-white text-sm sm:text-base leading-tight">10,000+ Experts</h4>
+              <p className="text-white/60 text-xs sm:text-sm leading-relaxed mt-0.5">Specialists across legal, financial, and trade domains.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+              <HiRocketLaunch className="text-violet-400 text-base sm:text-lg" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-white text-sm sm:text-base leading-tight">Fast Processing</h4>
+              <p className="text-white/60 text-xs sm:text-sm leading-relaxed mt-0.5">Quick turnaround times without compromising on quality.</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+              <HiClock className="text-amber-400 text-base sm:text-lg" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-white text-sm sm:text-base leading-tight">50+ Years Legacy</h4>
+              <p className="text-white/60 text-xs sm:text-sm leading-relaxed mt-0.5">Decades of trusted service with 25+ years of KMC licensing.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-white/10 mb-8 sm:mb-10 md:mb-12"></div>
+
+        {/* Stats row — minimal, no box */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-8 sm:mb-10 md:mb-12 text-center">
+          <div>
+            <div className="text-xl sm:text-3xl md:text-4xl font-bold text-amber-300">50+</div>
+            <div className="text-[9px] sm:text-xs md:text-sm text-white/50 mt-0.5">Years Exp.</div>
+          </div>
+          <div>
+            <div className="text-xl sm:text-3xl md:text-4xl font-bold text-amber-300">1000+</div>
+            <div className="text-[9px] sm:text-xs md:text-sm text-white/50 mt-0.5">Happy Clients</div>
+          </div>
+          <div>
+            <div className="text-xl sm:text-3xl md:text-4xl font-bold text-amber-300">25+</div>
+            <div className="text-[9px] sm:text-xs md:text-sm text-white/50 mt-0.5">KMC Licensed</div>
+          </div>
+          <div>
+            <div className="text-xl sm:text-3xl md:text-4xl font-bold text-amber-300">10K+</div>
+            <div className="text-[9px] sm:text-xs md:text-sm text-white/50 mt-0.5">Local Experts</div>
+          </div>
+        </div>
+
+        {/* CTA — subtle link style */}
+        <div className="text-center">
+          <Link
+            to="/about"
+            className="group inline-flex items-center gap-2 text-white/90 hover:text-white text-sm sm:text-base font-semibold transition-colors duration-200"
+          >
+            Learn more about us
+            <span className="inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
           </Link>
         </div>
       </div>
@@ -176,62 +112,99 @@ function IndustriesSection() {
 // Process Timeline Component
 function ProcessTimeline() {
   const steps = [
-    { icon: HiMagnifyingGlass, title: 'Discovery', description: 'Deep dive into your business, challenges, and objectives through comprehensive analysis.', color: 'bg-gradient-to-br from-blue-600 to-blue-700' },
-    { icon: HiClipboardDocumentCheck, title: 'Assessment', description: 'Evaluate current state, identify gaps, and benchmark against industry standards.', color: 'bg-gradient-to-br from-emerald-600 to-emerald-700' },
-    { icon: HiLightBulb, title: 'Strategy', description: 'Develop tailored solutions and actionable roadmaps aligned with your goals.', color: 'bg-gradient-to-br from-teal-600 to-teal-700' },
-    { icon: HiRocketLaunch, title: 'Implementation', description: 'Execute strategies with precision, managing change and ensuring adoption.', color: 'bg-gradient-to-br from-green-600 to-green-700' },
-    { icon: HiChartBar, title: 'Optimization', description: 'Monitor performance, measure results, and continuously improve outcomes.', color: 'bg-gradient-to-br from-cyan-600 to-teal-600' },
-  ];
-
-  const benefits = [
-    { icon: HiClock, title: 'Efficient Timeline', description: 'Streamlined processes ensure rapid deployment while maintaining quality standards.', color: 'text-sage-600' },
-    { icon: HiUserGroup, title: 'Collaborative Approach', description: 'Work closely with your team to ensure alignment and knowledge transfer.', color: 'text-sage-700' },
-    { icon: HiCheckCircle, title: 'Quality Assurance', description: 'Rigorous validation ensures deliverables meet the highest standards.', color: 'text-sage-600' },
+    { icon: HiMagnifyingGlass, title: 'Discovery', description: 'We understand your business needs and challenges through detailed consultation.', step: '01', color: 'bg-blue-500' },
+    { icon: HiClipboardDocumentCheck, title: 'Assessment', description: 'Evaluate requirements, identify gaps, and plan the best approach.', step: '02', color: 'bg-emerald-500' },
+    { icon: HiLightBulb, title: 'Strategy', description: 'Develop tailored solutions and actionable roadmaps for your goals.', step: '03', color: 'bg-violet-500' },
+    { icon: HiRocketLaunch, title: 'Implementation', description: 'Execute with precision, managing paperwork and compliance end-to-end.', step: '04', color: 'bg-orange-500' },
+    { icon: HiChartBar, title: 'Delivery', description: 'Deliver results on time with ongoing support and follow-up.', step: '05', color: 'bg-amber-500' },
   ];
 
   return (
-    <section id="process" className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 bg-[#517358]">
-      <div className="max-w-7xl mx-auto">
-        {/* Professional Header - Compact */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+    <section id="process" className="py-12 sm:py-16 md:py-24 lg:py-28 px-4 sm:px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8 sm:mb-10 md:mb-14">
           <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-white font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-[#517358] px-4">Our Process</span>
-              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#3d6b56] font-bold mb-3 uppercase relative">
+              <span className="relative z-10 bg-white px-4">Our Process</span>
+              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
             </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
             How We Drive Success
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#3d6b56] to-[#2c4d3f] mx-auto rounded-full"></div>
+          <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 sm:mt-4 leading-relaxed">
+            A proven five-step approach that delivers results every time.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-12 sm:mb-16">
-          {steps.map((step, index) => {
-            const IconComponent = step.icon;
-            return (
-              <div key={index} className="border border-emerald-400/20 shadow-lg rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full ${step.color} text-white flex items-center justify-center mx-auto mb-2 sm:mb-3 md:mb-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                  <IconComponent className="text-lg sm:text-xl md:text-2xl" />
+        {/* Timeline - alternating cards with center line */}
+        <div className="relative">
+          {/* Center vertical line - desktop */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] hidden md:block -translate-x-px"></div>
+          {/* Left vertical line - mobile */}
+          <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] md:hidden"></div>
+
+          <div className="space-y-6 sm:space-y-8 md:space-y-0">
+            {steps.map((step, index) => {
+              const IconComponent = step.icon;
+              const isEven = index % 2 === 0;
+              return (
+                <div key={index} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
+                  {/* Mobile layout */}
+                  <div className="md:hidden flex gap-3 sm:gap-4 items-start">
+                    <div className="relative z-10 flex-shrink-0">
+                      <div className={`w-10 h-10 rounded-full ${step.color} flex items-center justify-center shadow-lg ring-4 ring-white`}>
+                        <IconComponent className="text-white text-base" />
+                      </div>
+                    </div>
+                    <div className="flex-1 bg-gray-50 rounded-xl p-3.5 sm:p-4 border border-gray-100 hover:shadow-md transition-all">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`text-[10px] sm:text-xs font-bold tracking-wider uppercase ${step.color} text-white px-2 py-0.5 rounded-full`}>Step {step.step}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{step.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Desktop layout - alternating sides */}
+                  <div className="hidden md:flex md:w-full md:items-center">
+                    {/* Left side content */}
+                    <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
+                      <div className={`bg-gray-50 rounded-2xl p-5 lg:p-6 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 group ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
+                        <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
+                          <span className={`text-xs font-bold tracking-wider uppercase ${step.color} text-white px-2.5 py-0.5 rounded-full`}>Step {step.step}</span>
+                        </div>
+                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5 group-hover:text-[#3d6b56] transition-colors">{step.title}</h3>
+                        <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{step.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Center icon */}
+                    <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
+                      <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${step.color} flex items-center justify-center shadow-xl ring-4 ring-white`}>
+                        <IconComponent className="text-white text-xl lg:text-2xl" />
+                      </div>
+                    </div>
+
+                    {/* Right side (empty or content) */}
+                    <div className={`w-[calc(50%-2rem)] ${isEven ? 'order-3' : ''}`}></div>
+                  </div>
                 </div>
-                <h3 className="text-[11px] sm:text-xs md:text-sm lg:text-base font-bold text-[#b3e5c2] mb-1 sm:mb-2 leading-tight">{step.title}</h3>
-                <p className="text-[10px] sm:text-[11px] md:text-xs text-white leading-relaxed flex-grow">{step.description}</p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
-          {benefits.map((item, index) => {
-            const IconComponent = item.icon;
-            return (
-              <div key={index} className="border border-emerald-400/20 shadow-lg rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(20, 184, 166, 0.1))' }}>
-                <IconComponent className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mx-auto mb-2 sm:mb-3 md:mb-4 text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
-                <h4 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-[#b3e5c2] mb-1 sm:mb-2 leading-tight">{item.title}</h4>
-                <p className="text-[10px] sm:text-[11px] md:text-sm text-white leading-relaxed flex-grow">{item.description}</p>
-              </div>
-            );
-          })}
+        {/* CTA */}
+        <div className="text-center mt-8 sm:mt-10 md:mt-14">
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 rounded-xl px-8 sm:px-10 py-3.5 sm:py-4 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white text-sm sm:text-base md:text-lg font-bold hover:shadow-xl transition-all duration-300 shadow-lg active:scale-[0.98] min-h-[48px]"
+          >
+            Start Your Journey <span>→</span>
+          </Link>
         </div>
       </div>
     </section>
@@ -316,20 +289,20 @@ function Testimonials() {
 
 
   return (
-    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white">
+    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-[#3d6b56]">
       <div className="max-w-7xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-8 sm:mb-10">
           <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-white px-4">Client Testimonials</span>
-              <span className="absolute left-0 right-0 top-1/2 h-px bg-white to-transparent"></span>
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-amber-300 font-bold mb-3 uppercase relative">
+              <span className="relative z-10 bg-[#3d6b56] px-4">Client Testimonials</span>
+              <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
             </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#2c4d3f] mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
             What Our Clients Say
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-3 sm:mb-4 rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-3 sm:mb-4 rounded-full"></div>
         </div>
 
         {/* Testimonial Slider - Mobile First */}
@@ -348,22 +321,22 @@ function Testimonials() {
                   key={index} 
                   className="w-full lg:w-1/2 flex-shrink-0 p-2 sm:p-3"
                 >
-                  <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 shadow-lg hover:shadow-2xl transition-all duration-300 border border-[#e8f5e9] h-full flex flex-col group relative">
+                  <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col group">
 
                     
-                    {/* Quote Text - Compact */}
-                    <p className="text-[#2c4d3f] text-sm sm:text-base font-normal text-left mb-4 sm:mb-5 leading-relaxed flex-grow pl-1">
-                      {review.text}
+                    {/* Quote Text - Clean on white */}
+                    <p className="text-gray-700 text-sm sm:text-base font-normal text-left mb-4 sm:mb-5 leading-relaxed flex-grow pl-1 italic">
+                      "{review.text}"
                     </p>
                     
-                    {/* Author Info - Compact */}
-                    <div className="flex items-center gap-3 pt-4 border-t border-[#e8f5e9] pl-1">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-[#53785b] to-[#2c4d3f] flex items-center justify-center flex-shrink-0 shadow-md">
+                    {/* Author Info - Clean */}
+                      <div className="flex items-center gap-3 pt-4 border-t border-gray-100 pl-1">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#3d6b56] flex items-center justify-center flex-shrink-0 shadow-md">
                         <HiUser className="text-white text-base sm:text-lg" />
                       </div>
                       <div className="text-left">
-                        <p className="text-sm sm:text-base font-bold text-[#2c4d3f] leading-tight">{review.name}</p>
-                        <p className="text-xs sm:text-sm text-[#53785b]">{review.company}</p>
+                        <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight">{review.name}</p>
+                        <p className="text-xs sm:text-sm text-gray-500">{review.company}</p>
                       </div>
                     </div>
                   </div>
@@ -372,10 +345,10 @@ function Testimonials() {
             </div>
           </div>
 
-          {/* Navigation Arrows - Outside the overflow container */}
+          {/* Navigation Arrows */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white hover:bg-[#2c4d3f] text-[#2c4d3f] hover:text-white rounded-full p-2 sm:p-2.5 shadow-xl hover:shadow-2xl transition-all duration-300 z-30 border-2 border-[#e8f5e9] hover:border-[#2c4d3f]"
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-30 border border-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Previous testimonial"
           >
             <HiChevronLeft className="text-lg sm:text-xl" />
@@ -383,29 +356,25 @@ function Testimonials() {
           
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-[#2c4d3f] text-[#2c4d3f] hover:text-white rounded-full p-2 sm:p-2.5 shadow-xl hover:shadow-2xl transition-all duration-300 z-30 border-2 border-[#e8f5e9] hover:border-[#2c4d3f]"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-30 border border-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Next testimonial"
           >
             <HiChevronRight className="text-lg sm:text-xl" />
           </button>
         </div>
 
-        {/* CTA Section - Professional Design */}
-        <div className="mt-10 sm:mt-12 bg-gradient-to-r from-[#2c4d3f] via-[#53785b] to-[#2c4d3f] text-white rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 text-center shadow-2xl relative overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
-          
+        {/* CTA Section */}
+        <div className="mt-10 sm:mt-12 bg-white text-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 text-center shadow-xl relative overflow-hidden">
           <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight text-gray-900">
               Join 500+ Satisfied Clients
             </h3>
-            <p className="text-white/90 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
-              Experience the Khan Consultants difference and transform your business today
+            <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
+              Experience the Khan Consultants difference and transform your business today.
             </p>
             <Link 
               to="/contact" 
-              className="inline-flex items-center gap-2 rounded-lg sm:rounded-xl px-6 sm:px-8 py-3 sm:py-4 bg-white text-[#2c4d3f] text-sm sm:text-base font-bold hover:bg-[#d6fadc] hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-xl"
+              className="inline-flex items-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white text-sm sm:text-base font-bold hover:shadow-xl transition-all duration-300 shadow-lg min-h-[48px]"
             >
               <span>Start Your Success Story</span>
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -528,66 +497,64 @@ function FinalCTA() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-[#1a2d23] via-[#2c4d3f] to-[#1f3a2f] overflow-hidden py-12 sm:py-16 md:py-20 lg:py-28">
-      {/* Decorative gradient blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 -right-32 w-96 h-96 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-32 w-96 h-96 bg-gradient-to-tr from-teal-500/10 to-transparent rounded-full blur-3xl"></div>
-      </div>
-
+    <section className="relative bg-white overflow-hidden py-12 sm:py-16 md:py-20 lg:py-28">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header Section */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-emerald-400 font-bold mb-2 sm:mb-3 md:mb-4 uppercase">Your Success Starts Here</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 sm:mb-4 md:mb-5 lg:mb-6 leading-tight">
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-[#3d6b56] font-bold mb-2 sm:mb-3 md:mb-4 uppercase">Your Success Starts Here</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-5 lg:mb-6 leading-tight">
             Ready to Transform
             <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Your Business?</span>
+            <span className="text-[#3d6b56]"> Your Business?</span>
           </h2>
-          <p className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
             Connect with our expert consultants today. Whether you need legal guidance, financial expertise, or government compliance—we've got you covered.
           </p>
         </div>
 
-        {/* Quick Action Buttons */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-          <a href="tel:+916291139691" className="group bg-gradient-to-br from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center transition-all hover:shadow-2xl hover:shadow-blue-500/20 shadow-lg border border-blue-500/20">
-            <MdPhone className="text-2xl sm:text-3xl md:text-4xl text-white mx-auto mb-1 sm:mb-2 md:mb-3 group-hover:-translate-y-1 transition-transform" />
-            <p className="text-[10px] sm:text-xs md:text-sm text-white font-bold">Call Us</p>
-            <p className="text-[9px] sm:text-[10px] md:text-xs text-blue-100 mt-0.5 sm:mt-1">+91-6291-139-691</p>
+        {/* Quick Action Buttons - Compact icon style */}
+        <div className="flex justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <a href="tel:+916291139691" className="group flex flex-col items-center gap-1.5" title="Call Us">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+              <MdPhone className="text-white text-xl sm:text-2xl" />
+            </div>
+            <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Call</span>
           </a>
-          <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="group bg-gradient-to-br from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center transition-all hover:shadow-2xl hover:shadow-green-500/20 shadow-lg border border-green-500/20">
-            <BsWhatsapp className="text-2xl sm:text-3xl md:text-4xl text-white mx-auto mb-1 sm:mb-2 md:mb-3 group-hover:-translate-y-1 transition-transform" />
-            <p className="text-[10px] sm:text-xs md:text-sm text-white font-bold">WhatsApp</p>
-            <p className="text-[9px] sm:text-[10px] md:text-xs text-green-100 mt-0.5 sm:mt-1">Quick Chat</p>
+          <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5" title="WhatsApp">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+              <BsWhatsapp className="text-white text-xl sm:text-2xl" />
+            </div>
+            <span className="text-[10px] sm:text-xs text-gray-500 font-medium">WhatsApp</span>
           </a>
-          <a href="mailto:hello@khanconsultants.in" className="group bg-gradient-to-br from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center transition-all hover:shadow-2xl hover:shadow-orange-500/20 shadow-lg border border-orange-500/20">
-            <MdEmail className="text-2xl sm:text-3xl md:text-4xl text-white mx-auto mb-1 sm:mb-2 md:mb-3 group-hover:-translate-y-1 transition-transform" />
-            <p className="text-[10px] sm:text-xs md:text-sm text-white font-bold">Email Us</p>
-            <p className="text-[9px] sm:text-[10px] md:text-xs text-orange-100 mt-0.5 sm:mt-1">hello@khan...</p>
+          <a href="mailto:hello@khanconsultants.in" className="group flex flex-col items-center gap-1.5" title="Email Us">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+              <MdEmail className="text-white text-xl sm:text-2xl" />
+            </div>
+            <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Email</span>
           </a>
-          <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="group bg-gradient-to-br from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 text-center transition-all hover:shadow-2xl hover:shadow-amber-500/20 shadow-lg border border-amber-500/20">
-            <MdLocationOn className="text-2xl sm:text-3xl md:text-4xl text-white mx-auto mb-1 sm:mb-2 md:mb-3 group-hover:-translate-y-1 transition-transform" />
-            <p className="text-[10px] sm:text-xs md:text-sm text-white font-bold">Visit Us</p>
-            <p className="text-[9px] sm:text-[10px] md:text-xs text-amber-100 mt-0.5 sm:mt-1">Kolkata Office</p>
+          <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5" title="Visit Us">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-amber-500 hover:bg-amber-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+              <MdLocationOn className="text-white text-xl sm:text-2xl" />
+            </div>
+            <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Visit</span>
           </a>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
           {/* Contact Form */}
-          <div className="order-2 lg:order-1 bg-gradient-to-br from-white/10 to-white/[0.05] backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 shadow-2xl border border-white/20">
-            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">Get Your Free Consultation</h3>
-            <p className="text-white/70 text-xs sm:text-sm mb-4 sm:mb-5 md:mb-6">Fill the form below and our experts will reach out within 24 hours</p>
+          <div className="order-2 lg:order-1 bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 shadow-lg border border-gray-200">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Get Your Free Consultation</h3>
+            <p className="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-5 md:mb-6">Fill the form below and our experts will reach out within 24 hours.</p>
 
             {successMessage && (
-              <div className="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 md:p-5 rounded-lg bg-emerald-500/20 border border-emerald-400/50 text-emerald-100 text-xs sm:text-sm backdrop-blur-sm">
+              <div className="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 md:p-5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs sm:text-sm">
                 ✓ {successMessage}
               </div>
             )}
 
             {errorMessage && (
-              <div className="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 md:p-5 rounded-lg bg-red-500/20 border border-red-400/50 text-red-100 text-xs sm:text-sm backdrop-blur-sm">
+              <div className="mb-4 sm:mb-5 md:mb-6 p-3 sm:p-4 md:p-5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm">
                 ✕ {errorMessage}
               </div>
             )}
@@ -595,7 +562,7 @@ function FinalCTA() {
             <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                 <div>
-                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">First Name</label>
+                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">First Name</label>
                   <input
                     type="text"
                     placeholder="Priya"
@@ -603,11 +570,11 @@ function FinalCTA() {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Last Name</label>
+                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Last Name</label>
                   <input
                     type="text"
                     placeholder="Sharma"
@@ -615,13 +582,13 @@ function FinalCTA() {
                     value={formData.lastName}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Email Address</label>
+                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Email Address</label>
                 <input
                   type="email"
                   placeholder="priya.sharma@example.com"
@@ -629,12 +596,12 @@ function FinalCTA() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Phone Number</label>
+                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Phone Number</label>
                 <input
                   type="tel"
                   placeholder="+91 98765-43210"
@@ -642,44 +609,44 @@ function FinalCTA() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                 <div>
-                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Company Name</label>
+                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Company Name</label>
                   <input
                     type="text"
                     placeholder="Your Company"
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Service Interested</label>
+                  <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Service Interested</label>
                   <select
                     name="serviceInterest"
                     value={formData.serviceInterest}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition backdrop-blur-sm"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
                   >
-                    <option value="" className="bg-slate-900">Select a service</option>
-                    <option value="legal" className="bg-slate-900">Trade Mark & Legal</option>
-                    <option value="gst" className="bg-slate-900">GST & Accounting</option>
-                    <option value="import-export" className="bg-slate-900">Import & Export</option>
-                    <option value="visas" className="bg-slate-900">Visas & Immigration</option>
-                    <option value="kolkata" className="bg-slate-900">Kolkata Corporation</option>
-                    <option value="government-ids" className="bg-slate-900">Government IDs</option>
+                    <option value="">Select a service</option>
+                    <option value="legal">Trade Mark & Legal</option>
+                    <option value="gst">GST & Accounting</option>
+                    <option value="import-export">Import & Export</option>
+                    <option value="visas">Visas & Immigration</option>
+                    <option value="kolkata">Kolkata Corporation</option>
+                    <option value="government-ids">Government IDs</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-white/90 mb-1 sm:mb-1.5 md:mb-2">Message</label>
+                <label className="block text-[10px] sm:text-xs md:text-sm font-semibold text-gray-700 mb-1 sm:mb-1.5 md:mb-2">Message</label>
                 <textarea
                   rows={3}
                   placeholder="Tell us about your requirements..."
@@ -687,14 +654,14 @@ function FinalCTA() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-white placeholder-white/50 focus:outline-none focus:border-emerald-400/50 focus:bg-white/15 focus:ring-1 focus:ring-emerald-400/30 transition resize-none backdrop-blur-sm"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-emerald-500/50 disabled:shadow-none"
+                className="w-full bg-[#3d6b56] hover:bg-[#2c4d3f] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl disabled:shadow-none"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -712,88 +679,88 @@ function FinalCTA() {
           {/* Contact Information Cards */}
           <div className="order-1 lg:order-2 space-y-3 sm:space-y-4 md:space-y-5">
             {/* Main CTA Card */}
-            <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-emerald-400/30 shadow-lg hover:shadow-xl transition-all">
+            <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 shadow-lg hover:shadow-xl transition-all border border-gray-200">
               <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4 md:mb-5">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-[#3d6b56] flex items-center justify-center flex-shrink-0">
                   <span className="text-lg sm:text-xl md:text-2xl">⚡</span>
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-sm sm:text-base md:text-lg">Why Choose Khan Consultants?</h4>
-                  <p className="text-emerald-100 text-xs sm:text-sm mt-0.5 sm:mt-1">500+ satisfied clients across India</p>
+                  <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Why Choose Khan Consultants?</h4>
+                  <p className="text-gray-500 text-xs sm:text-sm mt-0.5 sm:mt-1">500+ satisfied clients across India.</p>
                 </div>
               </div>
-              <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 text-white/90 text-xs sm:text-sm">
+              <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 text-gray-700 text-xs sm:text-sm">
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-emerald-400 font-bold text-base sm:text-lg flex-shrink-0">✓</span>
-                  <span>Expert consultants with 15+ years experience</span>
+                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span>Expert consultants with 15+ years experience.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-emerald-400 font-bold text-base sm:text-lg flex-shrink-0">✓</span>
-                  <span>Complete end-to-end support & guidance</span>
+                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span>Complete end-to-end support & guidance.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-emerald-400 font-bold text-base sm:text-lg flex-shrink-0">✓</span>
-                  <span>24/7 availability for urgent queries</span>
+                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span>24/7 availability for urgent queries.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-emerald-400 font-bold text-base sm:text-lg flex-shrink-0">✓</span>
-                  <span>Proven track record of success</span>
+                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span>Proven track record of success.</span>
                 </li>
               </ul>
             </div>
 
             {/* Contact Cards Grid */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-              <a href="tel:+916291139691" className="group bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 hover:from-white/20 hover:to-white/10 transition-all hover:shadow-lg border border-white/20 hover:border-blue-400/50">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-600 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
+              <a href="tel:+916291139691" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 hover:bg-gray-100 transition-all hover:shadow-md border border-gray-200">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
                   <MdPhone className="text-white text-lg sm:text-xl" />
                 </div>
-                <h5 className="font-bold text-white text-xs sm:text-sm mb-0.5 sm:mb-1">Call Us</h5>
-                <p className="text-[10px] sm:text-xs text-white/70">Immediate assistance</p>
+                <h5 className="font-bold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Call Us</h5>
+                <p className="text-[10px] sm:text-xs text-gray-500">Immediate assistance</p>
               </a>
 
-              <a href="mailto:hello@khanconsultants.in" className="group bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 hover:from-white/20 hover:to-white/10 transition-all hover:shadow-lg border border-white/20 hover:border-orange-400/50">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-600 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
+              <a href="mailto:hello@khanconsultants.in" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 hover:bg-gray-100 transition-all hover:shadow-md border border-gray-200">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
                   <MdEmail className="text-white text-lg sm:text-xl" />
                 </div>
-                <h5 className="font-bold text-white text-xs sm:text-sm mb-0.5 sm:mb-1">Email</h5>
-                <p className="text-[10px] sm:text-xs text-white/70">Within 24 hours</p>
+                <h5 className="font-bold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Email</h5>
+                <p className="text-[10px] sm:text-xs text-gray-500">Within 24 hours</p>
               </a>
             </div>
 
             {/* Location & Hours Card */}
-            <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 border border-white/20">
+            <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 border border-gray-200">
               <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4 md:mb-5">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-amber-500 flex items-center justify-center flex-shrink-0">
                   <MdLocationOn className="text-white text-lg sm:text-xl" />
                 </div>
                 <div className="flex-1">
-                  <h5 className="font-bold text-white text-sm sm:text-base mb-2 sm:mb-3">Visit Our Office</h5>
-                  <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                  <h5 className="font-bold text-gray-900 text-sm sm:text-base mb-2 sm:mb-3">Visit Our Office</h5>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                     26/1 Rafi Ahmed Kidwai Road<br />
                     Kolkata - 700016, India
                   </p>
                 </div>
               </div>
-              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="inline-block text-emerald-400 hover:text-emerald-300 text-xs sm:text-sm font-semibold transition">
+              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="inline-block text-[#3d6b56] hover:text-[#2c4d3f] text-xs sm:text-sm font-semibold transition">
                 Get Directions →
               </a>
             </div>
 
             {/* Social Links Card */}
-            <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 border border-white/20">
-              <h5 className="font-bold text-white text-sm sm:text-base mb-3 sm:mb-4">Follow Us</h5>
+            <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 border border-gray-200">
+              <h5 className="font-bold text-gray-900 text-sm sm:text-base mb-3 sm:mb-4">Follow Us</h5>
               <div className="flex gap-2 sm:gap-3 flex-wrap">
-                <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#1877f2] hover:bg-[#0f6ae6] text-white hover:scale-110 transition-transform shadow-lg">
+                <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#1877f2] hover:bg-[#0f6ae6] text-white hover:scale-110 transition-transform shadow-md">
                   <BsFacebook className="text-base sm:text-lg" />
                 </a>
-                <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white hover:scale-110 transition-transform shadow-lg">
+                <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white hover:scale-110 transition-transform shadow-md">
                   <BsInstagram className="text-base sm:text-lg" />
                 </a>
-                <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#25D366] hover:bg-[#1ebe5d] text-white hover:scale-110 transition-transform shadow-lg">
+                <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#25D366] hover:bg-[#1ebe5d] text-white hover:scale-110 transition-transform shadow-md">
                   <BsWhatsapp className="text-base sm:text-lg" />
                 </a>
-                <a href="mailto:hello@khanconsultants.in" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#ea4335] hover:bg-[#d93025] text-white hover:scale-110 transition-transform shadow-lg">
+                <a href="mailto:hello@khanconsultants.in" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#ea4335] hover:bg-[#d93025] text-white hover:scale-110 transition-transform shadow-md">
                   <MdEmail className="text-base sm:text-lg" />
                 </a>
               </div>
@@ -805,7 +772,7 @@ function FinalCTA() {
   );
 }
 
-export { AboutSection, IndustriesSection, ProcessTimeline, Testimonials, FinalCTA };
+export { AboutSection, ProcessTimeline, Testimonials, FinalCTA };
 
 
 

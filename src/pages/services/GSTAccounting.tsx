@@ -85,8 +85,9 @@ const GSTAccounting = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
         <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-emerald-300">{service.title}</p>
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-amber-300">{service.title}</p>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">{service.heroDescription}</h1>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed text-white/85">{service.mainDescription}</p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center">
@@ -106,14 +107,14 @@ const GSTAccounting = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">IMPORTANT WARNING</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">{service.warning}</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] max-w-2xl mx-auto">Don't risk your business on incomplete or careless filings</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">{service.warning}</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Don't risk your business on incomplete or careless filings</p>
           </div>
 
           {/* Warning Cards - 2x2 Grid */}
@@ -125,7 +126,7 @@ const GSTAccounting = () => {
               >
                 {/* Warning Icon Badge */}
                 <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
                     ⚠️
                   </div>
                   <div className="flex-1">
@@ -139,33 +140,33 @@ const GSTAccounting = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
               The Safe-Start Protocol
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Securing your {service.title} in {service.process.length} proven steps</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.process.map((item, index) => (
-              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all">
+              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all">
                 <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
                   <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
                 </div>
                 <div className="pt-4 sm:pt-5">
-                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.description}</p>
+                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-gray-900">{item.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -179,14 +180,14 @@ const GSTAccounting = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">PRICING & PACKAGES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight">Choose Your Perfect Plan</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-[#53785b] px-2">Select the level of service your business needs</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">Choose Your Perfect Plan</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 px-2">Select the level of service your business needs</p>
           </div>
 
           {/* Side by Side Packages */}
@@ -197,7 +198,7 @@ const GSTAccounting = () => {
                 className={`relative rounded-xl sm:rounded-2xl overflow-hidden transition-all transform ${
                   pkg.popular
                     ? 'ring-2 ring-emerald-400 hover:shadow-2xl hover:scale-105 bg-gradient-to-br from-white to-emerald-50/30'
-                    : 'border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 bg-white'
+                    : 'border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 bg-white'
                 } p-5 sm:p-6 md:p-7 lg:p-8`}
               >
                 {pkg.popular && (
@@ -206,11 +207,11 @@ const GSTAccounting = () => {
                   </div>
                 )}
 
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f] pt-3 sm:pt-4">{pkg.name}</h3>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2 text-gray-900 pt-3 sm:pt-4">{pkg.name}</h3>
 
-                <div className="mb-5 sm:mb-6 pb-5 sm:pb-6 border-b-2 border-[#e8f0eb]">
+                <div className="mb-5 sm:mb-6 pb-5 sm:pb-6 border-b-2 border-gray-200">
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-3xl sm:text-4xl md:text-5xl font-bold ${pkg.popular ? 'text-emerald-600' : 'text-[#2c4d3f]'}`}>
+                    <span className={`text-3xl sm:text-4xl md:text-5xl font-bold ${pkg.popular ? 'text-emerald-600' : 'text-gray-900'}`}>
                       {pkg.price}
                     </span>
                   </div>
@@ -218,7 +219,7 @@ const GSTAccounting = () => {
 
                 <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base text-[#2c4d3f]">
+                    <li key={idx} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm md:text-base text-gray-900">
                       <span className={`text-lg sm:text-xl flex-shrink-0 ${pkg.popular ? 'text-emerald-500' : 'text-teal-500'}`}>✓</span>
                       <span className="leading-snug">{feature}</span>
                     </li>
@@ -230,7 +231,7 @@ const GSTAccounting = () => {
                   className={`block w-full py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg font-semibold text-sm sm:text-base text-center transition-all transform ${
                     pkg.popular
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:shadow-emerald-500/50 hover:shadow-lg hover:-translate-y-1'
-                      : 'bg-[#d6fadc] text-[#2c4d3f] border-2 border-emerald-300 hover:bg-emerald-300/30 hover:shadow-lg hover:-translate-y-1'
+                      : 'bg-[#d6fadc] text-gray-900 border-2 border-emerald-300 hover:bg-emerald-300/30 hover:shadow-lg hover:-translate-y-1'
                   }`}
                 >
                   Get Started →
@@ -242,43 +243,43 @@ const GSTAccounting = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-4xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">TIMELINE</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">TIMELINE</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
               What You'll Receive & When
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Clear expectations throughout the process</p>
           </div>
 
           {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.timeline.map((item, index) => (
-              <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex gap-4 sm:gap-5 md:gap-6">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg sm:text-xl md:text-2xl">
+              <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex gap-4 sm:gap-5 md:gap-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg sm:text-xl md:text-2xl">
                   {index + 1}
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-[#2c4d3f]">{item.step}</h4>
-                  <p className="text-sm sm:text-base text-[#53785b] leading-relaxed">{item.detail}</p>
+                  <h4 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-gray-900">{item.step}</h4>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.detail}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-center shadow-xl">
+          <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white/10 border border-white/20 text-white text-center shadow-xl">
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-2 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
-              <FaShieldAlt className="text-2xl sm:text-3xl" /> Complete 360° Guidance
+              <FaShieldAlt className="text-2xl sm:text-3xl text-amber-300" /> Complete 360° Guidance
             </p>
-            <p className="text-sm sm:text-base md:text-lg text-emerald-50">We provide support and guidance at every stage of your journey</p>
+            <p className="text-sm sm:text-base md:text-lg text-white/80">We provide support and guidance at every stage of your journey</p>
           </div>
         </div>
       </section>
@@ -289,13 +290,13 @@ const GSTAccounting = () => {
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-[#53785b] font-bold mb-2 sm:mb-3 uppercase relative">
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
                 <span className="relative z-10 bg-white px-3 sm:px-4">IS THIS FOR YOU?</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#53785b]/30 to-transparent"></span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-[#2c4d3f] leading-tight px-2">Who Should Choose This Service?</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#53785b] to-[#2c4d3f] mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight px-2">Who Should Choose This Service?</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8 lg:gap-10">
@@ -305,7 +306,7 @@ const GSTAccounting = () => {
               </h3>
               <ul className="space-y-3 sm:space-y-4">
                 {service.idealFor.good.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-[#2c4d3f]">
+                  <li key={index} className="flex items-start gap-2 sm:gap-3 text-sm sm:text-base text-gray-900">
                     <span className="text-xl sm:text-2xl text-emerald-500 flex-shrink-0">✓</span>
                     <span className="leading-relaxed">{item}</span>
                   </li>
@@ -331,18 +332,18 @@ const GSTAccounting = () => {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#517358]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#517358] px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></span>
+              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
+                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">WHY CHOOSE US</span>
+                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight px-2">Why Khan Consultants?</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Excellence in every step of your journey</p>
           </div>
 
@@ -350,15 +351,17 @@ const GSTAccounting = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
+              const iconColorClasses = ['text-blue-700', 'text-violet-700', 'text-amber-700', 'text-cyan-700'];
+              const iconBgClasses = ['bg-blue-100', 'bg-violet-100', 'bg-amber-100', 'bg-cyan-100'];
               return (
                 <div
                   key={index}
-                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-[#e8f0eb] hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
+                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
                 >
-                  <div className="text-3xl sm:text-4xl md:text-5xl text-emerald-500">
-                    <IconComponent />
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center ${iconBgClasses[index % iconBgClasses.length]} ${iconColorClasses[index % iconColorClasses.length]}`}>
+                    <IconComponent className="text-2xl sm:text-3xl" />
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg text-[#2c4d3f] font-semibold leading-relaxed">{reason.text}</p>
+                  <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">{reason.text}</p>
                 </div>
               );
             })}
@@ -370,7 +373,7 @@ const GSTAccounting = () => {
             <div className="text-center mb-6 sm:mb-8 md:mb-10">
               <div className="inline-block">
                 <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                  <span className="relative z-10 bg-[#517358] px-3 sm:px-4">THE TRUTH</span>
+                  <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">THE TRUTH</span>
                   <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></span>
                 </p>
               </div>
@@ -425,6 +428,28 @@ const GSTAccounting = () => {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[#3d6b56]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6">Get Your GST Sorted Today</h2>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 text-emerald-100">Stop risking fines and penalties. Let our experts handle your GST registration and compliance the right way.</p>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+            <Link 
+              to="/contact" 
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:shadow-emerald-500/50 hover:shadow-xl hover:-translate-y-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white inline-flex items-center justify-center min-h-[48px]"
+            >
+              Get Started Now →
+            </Link>
+            <a 
+              href="tel:+916291139691" 
+              className="px-8 sm:px-10 py-3.5 sm:py-4 border-2 border-emerald-400 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:bg-emerald-500/20 hover:shadow-lg hover:-translate-y-1 text-white inline-flex items-center justify-center gap-3 min-h-[48px]"
+            >
+              <MdPhone className="text-xl sm:text-2xl" /> Call +91-6291-139-691
+            </a>
           </div>
         </div>
       </section>

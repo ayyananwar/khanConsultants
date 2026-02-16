@@ -2,6 +2,15 @@
 
 A professional B2B consulting website built with **React**, **TypeScript**, **Tailwind CSS v4**, and **Vite**.
 
+## ✅ Current Design Source
+
+For the active design system and implementation rules, use:
+
+- `src/tokens.ts` (canonical token source)
+- `DESIGN_GUIDELINES.md` (project-level design rules)
+
+Older sections below may include legacy references from earlier iterations.
+
 ## 🎨 Design System
 
 ### Global Styling Rules

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { designTokens } from '../tokens';
 
 export default function Navbar() {
   const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
@@ -83,7 +82,7 @@ export default function Navbar() {
                   onMouseEnter={() => setIsServicesOpen(true)}
                   onMouseLeave={() => setIsServicesOpen(false)}
                 >
-                  <div className="w-64 bg-white rounded-xl shadow-lg border py-2" style={{ borderColor: designTokens.colors.sage[50] }}>
+                  <div className="w-64 bg-white rounded-xl shadow-lg border py-2" style={{ borderColor: '#f3f4f6' }}>
                     {services.map((service, index) => (
                       <div key={index}>
                         {service.subItems ? (
@@ -162,16 +161,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
             <Link
               to="/contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] text-white text-xs sm:text-sm font-medium transition"
-              style={{
-                backgroundColor: designTokens.colors.sage[600],
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = designTokens.colors.sage[700];
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
-              }}
+              className="hidden sm:inline-flex items-center justify-center rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] text-white text-xs sm:text-sm font-medium transition bg-[#3d6b56] hover:bg-[#2c4d3f]"
             >
               Get Consultation
             </Link>
@@ -376,14 +366,7 @@ export default function Navbar() {
           <Link
             to="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block w-full mt-5 sm:mt-6 rounded-full px-4 sm:px-5 py-3 sm:py-3.5 text-white text-center font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center justify-center transition"
-            style={{ backgroundColor: designTokens.colors.sage[600] }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = designTokens.colors.sage[700];
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = designTokens.colors.sage[600];
-            }}
+            className="block w-full mt-5 sm:mt-6 rounded-full px-4 sm:px-5 py-3 sm:py-3.5 text-white text-center font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center justify-center transition bg-[#3d6b56] hover:bg-[#2c4d3f]"
           >
             Get Consultation
           </Link>
