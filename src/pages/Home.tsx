@@ -75,7 +75,7 @@ export default function Home() {
     <div style={{ backgroundColor: designTokens.colors.neutral.white }}>
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center min-h-0 sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex flex-col"
+        className="relative bg-cover bg-center min-h-[100svh] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex flex-col"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -109,7 +109,7 @@ export default function Home() {
           </div>
 
           {/* Stats Section */}
-          <div className="grid mt-10 sm:mt-6 md:mt-8 lg:mt-10 grid-cols-4 gap-1.5 sm:gap-3 md:gap-4 lg:gap-5 max-w-5xl mx-auto w-full">
+          <div className="grid mt-10 sm:mt-6 md:mt-8 lg:mt-10 grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5 max-w-5xl mx-auto w-full">
             <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-5 text-center bg-white/10 backdrop-blur-sm border border-white/10">
               <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 md:mb-2 text-amber-300">50+</div>
               <div className="text-[9px] sm:text-sm md:text-base font-medium text-white/80 leading-tight">Years Exp.</div>

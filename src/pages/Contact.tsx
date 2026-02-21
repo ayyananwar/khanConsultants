@@ -151,7 +151,7 @@ const Contact = () => {
     <div style={{ backgroundColor: designTokens.colors.neutral.white }}>
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
+        className="relative bg-cover bg-center min-h-[420px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex items-center"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -160,9 +160,13 @@ const Contact = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">Get In Touch</h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed text-white/85">
+        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center flex flex-col items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
+            <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
+            <span className="font-semibold text-white">Licensed KMC Consultant</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">Get In Touch</h1>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed text-white/85">
             Let's discuss how we can help transform your business
           </p>
         </div>

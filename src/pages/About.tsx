@@ -10,6 +10,7 @@ export default function About() {
         title="Our Vision & Legacy"
         subtitle="Building trusted partnerships and delivering transformative consulting solutions for over 15 years."
         bgImage="/hero.png"
+        isStretchedMobile={false}
       />
 
       {/* Our Story Timeline */}

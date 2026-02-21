@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaBalanceScale } from 'react-icons/fa';
-import { MdPhone } from 'react-icons/md';
+import { MdPhone, MdWarningAmber, MdLinkOff, MdLockPerson, MdSearch, MdDescription, MdUploadFile, MdTaskAlt } from 'react-icons/md';
 import { IoMdCheckmarkCircle, IoMdClose, IoMdPeople, IoMdGlobe, IoMdTrophy, IoMdSchool } from 'react-icons/io';
 import { FaShieldAlt} from 'react-icons/fa';
 
@@ -73,11 +73,19 @@ const GSTAccounting = () => {
     ]
   };
 
+  const warningIcons = [MdWarningAmber, MdLinkOff, MdLockPerson];
+  const processVisuals = [
+    { icon: MdSearch, color: 'bg-blue-500' },
+    { icon: MdDescription, color: 'bg-emerald-500' },
+    { icon: MdUploadFile, color: 'bg-violet-500' },
+    { icon: MdTaskAlt, color: 'bg-amber-500' },
+  ];
+
   return (
     <div className="bg-white service-page">
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
+        className="relative bg-cover bg-center min-h-[100svh] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex flex-col"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -86,15 +94,20 @@ const GSTAccounting = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest font-bold mb-2 sm:mb-3 md:mb-4 uppercase text-amber-300">{service.title}</p>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6">{service.heroDescription}</h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed text-white/85">{service.mainDescription}</p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center">
-            <a href="tel:+916291139691" className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 md:px-7 lg:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base text-white rounded-lg sm:rounded-xl font-bold transition bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 hover:shadow-lg hover:shadow-emerald-500/50 transform hover:scale-105">
+        <div className="relative flex-1 flex flex-col max-w-6xl mx-auto w-full px-3 sm:px-4 md:px-6 pt-20 sm:pt-24 md:pt-20 lg:pt-24 xl:pt-28 pb-6 sm:pb-10 md:pb-12 lg:pb-14 text-white">
+          <div className="flex flex-col justify-center max-w-4xl mx-auto w-full text-center">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mb-5 sm:mb-5 md:mb-6 lg:mb-8 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
+              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
+              <span className="font-semibold text-white">Licensed KMC Consultant</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.15] mt-5 mb-6 sm:mb-7 md:mb-8 lg:mb-9 xl:mb-10">{service.heroDescription}</h1>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 max-w-3xl mx-auto leading-relaxed text-white/85 px-1">{service.mainDescription}</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
+            <a href="tel:+916291139691" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
               <MdPhone className="text-base sm:text-lg" /> Call Now
             </a>
-            <Link to="/contact" className="inline-flex items-center justify-center px-5 sm:px-6 md:px-7 lg:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base border-2 border-white text-white rounded-lg sm:rounded-xl font-bold hover:bg-white/15 hover:border-emerald-300 transition">
+            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
               Free Consultation
             </Link>
           </div>
@@ -102,7 +115,7 @@ const GSTAccounting = () => {
       </section>
 
       {/* Warning Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
@@ -119,22 +132,23 @@ const GSTAccounting = () => {
 
           {/* Warning Cards - 2x2 Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-            {service.warningPoints.map((point, index) => (
+            {service.warningPoints.map((point, index) => {
+              const WarningIcon = warningIcons[index % warningIcons.length];
+              return (
               <div 
                 key={index} 
                 className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-amber-300 hover:border-amber-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
-                {/* Warning Icon Badge */}
                 <div className="flex items-start gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
-                    ⚠️
+                    <WarningIcon />
                   </div>
                   <div className="flex-1">
                     <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-amber-900">{point}</p>
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
@@ -157,25 +171,62 @@ const GSTAccounting = () => {
             <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Securing your {service.title} in {service.process.length} proven steps</p>
           </div>
 
-          {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-            {service.process.map((item, index) => (
-              <div key={index} className="relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all">
-                <div className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 md:-top-5 md:-right-5 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#2c4d3f] rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white text-sm sm:text-base md:text-lg font-bold">{item.step}</span>
-                </div>
-                <div className="pt-4 sm:pt-5">
-                  <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 text-gray-900">{item.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.description}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative">
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 hidden md:block -translate-x-px"></div>
+            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 md:hidden"></div>
+
+            <div className="space-y-6 sm:space-y-8 md:space-y-0">
+              {service.process.map((item, index) => {
+                const IconComponent = processVisuals[index].icon;
+                const stepColor = processVisuals[index].color;
+                const isEven = index % 2 === 0;
+
+                return (
+                  <div key={item.step} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
+                    <div className="md:hidden flex gap-3 sm:gap-4 items-start">
+                      <div className="relative z-10 flex-shrink-0">
+                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[#3d6b56]`}>
+                          <IconComponent className="text-white text-base" />
+                        </div>
+                      </div>
+                      <div className="flex-1 bg-white/95 rounded-xl p-3.5 sm:p-4 border border-white/30 hover:shadow-md transition-all">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
+                        </div>
+                        <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="hidden md:flex md:w-full md:items-center">
+                      <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
+                        <div className={`bg-white/95 rounded-2xl p-5 lg:p-6 border border-white/30 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
+                          <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
+                            <span className="text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
+                          </div>
+                          <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
+                          <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+
+                      <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
+                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[#3d6b56]`}>
+                          <IconComponent className="text-white text-xl lg:text-2xl" />
+                        </div>
+                      </div>
+
+                      <div className={`w-[calc(50%-2rem)] ${isEven ? 'order-3' : ''}`}></div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
@@ -261,7 +312,7 @@ const GSTAccounting = () => {
           </div>
 
           {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
             {service.timeline.map((item, index) => (
               <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex gap-4 sm:gap-5 md:gap-6">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg sm:text-xl md:text-2xl">
@@ -344,83 +395,64 @@ const GSTAccounting = () => {
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight px-2">Why Khan Consultants?</h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Excellence in every step of your journey</p>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Clear systems, real experts, and full accountability.</p>
           </div>
 
-          {/* 2x2 Grid from Mobile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
-              const iconColorClasses = ['text-blue-700', 'text-violet-700', 'text-amber-700', 'text-cyan-700'];
-              const iconBgClasses = ['bg-blue-100', 'bg-violet-100', 'bg-amber-100', 'bg-cyan-100'];
+              const iconColorClasses = ['text-blue-200', 'text-violet-200', 'text-amber-200', 'text-cyan-200'];
+              const iconBgClasses = ['bg-blue-500/20', 'bg-violet-500/20', 'bg-amber-500/20', 'bg-cyan-500/20'];
               return (
                 <div
                   key={index}
-                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/20 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
+                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/35 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col gap-3 sm:gap-4"
                 >
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center ${iconBgClasses[index % iconBgClasses.length]} ${iconColorClasses[index % iconColorClasses.length]}`}>
                     <IconComponent className="text-2xl sm:text-3xl" />
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">{reason.text}</p>
+                  <p className="text-sm sm:text-base md:text-lg text-white/95 font-semibold leading-relaxed">{reason.text}</p>
                 </div>
               );
             })}
           </div>
 
-          {/* Why Not Go Cheap Section - Redesigned */}
-          <div className="mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-            {/* Section Header */}
+          <div className="mt-10 sm:mt-12 md:mt-16 lg:mt-20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 bg-gradient-to-br from-amber-50 via-white to-orange-50 border border-amber-200">
             <div className="text-center mb-6 sm:mb-8 md:mb-10">
               <div className="inline-block">
                 <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-700 font-bold mb-2 sm:mb-3 uppercase relative">
-                  <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">THE TRUTH</span>
-                  <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></span>
+                  <span className="relative z-10 bg-white px-3 sm:px-4">THE TRUTH</span>
+                  <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-amber-300 to-transparent"></span>
                 </p>
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-3 text-amber-900 leading-tight">
+              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-3 text-gray-900 leading-tight">
                 Why Budget Services Fail You
               </h3>
-              <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-amber-600 to-orange-600 mx-auto mb-4 sm:mb-5 md:mb-6 rounded-full"></div>
+              <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto mb-4 sm:mb-5 md:mb-6 rounded-full"></div>
             </div>
 
-            {/* Comparison Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-6 sm:mb-8">
-              <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border-2 border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl">
-                    ✕
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-6 sm:mb-8">
+              {[
+                { icon: MdWarningAmber, text: 'No proper guidance = Costly mistakes' },
+                { icon: MdLinkOff, text: 'Hidden charges = Budget disaster' },
+                { icon: MdLockPerson, text: "No follow-up = You're abandoned" },
+                { icon: FaBalanceScale, text: 'Zero accountability = You lose' },
+              ].map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <div key={item.text} className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border border-amber-200 hover:border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white flex-shrink-0">
+                        <IconComponent className="text-lg" />
+                      </div>
+                      <p className="text-xs sm:text-sm md:text-base font-semibold text-gray-900 leading-relaxed">{item.text}</p>
+                    </div>
                   </div>
-                  <p className="text-xs sm:text-sm md:text-base font-semibold text-amber-900 leading-tight">No proper guidance = Costly mistakes</p>
-                </div>
-              </div>
-              <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border-2 border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl">
-                    ✕
-                  </div>
-                  <p className="text-xs sm:text-sm md:text-base font-semibold text-amber-900 leading-tight">Hidden charges = Budget disaster</p>
-                </div>
-              </div>
-              <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border-2 border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl">
-                    ✕
-                  </div>
-                  <p className="text-xs sm:text-sm md:text-base font-semibold text-amber-900 leading-tight">No follow-up = You're abandoned</p>
-                </div>
-              </div>
-              <div className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border-2 border-amber-300 hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className="flex flex-col items-center text-center gap-2 sm:gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl">
-                    ✕
-                  </div>
-                  <p className="text-xs sm:text-sm md:text-base font-semibold text-amber-900 leading-tight">Zero accountability = You lose</p>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
-            {/* Bottom Warning */}
-            <div className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-gradient-to-br from-amber-100 to-orange-100 border-2 border-amber-400 shadow-lg">
+            <div className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-amber-100 border border-amber-300 shadow-lg">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center">
                 <FaBalanceScale className="text-2xl sm:text-3xl md:text-4xl text-amber-700 flex-shrink-0" />
                 <p className="text-sm sm:text-base md:text-lg font-bold text-amber-900 leading-tight">
@@ -433,22 +465,22 @@ const GSTAccounting = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[#3d6b56]">
+      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-gray-900 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6">Get Your GST Sorted Today</h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 text-emerald-100">Stop risking fines and penalties. Let our experts handle your GST registration and compliance the right way.</p>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 text-gray-600">Stop risking fines and penalties. Let our experts handle your GST registration and compliance the right way.</p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Link 
               to="/contact" 
-              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:shadow-emerald-500/50 hover:shadow-xl hover:-translate-y-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white inline-flex items-center justify-center min-h-[48px]"
+              className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white inline-flex items-center justify-center min-h-[48px]"
             >
               Get Started Now →
             </Link>
             <a 
               href="tel:+916291139691" 
-              className="px-8 sm:px-10 py-3.5 sm:py-4 border-2 border-emerald-400 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:bg-emerald-500/20 hover:shadow-lg hover:-translate-y-1 text-white inline-flex items-center justify-center gap-3 min-h-[48px]"
+              className="px-8 sm:px-10 py-3.5 sm:py-4 border-2 border-gray-300 rounded-xl font-bold text-sm sm:text-base md:text-lg transition-all transform hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1 text-gray-900 inline-flex items-center justify-center gap-3 min-h-[48px]"
             >
-              <MdPhone className="text-xl sm:text-2xl" /> Call +91-6291-139-691
+              <MdPhone className="text-xl sm:text-2xl text-[#3d6b56]" /> Call +91-6291-139-691
             </a>
           </div>
         </div>

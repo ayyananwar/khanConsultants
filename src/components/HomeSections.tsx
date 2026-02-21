@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { MdLocationOn, MdPhone, MdEmail } from 'react-icons/md';
 import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs';
-import { HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser, HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
+import { HiRocketLaunch, HiUserGroup, HiCheckCircle, HiClock, HiChartBar, HiMagnifyingGlass, HiClipboardDocumentCheck, HiLightBulb, HiUser } from 'react-icons/hi2';
 
 // Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAEgg9-IYwX_ca2mXMQOEAPPwzJYZq6T5t7b1dpdanOr8OpXky/exec";
@@ -98,10 +98,10 @@ function AboutSection() {
         <div className="text-center">
           <Link
             to="/about"
-            className="group inline-flex items-center gap-2 text-white/90 hover:text-white text-sm sm:text-base font-semibold transition-colors duration-200"
+            className="group inline-flex items-center gap-2.5 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-300/40 text-white/90 hover:text-white text-sm sm:text-base font-semibold transition-all duration-200 min-h-[44px]"
           >
             Learn more about us
-            <span className="inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
+            <span className="inline-block text-amber-300 group-hover:translate-x-1 transition-transform duration-200">→</span>
           </Link>
         </div>
       </div>
@@ -219,33 +219,27 @@ function Testimonials() {
 
   const reviews = [
     {
-      name: 'Priya Sharma',
-      company: 'Startup Founder',
+      name: 'Sritama Bhattacharya',
       text: 'Quick GST registration and excellent guidance. Made the entire process hassle-free.',
     },
     {
-      name: 'Rajesh Kumar',
-      company: 'Business Owner',
+      name: 'Afzal Hussain',
       text: 'Professional trademark service with complete support. Highly recommended for legal work.',
     },
     {
-      name: 'Anjali Desai',
-      company: 'Export Business',
+      name: 'Shariq Nawaz',
       text: 'Helped with import-export documentation smoothly. Great team and fast service.',
     },
     {
-      name: 'Arjun Patel',
-      company: 'Tech Company',
+      name: 'Pooja Trivedi',
       text: 'Efficient visa processing and clear communication throughout. Very satisfied.',
     },
     {
-      name: 'Neha Gupta',
-      company: 'Retail Business',
+      name: 'Ahmed Chowdhury',
       text: 'Resolved complex KMC issues quickly. Their expertise saved us time and money.',
     },
     {
       name: 'Vikram Singh',
-      company: 'Restaurant Owner',
       text: 'Complete support for licenses and permits. Trustworthy and professional consultants.',
     },
   ];
@@ -277,41 +271,30 @@ function Testimonials() {
     }
   }, [isPaused, reviews.length, slidesPerView]);
 
-  const maxSlide = Math.ceil(reviews.length / slidesPerView) - 1;
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev <= 0 ? maxSlide : prev - 1));
-  };
-
-
   return (
     <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-[#3d6b56]">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Professional Header - Compact */}
-        <div className="text-center mb-8 sm:mb-10">
+        <div className="text-center mb-7 sm:mb-9 md:mb-10">
           <div className="inline-block">
             <p className="text-xs sm:text-sm tracking-[0.2em] text-amber-300 font-bold mb-3 uppercase relative">
               <span className="relative z-10 bg-[#3d6b56] px-4">Client Testimonials</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
             </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
             What Our Clients Say
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-3 sm:mb-4 rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto rounded-full"></div>
         </div>
 
         {/* Testimonial Slider - Mobile First */}
         <div 
-          className="relative px-8 sm:px-12"
+          className="relative"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
+          <div className="overflow-hidden rounded-xl sm:rounded-2xl">
             <div 
               className="flex transition-transform duration-700 ease-in-out"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -319,24 +302,23 @@ function Testimonials() {
               {reviews.map((review, index) => (
                 <div 
                   key={index} 
-                  className="w-full lg:w-1/2 flex-shrink-0 p-2 sm:p-3"
+                  className="w-full lg:w-1/2 flex-shrink-0 px-1.5 sm:px-2"
                 >
-                  <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col group">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-white/20 shadow-lg h-full flex flex-col">
 
                     
                     {/* Quote Text - Clean on white */}
-                    <p className="text-gray-700 text-sm sm:text-base font-normal text-left mb-4 sm:mb-5 leading-relaxed flex-grow pl-1 italic">
+                    <p className="text-white/90 text-sm sm:text-base font-normal text-left mb-4 sm:mb-5 leading-relaxed flex-grow italic">
                       "{review.text}"
                     </p>
                     
                     {/* Author Info - Clean */}
-                      <div className="flex items-center gap-3 pt-4 border-t border-gray-100 pl-1">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#3d6b56] flex items-center justify-center flex-shrink-0 shadow-md">
-                        <HiUser className="text-white text-base sm:text-lg" />
+                    <div className="flex items-center gap-3 pt-3.5 border-t border-white/15">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <HiUser className="text-[#3d6b56] text-base sm:text-lg" />
                       </div>
                       <div className="text-left">
-                        <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight">{review.name}</p>
-                        <p className="text-xs sm:text-sm text-gray-500">{review.company}</p>
+                        <p className="text-sm sm:text-base font-bold text-white leading-tight">{review.name}</p>
                       </div>
                     </div>
                   </div>
@@ -344,37 +326,20 @@ function Testimonials() {
               ))}
             </div>
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-30 border border-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label="Previous testimonial"
-          >
-            <HiChevronLeft className="text-lg sm:text-xl" />
-          </button>
-          
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-30 border border-gray-200 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label="Next testimonial"
-          >
-            <HiChevronRight className="text-lg sm:text-xl" />
-          </button>
         </div>
 
         {/* CTA Section */}
-        <div className="mt-10 sm:mt-12 bg-white text-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 text-center shadow-xl relative overflow-hidden">
-          <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight text-gray-900">
+        <div className="mt-8 sm:mt-10 md:mt-12 bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 text-center shadow-lg border border-white/20">
+          <div>
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2.5 sm:mb-3 leading-tight text-white">
               Join 500+ Satisfied Clients
             </h3>
-            <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-white/80 text-sm sm:text-base md:text-lg mb-4 sm:mb-5 max-w-2xl mx-auto leading-relaxed">
               Experience the Khan Consultants difference and transform your business today.
             </p>
             <Link 
               to="/contact" 
-              className="inline-flex items-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white text-sm sm:text-base font-bold hover:shadow-xl transition-all duration-300 shadow-lg min-h-[48px]"
+              className="inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 bg-amber-400 hover:bg-amber-300 text-[#1f3a30] text-sm sm:text-base font-semibold transition-colors duration-200 min-h-[44px]"
             >
               <span>Start Your Success Story</span>
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

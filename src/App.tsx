@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -6,6 +6,7 @@ import Contact from './pages/Contact'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ScrollToTop from './components/ScrollToTop'
+import SeoManager from './components/SeoManager'
 
 // Import all service pages
 import LegalServices from './pages/services/LegalServices'
@@ -22,6 +23,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <SeoManager />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -34,9 +36,11 @@ function App() {
           <Route path="/services/certificates" element={<Certificates />} />
           <Route path="/services/licenses" element={<Licenses />} />
           <Route path="/services/property" element={<Property />} />
+          <Route path="/services" element={<Navigate to="/services/kolkata-corporation" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </Router>
