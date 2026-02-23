@@ -46,6 +46,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://khanconsultants.in/services/import-export</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://khanconsultants.in/services/visas-immigration</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://khanconsultants.in/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

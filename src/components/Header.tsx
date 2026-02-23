@@ -6,7 +6,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(true);
 
   const services = [
     { 
@@ -168,7 +168,15 @@ export default function Navbar() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                setIsMobileMenuOpen((prev) => {
+                  const next = !prev;
+                  if (next) {
+                    setIsMobileServicesOpen(true);
+                  }
+                  return next;
+                });
+              }}
               className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 flex flex-col justify-center items-center gap-1 sm:gap-1.5 rounded-lg hover:bg-gray-100 transition"
               aria-label="Toggle menu"
             >

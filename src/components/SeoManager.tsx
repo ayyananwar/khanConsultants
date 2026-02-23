@@ -63,13 +63,11 @@ const routeMeta: Record<string, MetaConfig> = {
     title: 'Import Export Services in Kolkata | IEC & Compliance Assistance',
     description:
       'Import-export consulting, documentation guidance, and compliance support for businesses handling cross-border trade from Kolkata.',
-    robots: 'noindex, nofollow',
   },
   '/services/visas-immigration': {
     title: 'Visa & Immigration Services in Kolkata | End-to-End Guidance',
     description:
       'Consulting support for visa and immigration cases with proper documentation, process guidance, and transparent coordination.',
-    robots: 'noindex, nofollow',
   },
   '/privacy-policy': {
     title: 'Privacy Policy | Khan Consultants',
@@ -78,6 +76,11 @@ const routeMeta: Record<string, MetaConfig> = {
   '/terms-of-service': {
     title: 'Terms of Service | Khan Consultants',
     description: 'Review the Terms of Service governing the use of Khan Consultants website and service interactions.',
+  },
+  '/404': {
+    title: 'Page Not Found | Khan Consultants',
+    description: 'The requested page could not be found.',
+    robots: 'noindex, nofollow',
   },
 }
 
@@ -150,8 +153,9 @@ export default function SeoManager() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const meta = routeMeta[pathname] ?? routeMeta['/']
-    const canonicalUrl = `${siteUrl}${pathname}`
+    const isKnownRoute = Boolean(routeMeta[pathname])
+    const meta = routeMeta[pathname] ?? routeMeta['/404']
+    const canonicalUrl = isKnownRoute ? `${siteUrl}${pathname}` : `${siteUrl}/404`
 
     document.title = meta.title
     document.documentElement.lang = 'en'
@@ -210,11 +214,11 @@ export default function SeoManager() {
     }
 
     const schemas: unknown[] = [organizationSchema, webpageSchema]
-    if (pathname !== '/') {
+    if (isKnownRoute && pathname !== '/' && pathname !== '/404') {
       schemas.push(getBreadcrumb(pathname))
     }
 
-    if (pathname.startsWith('/services/')) {
+    if (isKnownRoute && pathname.startsWith('/services/')) {
       schemas.push({
         '@context': 'https://schema.org',
         '@type': 'Service',

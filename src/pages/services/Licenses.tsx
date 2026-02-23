@@ -179,14 +179,14 @@ const Licenses = () => {
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Our Comprehensive Licencing Services</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Our Comprehensive Licensing Services</h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
             <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-white/80">
               We assist with a wide range of trade and commercial licences issued or linked to the Kolkata Municipal Corporation.
             </p>
           </div>
 
-          <div className="space-y-6 sm:space-y-8 md:space-y-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {service.licenseServices.map((license, index) => {
               const serviceIcons = [IoMdDocument, FaCheckCircle, FaBalanceScale];
               const serviceIconColors = [
@@ -199,24 +199,25 @@ const Licenses = () => {
               const iconColor = serviceIconColors[index % serviceIconColors.length];
 
               return (
-              <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-white border border-gray-200 hover:shadow-lg transition">
-                <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6">
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0 ${iconColor.bg}`}>
-                    <ServiceIcon className={`text-2xl sm:text-3xl ${iconColor.text}`} />
+              <div key={index} className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-white border border-gray-200 hover:shadow-lg transition">
+                <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+                  <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${iconColor.bg}`}>
+                    <ServiceIcon className={`text-xl sm:text-2xl ${iconColor.text}`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3" style={{ color: '#111827' }}>{license.title}</h3>
-                    <p className="text-xs sm:text-sm md:text-base mb-3 sm:mb-4" style={{ color: '#4b5563' }}>{license.description}</p>
+                    <p className="text-[10px] sm:text-xs font-bold tracking-wider text-[#3d6b56] uppercase mb-1">Service 0{index + 1}</p>
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1.5" style={{ color: '#111827' }}>{license.title}</h3>
+                    <p className="text-xs sm:text-sm" style={{ color: '#4b5563' }}>{license.description}</p>
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6">
-                  <p className="text-sm sm:text-base font-semibold mb-3 sm:mb-4" style={{ color: '#111827' }}>We assist with:</p>
-                  <ul className="space-y-2 sm:space-y-3">
+                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg sm:rounded-xl p-3.5 sm:p-4 md:p-5">
+                  <p className="text-sm sm:text-base font-semibold mb-2.5 sm:mb-3" style={{ color: '#111827' }}>We assist with:</p>
+                  <ul className="space-y-2 sm:space-y-2.5">
                     {license.services.map((service, idx) => (
-                      <li key={idx} className="flex items-start gap-2 sm:gap-3">
-                        <FaCheckCircle className={`text-lg sm:text-xl ${checklistColors[index % checklistColors.length]} flex-shrink-0 mt-0.5`} />
-                        <span className="text-xs sm:text-sm md:text-base" style={{ color: '#374151' }}>{service}</span>
+                      <li key={idx} className="flex items-start gap-2.5">
+                        <FaCheckCircle className={`text-base sm:text-lg ${checklistColors[index % checklistColors.length]} flex-shrink-0 mt-0.5`} />
+                        <span className="text-xs sm:text-sm md:text-[15px]" style={{ color: '#374151' }}>{service}</span>
                       </li>
                     ))}
                   </ul>
@@ -226,7 +227,7 @@ const Licenses = () => {
           </div>
 
           <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6" style={{ color: '#4b5563' }}>
+            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 text-white/85" >
               We provide complete guidance & coordination with allied departments where applicable to guide you through licensing procedures across various business avenues.
             </p>
             <Link to="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gray-900 hover:bg-gray-800">

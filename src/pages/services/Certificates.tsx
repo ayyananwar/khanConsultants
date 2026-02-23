@@ -4,9 +4,11 @@ import { designTokens } from '../../tokens';
 import { FaShieldAlt, FaCheckCircle, FaFileAlt, FaUserTie, FaCalendarCheck, FaQuoteLeft, FaRupeeSign, FaStar } from 'react-icons/fa';
 import { RiWhatsappFill } from 'react-icons/ri';
 import { MdOutlineChildCare, MdEditNote, MdBadge, MdGavel, MdCloudUpload, MdWarningAmber, MdFindInPage, MdSyncProblem, MdCancel, MdSearch, MdDescription, MdUploadFile, MdTaskAlt } from 'react-icons/md';
+import BirthCertificateBookingModal from '../../components/BirthCertificateBookingModal';
 
 const Certificates = () => {
   const [activeReview, setActiveReview] = useState(0);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   const service = {
     title: 'Birth Certificate & Civil Documents in Kolkata',
@@ -147,9 +149,9 @@ const Certificates = () => {
             <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 max-w-3xl mx-auto leading-relaxed text-white/90 px-1">{service.heroDescription}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
-            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
+            <button type="button" onClick={() => setBookingOpen(true)} className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
               <FaCalendarCheck className="text-base sm:text-lg" /> Book a Slot 199.00 Only
-            </Link>
+            </button>
             <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
               <RiWhatsappFill className="text-xl" /> Chat on WhatsApp
             </a>
@@ -277,9 +279,9 @@ const Certificates = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white bg-[#3d6b56] hover:bg-[#2c4d3f] transition-all">
+              <button type="button" onClick={() => setBookingOpen(true)} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white bg-[#3d6b56] hover:bg-[#2c4d3f] transition-all">
                 <FaCalendarCheck className="text-base" /> Book a Slot 199.00 Only
-              </Link>
+              </button>
               <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 transition-all">
                 <RiWhatsappFill className="text-lg text-[#25D366]" /> Chat on WhatsApp
               </a>
@@ -487,6 +489,8 @@ const Certificates = () => {
           </div>
         </div>
       </section>
+
+      <BirthCertificateBookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
 
     </div>
   );

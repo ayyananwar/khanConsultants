@@ -181,11 +181,31 @@ const Contact = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6 md:mb-8">
+            <a href="tel:+916291139691" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
+              <MdPhone className="mx-auto text-lg sm:text-xl text-emerald-700" />
+              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">Call</p>
+            </a>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
+              <BsWhatsapp className="mx-auto text-lg sm:text-xl text-emerald-700" />
+              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">WhatsApp</p>
+            </a>
+            <a href="mailto:hello@khanconsultants.in" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
+              <MdEmail className="mx-auto text-lg sm:text-xl text-emerald-700" />
+              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">Email</p>
+            </a>
+          </div>
+
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
             {/* Contact Form */}
-            <div className="order-2 lg:order-1 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-emerald-200 shadow-xl">
-              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6">Send Us a Message</h3>
+            <div className="order-1 lg:order-1 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-emerald-200 shadow-xl">
+              <div className="flex items-center gap-2 mb-4 sm:mb-5 md:mb-6">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+                  <MdEmail className="text-base sm:text-lg" />
+                </div>
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900">Send Us a Message</h3>
+              </div>
 
               {/* Success Message */}
               {successMessage && (
@@ -304,7 +324,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Information Cards */}
-            <div className="order-1 lg:order-2 space-y-3 sm:space-y-4 md:space-y-5">
+            <div className="order-2 lg:order-2 space-y-3 sm:space-y-4 md:space-y-5">
               {/* Business Hours Highlight */}
               <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-emerald-200 shadow-lg hover:shadow-xl transition-all">
                 <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3">

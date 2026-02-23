@@ -1,6 +1,36 @@
 [build]
   publish = "dist"
   command = "npm run build"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "http://khanconsultants.in/*"
+  to = "https://khanconsultants.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.khanconsultants.in/*"
+  to = "https://khanconsultants.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.khanconsultants.in/*"
+  to = "https://khanconsultants.in/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/_preview/*"
+  to = "/"
+  status = 410
+  force = true
 
 [[redirects]]
   from = "/sitemap.xml"
@@ -10,6 +40,11 @@
 [[redirects]]
   from = "/robots.txt"
   to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/api/booking"
+  to = "/.netlify/functions/booking-proxy"
   status = 200
 
 [[redirects]]
