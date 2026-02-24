@@ -82,7 +82,7 @@ export default function Navbar() {
                   onMouseEnter={() => setIsServicesOpen(true)}
                   onMouseLeave={() => setIsServicesOpen(false)}
                 >
-                  <div className="w-64 bg-white rounded-xl shadow-lg border py-2" style={{ borderColor: '#f3f4f6' }}>
+                  <div className="w-64 bg-white rounded-xl shadow-lg border py-2" style={{ borderColor: 'var(--color-f3f4f6)' }}>
                     {services.map((service, index) => (
                       <div key={index}>
                         {service.subItems ? (
@@ -95,7 +95,7 @@ export default function Navbar() {
                                 color: 'black',
                               }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#111827';
+                                e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                                 e.currentTarget.style.color = 'white';
                               }}
                               onMouseLeave={(e) => {
@@ -115,8 +115,8 @@ export default function Navbar() {
                                   color: 'black',
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
-                                  e.currentTarget.style.color = '#111827';
+                                  e.currentTarget.style.backgroundColor = 'var(--color-f3f4f6)';
+                                  e.currentTarget.style.color = 'var(--color-111827)';
                                 }}
                                 onMouseLeave={(e) => {
                                   e.currentTarget.style.backgroundColor = 'transparent';
@@ -136,7 +136,7 @@ export default function Navbar() {
                               color: 'black',
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#111827';
+                              e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                               e.currentTarget.style.color = 'white';
                             }}
                             onMouseLeave={(e) => {
@@ -161,7 +161,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
             <Link
               to="/contact"
-              className="hidden sm:inline-flex items-center justify-center rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] text-white text-xs sm:text-sm font-medium transition bg-[#3d6b56] hover:bg-[#2c4d3f]"
+              className="hidden sm:inline-flex items-center justify-center rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] text-white text-xs sm:text-sm font-medium transition btn-primary-sage"
             >
               Get Consultation
             </Link>
@@ -230,7 +230,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#111827';
+                e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
@@ -248,7 +248,7 @@ export default function Navbar() {
                 className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] transition"
                 style={{ color: 'black' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#111827';
+                  e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                   e.currentTarget.style.color = 'white';
                 }}
                 onMouseLeave={(e) => {
@@ -280,7 +280,7 @@ export default function Navbar() {
                             className="block px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold min-h-[44px] flex items-center transition"
                             style={{ color: 'black' }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#111827';
+                              e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                               e.currentTarget.style.color = 'white';
                             }}
                             onMouseLeave={(e) => {
@@ -299,8 +299,8 @@ export default function Navbar() {
                                 className="block px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm min-h-[40px] flex items-center transition"
                                 style={{ color: 'black' }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
-                                  e.currentTarget.style.color = '#111827';
+                                  e.currentTarget.style.backgroundColor = 'var(--color-f3f4f6)';
+                                  e.currentTarget.style.color = 'var(--color-111827)';
                                 }}
                                 onMouseLeave={(e) => {
                                   e.currentTarget.style.backgroundColor = 'transparent';
@@ -319,7 +319,7 @@ export default function Navbar() {
                           className="block px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm min-h-[44px] flex items-center transition"
                           style={{ color: 'black' }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = '#111827';
+                            e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                             e.currentTarget.style.color = 'white';
                           }}
                           onMouseLeave={(e) => {
@@ -342,7 +342,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#111827';
+                e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
@@ -358,7 +358,7 @@ export default function Navbar() {
               className="block px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center transition"
               style={{ color: 'black' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#111827';
+                e.currentTarget.style.backgroundColor = 'var(--color-111827)';
                 e.currentTarget.style.color = 'white';
               }}
               onMouseLeave={(e) => {
@@ -374,7 +374,7 @@ export default function Navbar() {
           <Link
             to="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block w-full mt-5 sm:mt-6 rounded-full px-4 sm:px-5 py-3 sm:py-3.5 text-white text-center font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center justify-center transition bg-[#3d6b56] hover:bg-[#2c4d3f]"
+            className="block w-full mt-5 sm:mt-6 rounded-full px-4 sm:px-5 py-3 sm:py-3.5 text-white text-center font-medium text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center justify-center transition btn-primary-sage"
           >
             Get Consultation
           </Link>

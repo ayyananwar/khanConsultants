@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
           <div className="space-y-8">
             {/* Introduction */}
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: '#111827' }}>Introduction</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: 'var(--color-111827)' }}>Introduction</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 Khan Consultants ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
               </p>

@@ -122,7 +122,7 @@ const KolkataCorporation = () => {
             <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 text-white/80">{service.heroSubtitle}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
-            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
+            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] btn-primary-sage shadow-lg">
               Get in Touch
             </Link>
             <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
@@ -135,12 +135,12 @@ const KolkataCorporation = () => {
       {/* Intro Section */}
       <section className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 md:px-8" style={{ backgroundColor: designTokens.colors.neutral.white }}>
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-7 md:mb-8 leading-snug" style={{ color: '#111827' }}>Your Bridge to the Kolkata Municipal Corporation</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-7 md:mb-8 leading-snug" style={{ color: 'var(--color-111827)' }}>Your Bridge to the Kolkata Municipal Corporation</h2>
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: '#4b5563' }}>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
               Dealing with KMC often involves complicated processes, endless queues, and complex documentation. Whether you are a citizen securing a birth certificate, a business owner needing a trade license, or a property owner resolving tax disputes, mistakes are costly.
             </p>
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: '#4b5563' }}>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
               At Khan Consultants, we combine administrative expertise with strong legal backing to ensure your files are processed correctly, legally, and efficiently.
             </p>
           </div>
@@ -148,13 +148,13 @@ const KolkataCorporation = () => {
       </section>
 
       {/* Core Services Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-24 px-4 sm:px-6 md:px-8 bg-[#3d6b56]">
+      <section className="py-10 sm:py-14 md:py-18 lg:py-24 px-4 sm:px-6 md:px-8 bg-[var(--color-3d6b56)]">
         <div className="max-w-7xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
             <div className="inline-block">
               <p className="text-[11px] sm:text-xs md:text-sm tracking-[0.3em] text-amber-300 font-bold mb-3 sm:mb-4 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">SERVICES UNDER KMC</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">SERVICES UNDER KMC</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -218,16 +218,16 @@ const KolkataCorporation = () => {
             {service.legalAdvantage.map((item, index) => (
               <div 
                 key={index} 
-                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 hover:border-[#517358] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 hover:border-[var(--color-517358)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Decorative Corner */}
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-10 group-hover:opacity-20 transition-all">
-                  <div className="absolute top-0 right-0 w-full h-full bg-[#2c4d3f] transform rotate-45 translate-x-8 -translate-y-8"></div>
+                  <div className="absolute top-0 right-0 w-full h-full bg-[var(--color-2c4d3f)] transform rotate-45 translate-x-8 -translate-y-8"></div>
                 </div>
                 
                 {/* Icon Badge */}
                 <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[#517358] to-[#2c4d3f] flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[var(--color-517358)] to-[var(--color-2c4d3f)] flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
                     <FaCheckCircle />
                   </div>
                   <div className="flex-1">
@@ -236,7 +236,7 @@ const KolkataCorporation = () => {
                 </div>
 
                 {/* Bottom Accent Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#517358] to-[#2c4d3f] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-517358)] to-[var(--color-2c4d3f)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
               </div>
             ))}
           </div>
@@ -248,13 +248,13 @@ const KolkataCorporation = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">OUR PROCESS</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -279,13 +279,13 @@ const KolkataCorporation = () => {
                   <div key={item.step} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
                     <div className="md:hidden flex gap-3 sm:gap-4 items-start">
                       <div className="relative z-10 flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[#3d6b56]`}>
+                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[var(--color-3d6b56)]`}>
                           <IconComponent className="text-white text-base" />
                         </div>
                       </div>
                       <div className="flex-1 bg-white/95 rounded-xl p-3.5 sm:p-4 border border-white/30 hover:shadow-md transition-all">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
+                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
                         </div>
                         <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
                         <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
@@ -296,7 +296,7 @@ const KolkataCorporation = () => {
                       <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
                         <div className={`bg-white/95 rounded-2xl p-5 lg:p-6 border border-white/30 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
                           <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
-                            <span className="text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
+                            <span className="text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
                           </div>
                           <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
                           <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
@@ -304,7 +304,7 @@ const KolkataCorporation = () => {
                       </div>
 
                       <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
-                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[#3d6b56]`}>
+                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[var(--color-3d6b56)]`}>
                           <IconComponent className="text-white text-xl lg:text-2xl" />
                         </div>
                       </div>
@@ -339,7 +339,7 @@ const KolkataCorporation = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
-              const iconColors = ['#2563eb', '#7c3aed', '#d97706', '#0891b2'];
+              const iconColors = ['var(--color-2563eb)', 'var(--color-7c3aed)', 'var(--color-d97706)', 'var(--color-0891b2)'];
               return (
                 <div
                   key={index}
@@ -369,7 +369,7 @@ const KolkataCorporation = () => {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Link 
               to="/contact" 
-              className="px-8 sm:px-10 py-4 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white inline-flex items-center justify-center gap-3"
+              className="px-8 sm:px-10 py-4 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 btn-primary-sage text-white inline-flex items-center justify-center gap-3"
             >
               Get in Touch
             </Link>
@@ -377,7 +377,7 @@ const KolkataCorporation = () => {
               href="tel:+916291139691" 
               className="px-8 sm:px-10 py-4 border-2 border-gray-300 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1 text-gray-900 inline-flex items-center justify-center gap-3"
             >
-              <MdPhone className="text-2xl text-[#3d6b56]" /> Call +91-6291-139-691
+              <MdPhone className="text-2xl text-[var(--color-3d6b56)]" /> Call +91-6291-139-691
             </a>
           </div>
         </div>

@@ -8,6 +8,83 @@
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --color-059669: #059669;
+  --color-15803d: #15803d;
+  --color-16a34a: #16a34a;
+  --color-0891b2: #0891b2;
+  --color-1a1a2e: #1a1a2e;
+  --color-1a2820: #1a2820;
+  --color-1a2d23: #1a2d23;
+  --color-0a66c2: #0a66c2;
+  --color-0f172a: #0f172a;
+  --color-1d4ed8: #1d4ed8;
+  --color-0f6ae6: #0f6ae6;
+  --color-111827: #111827;
+  --color-1877f2: #1877f2;
+  --color-1e40af: #1e40af;
+  --color-000000: #000000;
+  --color-0284c7: #0284c7;
+  --color-030712: #030712;
+  --color-1ebe5d: #1ebe5d;
+  --color-1f2937: #1f2937;
+  --color-1f3a30: #1f3a30;
+  --color-1f4d3b: #1f4d3b;
+  --color-2d4432: #2d4432;
+  --color-3b82f6: #3b82f6;
+  --color-3d5943: #3d5943;
+  --color-213547: #213547;
+  --color-2563eb: #2563eb;
+  --color-456d4d: #456d4d;
+  --color-4a6b50: #4a6b50;
+  --color-25d366: #25d366;
+  --color-2c4d3f: #2c4d3f;
+  --color-53785b: #53785b;
+  --color-374151: #374151;
+  --color-3d6b56: #3d6b56;
+  --color-4b5563: #4b5563;
+  --color-517358: #517358;
+  --color-6366f1: #6366f1;
+  --color-83a88a: #83a88a;
+  --color-86ac8d: #86ac8d;
+  --color-6b7280: #6b7280;
+  --color-9dbba4: #9dbba4;
+  --color-747bff: #747bff;
+  --color-0d9488: #0d9488;
+  --color-7c3aed: #7c3aed;
+  --color-c026d3: #c026d3;
+  --color-c2410c: #c2410c;
+  --color-b3e5c2: #b3e5c2;
+  --color-b7cdbd: #b7cdbd;
+  --color-8134af: #8134af;
+  --color-d1d5db: #d1d5db;
+  --color-d1e0d6: #d1e0d6;
+  --color-d1fae5: #d1fae5;
+  --color-9ca3af: #9ca3af;
+  --color-cfe7d6: #cfe7d6;
+  --color-d6fadc: #d6fadc;
+  --color-d93025: #d93025;
+  --color-e11d48: #e11d48;
+  --color-e5e7eb: #e5e7eb;
+  --color-d97706: #d97706;
+  --color-dc2626: #dc2626;
+  --color-dd2a7b: #dd2a7b;
+  --color-ef4444: #ef4444;
+  --color-f43f5e: #f43f5e;
+  --color-e8f0eb: #e8f0eb;
+  --color-f5f7fb: #f5f7fb;
+  --color-ea4335: #ea4335;
+  --color-ea580c: #ea580c;
+  --color-f9fafb: #f9fafb;
+  --color-f3f4f6: #f3f4f6;
+  --color-f58529: #f58529;
+  --color-f59e0b: #f59e0b;
+  --color-fbbf24: #fbbf24;
+  --color-10b981: #10b981;
+  --color-f8fdf9: #f8fdf9;
+  --color-f9f9f9: #f9f9f9;
+  --color-facc15: #facc15;
+  --color-fff: #fff;
+  --color-ffffff: #ffffff;
 }
 
 body {
@@ -20,35 +97,35 @@ a {
 }
 
 section.bg-white :is(h1, h2, h3, h4, h5, h6),
-section[style*="background-color: #fff"] :is(h1, h2, h3, h4, h5, h6),
-section[style*="background-color: #ffffff"] :is(h1, h2, h3, h4, h5, h6),
+section[style*="background-color: var(--color-fff)"] :is(h1, h2, h3, h4, h5, h6),
+section[style*="background-color: var(--color-ffffff)"] :is(h1, h2, h3, h4, h5, h6),
 section[style*="background-color: rgb(255, 255, 255)"] :is(h1, h2, h3, h4, h5, h6) {
-  color: #111827;
+  color: var(--color-111827);
   letter-spacing: -0.01em;
 }
 
 section.bg-white :is(p, li),
-section[style*="background-color: #fff"] :is(p, li),
-section[style*="background-color: #ffffff"] :is(p, li),
+section[style*="background-color: var(--color-fff)"] :is(p, li),
+section[style*="background-color: var(--color-ffffff)"] :is(p, li),
 section[style*="background-color: rgb(255, 255, 255)"] :is(p, li) {
-  color: #1f2937;
+  color: var(--color-1f2937);
 }
 
-section.bg-\[\#517358\] :is(h1, h2, h3, h4, h5, h6) {
-  color: #ffffff;
+section[class*="bg-[var(--color-517358)]"] :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-ffffff);
   letter-spacing: -0.01em;
 }
 
-section.bg-\[\#517358\] :is(p, li) {
+section[class*="bg-[var(--color-517358)]"] :is(p, li) {
   color: rgba(255, 255, 255, 0.9);
 }
 
-section.bg-\[\#517358\] .bg-white :is(h1, h2, h3, h4, h5, h6) {
-  color: #111827;
+section[class*="bg-[var(--color-517358)]"] .bg-white :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-111827);
 }
 
-section.bg-\[\#517358\] .bg-white :is(p, li) {
-  color: #1f2937;
+section[class*="bg-[var(--color-517358)]"] .bg-white :is(p, li) {
+  color: var(--color-1f2937);
 }
 
 section :is(h1, h2) {
@@ -140,14 +217,14 @@ section :is(h3, h4) {
   box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
 }
 
-.service-page section.bg-\[\#517358\] div[class*="rounded-xl"][class*="border"],
-.service-page section.bg-\[\#517358\] div[class*="rounded-2xl"][class*="border"] {
+.service-page section[class*="bg-[var(--color-517358)]"] div[class*="rounded-xl"][class*="border"],
+.service-page section[class*="bg-[var(--color-517358)]"] div[class*="rounded-2xl"][class*="border"] {
   border-color: rgba(255, 255, 255, 0.2) !important;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
 }
 
-.service-page section.bg-\[\#517358\] div[class*="rounded-xl"][class*="border"]:hover,
-.service-page section.bg-\[\#517358\] div[class*="rounded-2xl"][class*="border"]:hover {
+.service-page section[class*="bg-[var(--color-517358)]"] div[class*="rounded-xl"][class*="border"]:hover,
+.service-page section[class*="bg-[var(--color-517358)]"] div[class*="rounded-2xl"][class*="border"]:hover {
   border-color: rgba(255, 255, 255, 0.34) !important;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
 }
@@ -166,8 +243,8 @@ section :is(h3, h4) {
   filter: saturate(1.05);
 }
 
-.service-page section.bg-\[\#517358\] a[class*="rounded"]:hover,
-.service-page section.bg-\[\#517358\] button[class*="rounded"]:hover {
+.service-page section[class*="bg-[var(--color-517358)]"] a[class*="rounded"]:hover,
+.service-page section[class*="bg-[var(--color-517358)]"] button[class*="rounded"]:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.26);
 }
 
@@ -223,14 +300,24 @@ section :is(h3, h4) {
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
 }
 
-#root section.bg-\[\#517358\] .shadow,
-#root section.bg-\[\#517358\] .shadow-lg,
-#root section.bg-\[\#517358\] .shadow-xl,
-#root section.bg-\[\#517358\] .shadow-2xl {
+.btn-primary-sage,
+.btn-book-slot {
+  background-color: var(--color-3d6b56);
+}
+
+.btn-primary-sage:hover,
+.btn-book-slot:hover {
+  background-color: var(--color-2c4d3f);
+}
+
+#root section[class*="bg-[var(--color-517358)]"] .shadow,
+#root section[class*="bg-[var(--color-517358)]"] .shadow-lg,
+#root section[class*="bg-[var(--color-517358)]"] .shadow-xl,
+#root section[class*="bg-[var(--color-517358)]"] .shadow-2xl {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-#root section.bg-\[\#517358\] [class*="hover:shadow"]:hover {
+#root section[class*="bg-[var(--color-517358)]"] [class*="hover:shadow"]:hover {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.26) !important;
 }
 
@@ -246,13 +333,13 @@ section :is(h3, h4) {
 #root form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):focus,
 #root form textarea:focus,
 #root form select:focus {
-  border-color: #111827;
+  border-color: var(--color-111827);
   box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.14), var(--ui-shadow-sm);
 }
 
 #root form input::placeholder,
 #root form textarea::placeholder {
-  color: #6b7280;
+  color: var(--color-6b7280);
 }
 
 button:focus,
@@ -262,13 +349,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-213547);
+    background-color: var(--color-ffffff);
   }
   a:hover {
-    color: #747bff;
+    color: var(--color-747bff);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--color-f9f9f9);
   }
 }

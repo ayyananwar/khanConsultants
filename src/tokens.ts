@@ -6,57 +6,57 @@ export const designTokens = {
   colors: {
     // Sage - Primary Color System
     sage: {
-      50: '#d6fadc',      // Sage Light - Section backgrounds
-      100: '#e8f0eb',     // Sage Extra Light - Gradient endpoints
-      300: '#b3e5c2',     // Sage Light variant
-      500: '#6b9373',     // Sage Medium
-      600: '#517358',     // Sage Primary - Main brand color
-      700: '#4a6b50',     // Sage Dark variant
-      900: '#2c4d3f',     // Sage Dark - Headings & dark text
-      950: '#1a2d23',     // Sage Darkest
+      50: 'var(--color-d6fadc)',      // Sage Light - Section backgrounds
+      100: 'var(--color-e8f0eb)',     // Sage Extra Light - Gradient endpoints
+      300: 'var(--color-b3e5c2)',     // Sage Light variant
+      500: 'var(--color-6b9373)',     // Sage Medium
+      600: 'var(--color-517358)',     // Sage Primary - Main brand color
+      700: 'var(--color-4a6b50)',     // Sage Dark variant
+      900: 'var(--color-2c4d3f)',     // Sage Dark - Headings & dark text
+      950: 'var(--color-1a2d23)',     // Sage Darkest
     },
 
     // Accent Greens (lighter sage variants)
     sageAccent: {
-      light: '#86ac8d',   // Sage Medium Light - Icon backgrounds, accents
-      medium: '#6b9373',  // Sage Medium - Secondary gradients
+      light: 'var(--color-86ac8d)',   // Sage Medium Light - Icon backgrounds, accents
+      medium: 'var(--color-6b9373)',  // Sage Medium - Secondary gradients
     },
 
     // Brand Accent Colors
     brand: {
-      blue: '#2563eb',    // Call/Phone/Facebook
-      blueHover: '#1d4ed8',
-      green: '#16a34a',   // WhatsApp
-      greenHover: '#15803d',
-      orange: '#ea580c',  // Email/Location
-      orangeHover: '#c2410c',
-      yellow: '#fbbf24',  // Location alternate
-      red: '#ef4444',     // Error
-      emerald: '#10b981', // Success
-      rose: '#f43f5e',    // Error indicator
+      blue: 'var(--color-2563eb)',    // Call/Phone/Facebook
+      blueHover: 'var(--color-1d4ed8)',
+      green: 'var(--color-16a34a)',   // WhatsApp
+      greenHover: 'var(--color-15803d)',
+      orange: 'var(--color-ea580c)',  // Email/Location
+      orangeHover: 'var(--color-c2410c)',
+      yellow: 'var(--color-fbbf24)',  // Location alternate
+      red: 'var(--color-ef4444)',     // Error
+      emerald: 'var(--color-10b981)', // Success
+      rose: 'var(--color-f43f5e)',    // Error indicator
     },
 
     // Neutrals
     neutral: {
-      white: '#ffffff',
-      50: '#f9fafb',
-      100: '#f3f4f6',
-      200: '#e5e7eb',
-      300: '#d1d5db',
-      400: '#9ca3af',
-      500: '#6b7280',
-      600: '#4b5563',
-      700: '#374151',
-      800: '#1f2937',
-      900: '#111827',
-      950: '#030712',
+      white: 'var(--color-ffffff)',
+      50: 'var(--color-f9fafb)',
+      100: 'var(--color-f3f4f6)',
+      200: 'var(--color-e5e7eb)',
+      300: 'var(--color-d1d5db)',
+      400: 'var(--color-9ca3af)',
+      500: 'var(--color-6b7280)',
+      600: 'var(--color-4b5563)',
+      700: 'var(--color-374151)',
+      800: 'var(--color-1f2937)',
+      900: 'var(--color-111827)',
+      950: 'var(--color-030712)',
     },
 
     // Semantic
-    success: '#10b981',
-    warning: '#f59e0b',
-    error: '#ef4444',
-    info: '#3b82f6',
+    success: 'var(--color-10b981)',
+    warning: 'var(--color-f59e0b)',
+    error: 'var(--color-ef4444)',
+    info: 'var(--color-3b82f6)',
   },
 
   // Typography
@@ -285,21 +285,21 @@ export const typographyPresets = {
 // Sage Color System - Section Backgrounds
 export const sageBackgrounds = {
   light: {
-    background: '#d6fadc',      // Light sage for section backgrounds
-    heading: '#2c4d3f',         // Dark sage for headings
-    text: '#000000',            // Primary sage for body text
-    border: '#d6fadc',          // Sage light border
+    background: 'var(--color-d6fadc)',      // Light sage for section backgrounds
+    heading: 'var(--color-2c4d3f)',         // Dark sage for headings
+    text: 'var(--color-000000)',            // Primary sage for body text
+    border: 'var(--color-d6fadc)',          // Sage light border
   },
   dark: {
-    background: '#517358',      // Sage primary for dark sections
-    heading: '#ffffff',         // White text
-    text: '#ffffff',            // White text
+    background: 'var(--color-517358)',      // Sage primary for dark sections
+    heading: 'var(--color-ffffff)',         // White text
+    text: 'var(--color-ffffff)',            // White text
     border: 'rgba(255, 255, 255, 0.1)',  // Subtle white border
   },
   gradient: {
-    darkGradient: 'from-[#517358] to-[#2c4d3f]',      // Dark sage gradient
-    lightGradient: 'from-[#d6fadc] to-[#e8f0eb]',     // Light sage gradient
-    accentGradient: 'from-[#6b9373] to-[#86ac8d]',    // Accent sage gradient
+    darkGradient: 'from-[var(--color-517358)] to-[var(--color-2c4d3f)]',      // Dark sage gradient
+    lightGradient: 'from-[var(--color-d6fadc)] to-[var(--color-e8f0eb)]',     // Light sage gradient
+    accentGradient: 'from-[var(--color-6b9373)] to-[var(--color-86ac8d)]',    // Accent sage gradient
   },
 };
 
@@ -319,25 +319,25 @@ export const brandColors = {
 // Consistent icon color palette — use for service icons, feature icons, etc.
 // Each service gets a distinct, vibrant color that works on both white and dark bgs
 export const iconColors = {
-  kolkataCorp: '#2563eb',     // Blue
-  gst:         '#059669',     // Emerald
-  legal:       '#7c3aed',     // Violet
-  property:    '#d97706',     // Amber
-  certificates:'#0891b2',     // Cyan
-  licenses:    '#6366f1',     // Indigo
-  export:      '#dc2626',     // Red
-  immigration: '#ea580c',     // Orange
+  kolkataCorp: 'var(--color-2563eb)',     // Blue
+  gst:         'var(--color-059669)',     // Emerald
+  legal:       'var(--color-7c3aed)',     // Violet
+  property:    'var(--color-d97706)',     // Amber
+  certificates:'var(--color-0891b2)',     // Cyan
+  licenses:    'var(--color-6366f1)',     // Indigo
+  export:      'var(--color-dc2626)',     // Red
+  immigration: 'var(--color-ea580c)',     // Orange
   // Utility icon colors for features / process steps
-  blue:    '#2563eb',
-  emerald: '#059669',
-  violet:  '#7c3aed',
-  amber:   '#d97706',
-  cyan:    '#0891b2',
-  indigo:  '#6366f1',
-  red:     '#dc2626',
-  orange:  '#ea580c',
-  teal:    '#0d9488',
-  rose:    '#e11d48',
-  fuchsia: '#c026d3',
-  sky:     '#0284c7',
+  blue:    'var(--color-2563eb)',
+  emerald: 'var(--color-059669)',
+  violet:  'var(--color-7c3aed)',
+  amber:   'var(--color-d97706)',
+  cyan:    'var(--color-0891b2)',
+  indigo:  'var(--color-6366f1)',
+  red:     'var(--color-dc2626)',
+  orange:  'var(--color-ea580c)',
+  teal:    'var(--color-0d9488)',
+  rose:    'var(--color-e11d48)',
+  fuchsia: 'var(--color-c026d3)',
+  sky:     'var(--color-0284c7)',
 } as const;

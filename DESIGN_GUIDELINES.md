@@ -11,7 +11,7 @@ This file is the only design guideline document for the project.
 
 - Use only two main section backgrounds in page flow:
 	- `bg-white`
-	- brand green (`designTokens.colors.sage[600]`, currently `#517358`)
+	- brand green (`designTokens.colors.sage[600]`, currently `var(--color-517358)`)
 - Alternate sections: white → green → white → green
 - Dark hero/image sections are allowed only for page hero blocks
 

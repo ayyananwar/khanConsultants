@@ -442,40 +442,40 @@ function handleVerifyPaymentAndSave(body) {
           'Regards,\n' +
           'Khan Consultants',
         htmlBody:
-          '<div style="font-family:Arial,sans-serif;background:#f5f7fb;padding:24px;">' +
-            '<div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">' +
-              '<div style="background:#1f4d3b;padding:20px 24px;">' +
-                '<h2 style="margin:0;font-size:20px;line-height:1.3;color:#ffffff;">Khan Consultants</h2>' +
-                '<p style="margin:6px 0 0 0;font-size:13px;color:#d1fae5;">Birth Certificate Appointment Confirmation</p>' +
+          '<div style="font-family:Arial,sans-serif;background:var(--color-f5f7fb);padding:24px;">' +
+            '<div style="max-width:620px;margin:0 auto;background:var(--color-ffffff);border:1px solid var(--color-e5e7eb);border-radius:12px;overflow:hidden;">' +
+              '<div style="background:var(--color-1f4d3b);padding:20px 24px;">' +
+                '<h2 style="margin:0;font-size:20px;line-height:1.3;color:var(--color-ffffff);">Khan Consultants</h2>' +
+                '<p style="margin:6px 0 0 0;font-size:13px;color:var(--color-d1fae5);">Birth Certificate Appointment Confirmation</p>' +
               '</div>' +
-              '<div style="padding:22px 24px;color:#111827;">' +
+              '<div style="padding:22px 24px;color:var(--color-111827);">' +
                 '<p style="margin:0 0 12px 0;font-size:14px;">Dear ' + sanitizeText(formData.applicantName, 120) + ',</p>' +
-                '<p style="margin:0 0 16px 0;font-size:14px;color:#374151;">Your booking has been successfully confirmed. Please find your appointment details below.</p>' +
+                '<p style="margin:0 0 16px 0;font-size:14px;color:var(--color-374151);">Your booking has been successfully confirmed. Please find your appointment details below.</p>' +
                 '<table style="width:100%;border-collapse:collapse;font-size:14px;">' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Booking Reference</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;font-weight:700;color:#111827;">' + bookingReference + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Booking Reference</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;font-weight:700;color:var(--color-111827);">' + bookingReference + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Appointment Date</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(chosenThursday, 32) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Appointment Date</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(chosenThursday, 32) + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Time Window</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(appointmentWindow, 64) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Time Window</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(appointmentWindow, 64) + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Payment ID</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(paymentId, 120) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Payment ID</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(paymentId, 120) + '</td>' +
                   '</tr>' +
                 '</table>' +
-                '<div style="margin-top:16px;padding:12px 14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;">' +
-                  '<p style="margin:0;font-size:13px;color:#374151;">Please carry all original supporting documents during your appointment.</p>' +
+                '<div style="margin-top:16px;padding:12px 14px;background:var(--color-f9fafb);border:1px solid var(--color-e5e7eb);border-radius:8px;">' +
+                  '<p style="margin:0;font-size:13px;color:var(--color-374151);">Please carry all original supporting documents during your appointment.</p>' +
                 '</div>' +
               '</div>' +
-              '<div style="padding:14px 24px;background:#f9fafb;border-top:1px solid #e5e7eb;">' +
-                '<p style="margin:0 0 6px 0;font-size:12px;color:#6b7280;">Need help?</p>' +
-                '<p style="margin:0;font-size:13px;color:#111827;">WhatsApp: <a href="https://wa.me/916291139691" style="color:#1f4d3b;text-decoration:none;">+91 62911 39691</a> | Email: <a href="mailto:support@khanconsultants.in" style="color:#1f4d3b;text-decoration:none;">support@khanconsultants.in</a></p>' +
+              '<div style="padding:14px 24px;background:var(--color-f9fafb);border-top:1px solid var(--color-e5e7eb);">' +
+                '<p style="margin:0 0 6px 0;font-size:12px;color:var(--color-6b7280);">Need help?</p>' +
+                '<p style="margin:0;font-size:13px;color:var(--color-111827);">WhatsApp: <a href="https://wa.me/916291139691" style="color:var(--color-1f4d3b);text-decoration:none;">+91 62911 39691</a> | Email: <a href="mailto:support@khanconsultants.in" style="color:var(--color-1f4d3b);text-decoration:none;">support@khanconsultants.in</a></p>' +
               '</div>' +
             '</div>' +
           '</div>',

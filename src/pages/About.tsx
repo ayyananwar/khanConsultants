@@ -27,7 +27,7 @@ export default function About() {
       <section className="py-10 sm:py-14 md:py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6 sm:mb-8 md:mb-10">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#3d6b56] font-bold mb-2 uppercase">Why Clients Choose Us</p>
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 uppercase">Why Clients Choose Us</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Built for Trust. Designed for Results.</h2>
           </div>
 
@@ -60,7 +60,7 @@ export default function About() {
       </section>
 
       {/* CTA Section - Premium */}
-      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[#3d6b56]">
+      <section className="py-16 sm:py-20 md:py-28 px-4 sm:px-6 text-white bg-[var(--color-3d6b56)]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6">Let's Work Together</h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-10 text-emerald-100 max-w-2xl mx-auto">

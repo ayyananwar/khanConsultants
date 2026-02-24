@@ -29,6 +29,7 @@ const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -54,6 +55,10 @@ const Contact = () => {
     }
     if (!formData.phone.trim()) {
       setErrorMessage('Phone number is required');
+      return false;
+    }
+    if (!termsAccepted) {
+      setErrorMessage('Please accept Terms & Conditions and Privacy Policy');
       return false;
     }
     // Basic email validation
@@ -90,11 +95,11 @@ const Contact = () => {
       // Send to Google Apps Script
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         body: newFormData,
       });
 
-      // Google Apps Script returns opaque response, so we treat successful fetch as success
-      if (response) {
+      if (response.type === 'opaque' || response.ok) {
         setSuccessMessage('Message sent successfully! We will contact you soon.');
         // Reset form
         setFormData({
@@ -105,6 +110,9 @@ const Contact = () => {
           serviceInterest: '',
           message: '',
         });
+        setTermsAccepted(false);
+      } else {
+        setErrorMessage('Failed to send message. Please try again or contact us directly.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -312,6 +320,27 @@ const Contact = () => {
                 </div>
 
                 {/* Submit Button */}
+                <label className="flex items-start gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-xs sm:text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={termsAccepted}
+                    onChange={(event) => setTermsAccepted(event.target.checked)}
+                    className="mt-0.5"
+                  />
+                  <span>
+                    I agree to the{' '}
+                    <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                      Terms & Conditions
+                    </a>{' '}
+                    and{' '}
+                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                      Privacy Policy
+                    </a>
+                    .
+                  </span>
+                </label>
+
+                <p className="text-[11px] sm:text-xs text-gray-500 text-center">By submitting, you agree to our Terms & Conditions and Privacy Policy.</p>
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -390,16 +419,16 @@ const Contact = () => {
               <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-emerald-200 shadow-lg">
                 <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-3 sm:mb-4">Follow Us</h4>
                 <div className="flex gap-2 sm:gap-3">
-                  <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[#1877f2] hover:bg-[#0f6ae6] text-white hover:scale-110 transition-transform shadow-lg">
+                  <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-1877f2)] hover:bg-[var(--color-0f6ae6)] text-white hover:scale-110 transition-transform shadow-lg">
                     <BsFacebook className="text-base sm:text-lg md:text-xl" />
                   </a>
-                  <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white hover:scale-110 transition-transform shadow-lg">
+                  <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[var(--color-f58529)] via-[var(--color-dd2a7b)] to-[var(--color-8134af)] text-white hover:scale-110 transition-transform shadow-lg">
                     <BsInstagram className="text-base sm:text-lg md:text-xl" />
                   </a>
-                  <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white hover:scale-110 transition-transform shadow-lg">
+                  <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] text-white hover:scale-110 transition-transform shadow-lg">
                     <BsWhatsapp className="text-base sm:text-lg md:text-xl" />
                   </a>
-                  <a href="mailto:hello@khanconsultants.in" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[#ea4335] hover:bg-[#d93025] text-white hover:scale-110 transition-transform shadow-lg">
+                  <a href="mailto:hello@khanconsultants.in" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-ea4335)] hover:bg-[var(--color-d93025)] text-white hover:scale-110 transition-transform shadow-lg">
                     <MdEmail className="text-base sm:text-lg md:text-xl" />
                   </a>
                 </div>
@@ -410,7 +439,7 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-12 text-center text-white">Visit Our Office</h2>
           

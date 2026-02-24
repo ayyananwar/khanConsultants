@@ -10,7 +10,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAE
 // About Section Component
 function AboutSection() {
   return (
-    <section id="about" className="py-10 sm:py-14 md:py-20 lg:py-28 px-4 sm:px-6 bg-[#3d6b56] relative overflow-hidden">
+    <section id="about" className="py-10 sm:py-14 md:py-20 lg:py-28 px-4 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-48 sm:w-72 h-48 sm:h-72 bg-white/5 rounded-full -mr-24 sm:-mr-36 -mt-24 sm:-mt-36 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full -ml-32 sm:-ml-48 -mb-32 sm:-mb-48 blur-3xl"></div>
@@ -125,7 +125,7 @@ function ProcessTimeline() {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-10 md:mb-14">
           <div className="inline-block">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-[#3d6b56] font-bold mb-3 uppercase relative">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-3 uppercase relative">
               <span className="relative z-10 bg-white px-4">Our Process</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
             </p>
@@ -133,7 +133,7 @@ function ProcessTimeline() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
             How We Drive Success
           </h2>
-          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#3d6b56] to-[#2c4d3f] mx-auto rounded-full"></div>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[var(--color-3d6b56)] to-[var(--color-2c4d3f)] mx-auto rounded-full"></div>
           <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mt-3 sm:mt-4 leading-relaxed">
             A proven five-step approach that delivers results every time.
           </p>
@@ -142,9 +142,9 @@ function ProcessTimeline() {
         {/* Timeline - alternating cards with center line */}
         <div className="relative">
           {/* Center vertical line - desktop */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] hidden md:block -translate-x-px"></div>
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-3d6b56)] via-gray-300 to-[var(--color-3d6b56)] hidden md:block -translate-x-px"></div>
           {/* Left vertical line - mobile */}
-          <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] md:hidden"></div>
+          <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-3d6b56)] via-gray-300 to-[var(--color-3d6b56)] md:hidden"></div>
 
           <div className="space-y-6 sm:space-y-8 md:space-y-0">
             {steps.map((step, index) => {
@@ -176,7 +176,7 @@ function ProcessTimeline() {
                         <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
                           <span className={`text-xs font-bold tracking-wider uppercase ${step.color} text-white px-2.5 py-0.5 rounded-full`}>Step {step.step}</span>
                         </div>
-                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5 group-hover:text-[#3d6b56] transition-colors">{step.title}</h3>
+                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5 group-hover:text-[var(--color-3d6b56)] transition-colors">{step.title}</h3>
                         <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{step.description}</p>
                       </div>
                     </div>
@@ -201,7 +201,7 @@ function ProcessTimeline() {
         <div className="text-center mt-8 sm:mt-10 md:mt-14">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 rounded-xl px-8 sm:px-10 py-3.5 sm:py-4 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white text-sm sm:text-base md:text-lg font-bold hover:shadow-xl transition-all duration-300 shadow-lg active:scale-[0.98] min-h-[48px]"
+            className="inline-flex items-center gap-2 rounded-xl px-8 sm:px-10 py-3.5 sm:py-4 btn-primary-sage text-white text-sm sm:text-base md:text-lg font-bold hover:shadow-xl transition-all duration-300 shadow-lg active:scale-[0.98] min-h-[48px]"
           >
             Start Your Journey <span>→</span>
           </Link>
@@ -272,13 +272,13 @@ function Testimonials() {
   }, [isPaused, reviews.length, slidesPerView]);
 
   return (
-    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-[#3d6b56]">
+    <section id="testimonials" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-[var(--color-3d6b56)]">
       <div className="max-w-6xl mx-auto">
         {/* Professional Header - Compact */}
         <div className="text-center mb-7 sm:mb-9 md:mb-10">
           <div className="inline-block">
             <p className="text-xs sm:text-sm tracking-[0.2em] text-amber-300 font-bold mb-3 uppercase relative">
-              <span className="relative z-10 bg-[#3d6b56] px-4">Client Testimonials</span>
+              <span className="relative z-10 bg-[var(--color-3d6b56)] px-4">Client Testimonials</span>
               <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
             </p>
           </div>
@@ -315,7 +315,7 @@ function Testimonials() {
                     {/* Author Info - Clean */}
                     <div className="flex items-center gap-3 pt-3.5 border-t border-white/15">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <HiUser className="text-[#3d6b56] text-base sm:text-lg" />
+                        <HiUser className="text-[var(--color-3d6b56)] text-base sm:text-lg" />
                       </div>
                       <div className="text-left">
                         <p className="text-sm sm:text-base font-bold text-white leading-tight">{review.name}</p>
@@ -339,7 +339,7 @@ function Testimonials() {
             </p>
             <Link 
               to="/contact" 
-              className="inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 bg-amber-400 hover:bg-amber-300 text-[#1f3a30] text-sm sm:text-base font-semibold transition-colors duration-200 min-h-[44px]"
+              className="inline-flex items-center gap-2 rounded-lg px-5 sm:px-6 py-3 bg-amber-400 hover:bg-amber-300 text-[var(--color-1f3a30)] text-sm sm:text-base font-semibold transition-colors duration-200 min-h-[44px]"
             >
               <span>Start Your Success Story</span>
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -378,6 +378,7 @@ function FinalCTA() {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -406,6 +407,10 @@ function FinalCTA() {
     }
     if (!formData.phone.trim()) {
       setErrorMessage('Phone number is required');
+      return false;
+    }
+    if (!termsAccepted) {
+      setErrorMessage('Please accept Terms & Conditions and Privacy Policy');
       return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -438,10 +443,11 @@ function FinalCTA() {
 
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         body: newFormData,
       });
 
-      if (response) {
+      if (response.type === 'opaque' || response.ok) {
         setSuccessMessage('Message sent successfully! We will contact you soon.');
         setFormData({
           firstName: '',
@@ -452,6 +458,9 @@ function FinalCTA() {
           serviceInterest: '',
           message: '',
         });
+        setTermsAccepted(false);
+      } else {
+        setErrorMessage('Failed to send message. Please try again or contact us directly.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -466,11 +475,11 @@ function FinalCTA() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header Section */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-[#3d6b56] font-bold mb-2 sm:mb-3 md:mb-4 uppercase">Your Success Starts Here</p>
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 md:mb-4 uppercase">Your Success Starts Here</p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 sm:mb-4 md:mb-5 lg:mb-6 leading-tight">
             Ready to Transform
             <br className="hidden sm:block" />
-            <span className="text-[#3d6b56]"> Your Business?</span>
+            <span className="text-[var(--color-3d6b56)]"> Your Business?</span>
           </h2>
           <p className="text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
             Connect with our expert consultants today. Whether you need legal guidance, financial expertise, or government compliance—we've got you covered.
@@ -486,7 +495,7 @@ function FinalCTA() {
             <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Call</span>
           </a>
           <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5" title="WhatsApp">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
               <BsWhatsapp className="text-white text-xl sm:text-2xl" />
             </div>
             <span className="text-[10px] sm:text-xs text-gray-500 font-medium">WhatsApp</span>
@@ -535,7 +544,7 @@ function FinalCTA() {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                   />
                 </div>
                 <div>
@@ -547,7 +556,7 @@ function FinalCTA() {
                     value={formData.lastName}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                   />
                 </div>
               </div>
@@ -561,7 +570,7 @@ function FinalCTA() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                 />
               </div>
 
@@ -574,7 +583,7 @@ function FinalCTA() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                 />
               </div>
 
@@ -587,7 +596,7 @@ function FinalCTA() {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                   />
                 </div>
                 <div>
@@ -597,7 +606,7 @@ function FinalCTA() {
                     value={formData.serviceInterest}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition"
                   >
                     <option value="">Select a service</option>
                     <option value="legal">Trade Mark & Legal</option>
@@ -619,14 +628,34 @@ function FinalCTA() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#3d6b56] focus:ring-1 focus:ring-[#3d6b56]/30 transition resize-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/30 transition resize-none"
                 />
               </div>
 
+              <label className="flex items-start gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-xs sm:text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={termsAccepted}
+                  onChange={(event) => setTermsAccepted(event.target.checked)}
+                  className="mt-0.5"
+                />
+                <span>
+                  I agree to the{' '}
+                  <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                    Terms & Conditions
+                  </a>{' '}
+                  and{' '}
+                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                    Privacy Policy
+                  </a>
+                  .
+                </span>
+              </label>
+              <p className="text-[11px] sm:text-xs text-gray-500 text-center">By submitting, you agree to our Terms & Conditions and Privacy Policy.</p>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#3d6b56] hover:bg-[#2c4d3f] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl disabled:shadow-none"
+                className="w-full btn-primary-sage disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl disabled:shadow-none"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -646,7 +675,7 @@ function FinalCTA() {
             {/* Main CTA Card */}
             <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 shadow-lg hover:shadow-xl transition-all border border-gray-200">
               <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4 md:mb-5">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-[#3d6b56] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-[var(--color-3d6b56)] flex items-center justify-center flex-shrink-0">
                   <span className="text-lg sm:text-xl md:text-2xl">⚡</span>
                 </div>
                 <div>
@@ -656,19 +685,19 @@ function FinalCTA() {
               </div>
               <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 text-gray-700 text-xs sm:text-sm">
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span className="text-[var(--color-3d6b56)] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
                   <span>Expert consultants with 15+ years experience.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span className="text-[var(--color-3d6b56)] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
                   <span>Complete end-to-end support & guidance.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span className="text-[var(--color-3d6b56)] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
                   <span>24/7 availability for urgent queries.</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
-                  <span className="text-[#3d6b56] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
+                  <span className="text-[var(--color-3d6b56)] font-bold text-base sm:text-lg flex-shrink-0">✓</span>
                   <span>Proven track record of success.</span>
                 </li>
               </ul>
@@ -707,7 +736,7 @@ function FinalCTA() {
                   </p>
                 </div>
               </div>
-              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="inline-block text-[#3d6b56] hover:text-[#2c4d3f] text-xs sm:text-sm font-semibold transition">
+              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="inline-block text-[var(--color-3d6b56)] hover:text-[var(--color-2c4d3f)] text-xs sm:text-sm font-semibold transition">
                 Get Directions →
               </a>
             </div>
@@ -716,16 +745,16 @@ function FinalCTA() {
             <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 border border-gray-200">
               <h5 className="font-bold text-gray-900 text-sm sm:text-base mb-3 sm:mb-4">Follow Us</h5>
               <div className="flex gap-2 sm:gap-3 flex-wrap">
-                <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#1877f2] hover:bg-[#0f6ae6] text-white hover:scale-110 transition-transform shadow-md">
+                <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[var(--color-1877f2)] hover:bg-[var(--color-0f6ae6)] text-white hover:scale-110 transition-transform shadow-md">
                   <BsFacebook className="text-base sm:text-lg" />
                 </a>
-                <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white hover:scale-110 transition-transform shadow-md">
+                <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-f58529)] via-[var(--color-dd2a7b)] to-[var(--color-8134af)] text-white hover:scale-110 transition-transform shadow-md">
                   <BsInstagram className="text-base sm:text-lg" />
                 </a>
-                <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#25D366] hover:bg-[#1ebe5d] text-white hover:scale-110 transition-transform shadow-md">
+                <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] text-white hover:scale-110 transition-transform shadow-md">
                   <BsWhatsapp className="text-base sm:text-lg" />
                 </a>
-                <a href="mailto:hello@khanconsultants.in" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[#ea4335] hover:bg-[#d93025] text-white hover:scale-110 transition-transform shadow-md">
+                <a href="mailto:hello@khanconsultants.in" className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 flex items-center justify-center rounded-lg bg-[var(--color-ea4335)] hover:bg-[var(--color-d93025)] text-white hover:scale-110 transition-transform shadow-md">
                   <MdEmail className="text-base sm:text-lg" />
                 </a>
               </div>

@@ -14,56 +14,56 @@ import { BsWhatsapp } from 'react-icons/bs';
 export default function Home() {
   const services = [
     {
-      icon: <HiBuildingOffice2 className="text-inherit" style={{ color: '#2563eb' }} />,
+      icon: <HiBuildingOffice2 className="text-inherit" style={{ color: 'var(--color-2563eb)' }} />,
       title: 'Kolkata Corporation',
       description: 'End-to-end municipal support: certificates, licenses, and property matters handled with legal backing.',
       features: ['Birth & Death Certificates', 'Trade Licenses', 'Property Mutation', 'Full Legal Support'],
       href: '/services/kolkata-corporation',
     },
     {
-      icon: <FaFileInvoiceDollar className="text-inherit" style={{ color: '#059669' }} />,
+      icon: <FaFileInvoiceDollar className="text-inherit" style={{ color: 'var(--color-059669)' }} />,
       title: 'GST & Accounting',
       description: 'Complete GST filing, bookkeeping, and tax planning solutions for businesses of all sizes.',
       features: ['GST Filing', 'Book-keeping', 'Tax Planning', 'Compliance Management'],
       href: '/services/gst-accounting',
     },
     {
-      icon: <FaBalanceScale className="text-inherit" style={{ color: '#7c3aed' }} />,
+      icon: <FaBalanceScale className="text-inherit" style={{ color: 'var(--color-7c3aed)' }} />,
       title: 'Trademark & Legal',
       description: 'Expert legal consultations, trademark registration, court matters, and company formation.',
       features: ['Trademark Registration', 'Court Representation', 'Company Formation', 'Contract Advisory'],
       href: '/services/legal',
     },
     {
-      icon: <HiHomeModern className="text-inherit" style={{ color: '#d97706' }} />,
+      icon: <HiHomeModern className="text-inherit" style={{ color: 'var(--color-d97706)' }} />,
       title: 'Property Matters',
       description: 'Property mutation, tax assessment, and Thika Tenancy matters with expert guidance.',
       features: ['Property Mutation', 'Tax Assessment', 'Thika Tenancy', 'Building Plans'],
       href: '/services/property',
     },
     {
-      icon: <HiDocumentText className="text-inherit" style={{ color: '#0891b2' }} />,
+      icon: <HiDocumentText className="text-inherit" style={{ color: 'var(--color-0891b2)' }} />,
       title: 'Certificates & IDs',
       description: 'Birth, death, marriage, and succession certificates with complete legal assistance and fast processing.',
       features: ['Birth Certificates', 'Death Certificates', 'Marriage Certificates', 'Succession Certificates'],
       href: '/services/certificates',
     },
     {
-      icon: <HiClipboardDocumentCheck className="text-inherit" style={{ color: '#6366f1' }} />,
+      icon: <HiClipboardDocumentCheck className="text-inherit" style={{ color: 'var(--color-6366f1)' }} />,
       title: 'Licences',
       description: 'Trade licenses, hawker licenses, and commercial permits with compliance management.',
       features: ['Trade License', 'Hawker License', 'Compliance Support', 'Renewal Services'],
       href: '/services/licenses',
     },
     {
-      icon: <FaShippingFast className="text-inherit" style={{ color: '#dc2626' }} />,
+      icon: <FaShippingFast className="text-inherit" style={{ color: 'var(--color-dc2626)' }} />,
       title: 'Exporting',
       description: 'IEC registration, compliance management, and international trade logistics guidance.',
       features: ['IEC Registration', 'Compliance Guidance', 'Documentation Support', 'Logistics Advisory'],
       href: '/services/import-export',
     },
     {
-      icon: <FaPassport className="text-inherit" style={{ color: '#ea580c' }} />,
+      icon: <FaPassport className="text-inherit" style={{ color: 'var(--color-ea580c)' }} />,
       title: 'Immigration',
       description: 'Study abroad, business visas, and family immigration services with end-to-end support.',
       features: ['Study Abroad Guidance', 'Entrepreneur Visa', 'Business Visas', 'Family Immigration'],
@@ -132,7 +132,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-2.5 mt-15 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
             <Link
               to="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] btn-primary-sage shadow-lg"
             >
               <span>Schedule Consultation</span>
               <span className="text-base sm:text-lg md:text-xl">→</span>
@@ -143,7 +143,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]"
             >
-              <BsWhatsapp className="text-lg sm:text-xl text-[#25D366]" />
+              <BsWhatsapp className="text-lg sm:text-xl text-[var(--color-25d366)]" />
               <span>Chat on WhatsApp</span>
             </a>
           </div>

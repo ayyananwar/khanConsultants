@@ -149,7 +149,7 @@ const Certificates = () => {
             <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 max-w-3xl mx-auto leading-relaxed text-white/90 px-1">{service.heroDescription}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
-            <button type="button" onClick={() => setBookingOpen(true)} className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
+            <button type="button" onClick={() => setBookingOpen(true)} className="btn-book-slot w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] shadow-lg">
               <FaCalendarCheck className="text-base sm:text-lg" /> Book a Slot 199.00 Only
             </button>
             <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
@@ -170,21 +170,21 @@ const Certificates = () => {
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: '#111827' }}>Your Birth Certificate. Handled Correctly.</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>Your Birth Certificate. Handled Correctly.</h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           <div className="max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12">
-            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#4b5563' }}>
+            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: 'var(--color-4b5563)' }}>
               A Birth Certificate is the most important document for school admission, passports, and visas. But in Kolkata, getting it right can be stressful. One spelling mistake can cause years of trouble.
             </p>
-            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#4b5563' }}>
+            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: 'var(--color-4b5563)' }}>
               We don't just "submit files." We check every detail before it goes to the KMC office to ensure your application is approved the first time.
             </p>
           </div>
 
           <div className="mb-6 sm:mb-8 md:mb-10">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 md:mb-6 text-center" style={{ color: '#111827' }}>What We Handle:</h3>
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 md:mb-6 text-center" style={{ color: 'var(--color-111827)' }}>What We Handle:</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
               {handleCards.map((item, index) => {
                 const IconComponent = item.icon;
@@ -209,7 +209,7 @@ const Certificates = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6" style={{ color: '#4b5563' }}>
+            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6" style={{ color: 'var(--color-4b5563)' }}>
               At Khan Consultants, we help residents of Kolkata complete certificate-related work correctly, legally, and without unnecessary stress.
             </p>
             <Link to="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gray-900 hover:bg-gray-800">
@@ -279,11 +279,11 @@ const Certificates = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button type="button" onClick={() => setBookingOpen(true)} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white bg-[#3d6b56] hover:bg-[#2c4d3f] transition-all">
+              <button type="button" onClick={() => setBookingOpen(true)} className="btn-book-slot w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white transition-all">
                 <FaCalendarCheck className="text-base" /> Book a Slot 199.00 Only
               </button>
               <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 transition-all">
-                <RiWhatsappFill className="text-lg text-[#25D366]" /> Chat on WhatsApp
+                <RiWhatsappFill className="text-lg text-[var(--color-25d366)]" /> Chat on WhatsApp
               </a>
             </div>
           </div>
@@ -291,7 +291,7 @@ const Certificates = () => {
       </section>
 
       {/* Reviews Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-22 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-10 sm:py-14 md:py-18 lg:py-22 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-block mb-3 sm:mb-4">
             <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold uppercase">Client Reviews</p>
@@ -319,13 +319,13 @@ const Certificates = () => {
       </section>
 
       {/* Common Problems */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">COMMON ISSUES</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">COMMON ISSUES</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -385,26 +385,26 @@ const Certificates = () => {
                   <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-5 md:mb-6 bg-gray-100">
                     <IconComponent className="text-2xl sm:text-3xl text-gray-700" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style={{ color: '#111827' }}>{cert.title}</h3>
-                  <p className="text-xs sm:text-sm" style={{ color: '#4b5563' }}>{cert.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>{cert.title}</h3>
+                  <p className="text-xs sm:text-sm" style={{ color: 'var(--color-4b5563)' }}>{cert.description}</p>
                 </div>
               );
             })}
           </div>
 
           <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-            <p className="text-sm sm:text-base md:text-lg font-semibold" style={{ color: '#374151' }}>We provide you a single stop for all your certification needs.</p>
+            <p className="text-sm sm:text-base md:text-lg font-semibold" style={{ color: 'var(--color-374151)' }}>We provide you a single stop for all your certification needs.</p>
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">OUR PROCESS</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">OUR PROCESS</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -427,13 +427,13 @@ const Certificates = () => {
                   <div key={item.step} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
                     <div className="md:hidden flex gap-3 sm:gap-4 items-start">
                       <div className="relative z-10 flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[#3d6b56]`}>
+                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[var(--color-3d6b56)]`}>
                           <IconComponent className="text-white text-base" />
                         </div>
                       </div>
                       <div className="flex-1 bg-white/95 rounded-xl p-3.5 sm:p-4 border border-white/30 hover:shadow-md transition-all">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
+                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
                         </div>
                         <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
                         <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
@@ -444,7 +444,7 @@ const Certificates = () => {
                       <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
                         <div className={`bg-white/95 rounded-2xl p-5 lg:p-6 border border-white/30 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
                           <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
-                            <span className="text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
+                            <span className="text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
                           </div>
                           <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
                           <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
@@ -452,7 +452,7 @@ const Certificates = () => {
                       </div>
 
                       <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
-                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[#3d6b56]`}>
+                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[var(--color-3d6b56)]`}>
                           <IconComponent className="text-white text-xl lg:text-2xl" />
                         </div>
                       </div>
@@ -478,12 +478,12 @@ const Certificates = () => {
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
               </p>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: '#111827' }}>Local Experts, Legal Backing.</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>Local Experts, Legal Backing.</h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
           </div>
 
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6" style={{ color: '#374151' }}>
+            <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6" style={{ color: 'var(--color-374151)' }}>
               Agents outside the KMC building often promise quick results but leave you with half-done work or fake promises. Khan Consultants is different. We have a proper office, a legal team for affidavits, and years of experience dealing with Kolkata Municipal Corporation officials. We do it the right way, legally and securely.
             </p>
           </div>

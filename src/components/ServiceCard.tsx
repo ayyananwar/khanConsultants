@@ -12,7 +12,7 @@ export default function ServiceCard({ icon, title, description, features, href }
   const content = (
     <>
       <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-xl sm:rounded-2xl text-white flex items-center justify-center text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-3 sm:mb-4 md:mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" style={{
-        background: 'linear-gradient(135deg, #ffffff, #ffffff)'
+        background: 'linear-gradient(135deg, var(--color-ffffff), var(--color-ffffff))'
       }}>
         {icon}
       </div>
@@ -48,7 +48,7 @@ export default function ServiceCard({ icon, title, description, features, href }
         to={href}
         className="group flex flex-col rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer border-2 bg-white hover:border-emerald-300"
         style={{
-          borderColor: '#e8f0eb'
+          borderColor: 'var(--color-e8f0eb)'
         }}
       >
         {content}
@@ -58,7 +58,7 @@ export default function ServiceCard({ icon, title, description, features, href }
 
   return (
     <div className="group flex flex-col rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 border-2 bg-white" style={{
-      borderColor: '#e8f0eb'
+      borderColor: 'var(--color-e8f0eb)'
     }}>
       {content}
     </div>

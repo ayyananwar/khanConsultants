@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-4 sm:mb-5">
           <HiOutlineExclamationTriangle className="text-2xl sm:text-3xl" />
         </div>
-        <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[#3d6b56] mb-2 uppercase">Error 404</p>
+        <p className="text-xs sm:text-sm font-bold tracking-[0.2em] text-[var(--color-3d6b56)] mb-2 uppercase">Error 404</p>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">Page not found</h1>
         <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-7">
           The page you are looking for does not exist or has been moved.
@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-xl bg-[#3d6b56] hover:bg-[#2c4d3f] text-white font-semibold px-6 py-3 min-h-[44px]"
+            className="inline-flex items-center justify-center rounded-xl btn-primary-sage text-white font-semibold px-6 py-3 min-h-[44px]"
           >
             Go to Home
           </Link>

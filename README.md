@@ -51,13 +51,13 @@ Older sections below may include legacy references from earlier iterations.
 - **Content Alignment**: Centered for hero, multi-column for footer
 
 ### Color Palette
-- **Primary Blue**: `#2563eb` (bg-blue-600)
-- **Primary Hover**: `#1d4ed8` (bg-blue-700)
-- **Dark Background**: `#0f172a` (bg-slate-900)
-- **Light Text**: `#d1d5db` (text-gray-300)
-- **Dark Text**: `#0f172a` (text-slate-900)
-- **White Cards**: `#ffffff` (bg-white)
-- **Light Background**: `#f9fafb` (bg-gray-50)
+- **Primary Blue**: `var(--color-2563eb)` (bg-blue-600)
+- **Primary Hover**: `var(--color-1d4ed8)` (bg-blue-700)
+- **Dark Background**: `var(--color-0f172a)` (bg-slate-900)
+- **Light Text**: `var(--color-d1d5db)` (text-gray-300)
+- **Dark Text**: `var(--color-0f172a)` (text-slate-900)
+- **White Cards**: `var(--color-ffffff)` (bg-white)
+- **Light Background**: `var(--color-f9fafb)` (bg-gray-50)
 
 ---
 
@@ -287,8 +287,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2563eb',    // Update primary color
-        secondary: '#1e40af',  // Add secondary color
+        primary: 'var(--color-2563eb)',    // Update primary color
+        secondary: 'var(--color-1e40af)',  // Add secondary color
       },
     },
   },
@@ -304,7 +304,7 @@ In [src/components/Hero.tsx](src/components/Hero.tsx):
 ```tsx
 style={{
   backgroundImage: 'url(https://your-image-url.com/bg.jpg)',
-  backgroundColor: '#1a1a2e', // Fallback color
+  backgroundColor: 'var(--color-1a1a2e)', // Fallback color
 }}
 ```
 

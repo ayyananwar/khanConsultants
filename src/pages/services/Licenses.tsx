@@ -145,7 +145,7 @@ const Licenses = () => {
             <p className="text-xs sm:text-sm md:text-base mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 text-white/80">{service.heroSubtitle}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
-            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] bg-[#3d6b56] hover:bg-[#2c4d3f] shadow-lg">
+            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] btn-primary-sage shadow-lg">
               Get Quote
             </Link>
             <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
@@ -158,24 +158,24 @@ const Licenses = () => {
       {/* Intro Section */}
       <section className="py-6 sm:py-8 md:py-12 lg:py-16 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.neutral.white }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 sm:mb-5 md:mb-6" style={{ color: '#111827' }}>Business Compliance Starts With the Right Licence</h2>
-          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: '#4b5563' }}>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4 sm:mb-5 md:mb-6" style={{ color: 'var(--color-111827)' }}>Business Compliance Starts With the Right Licence</h2>
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: 'var(--color-4b5563)' }}>
             Operating a business within Kolkata Municipal Corporation limits requires proper licensing and timely renewals. Delays, incorrect trade classification, or incomplete documentation can lead to penalties, closure notices, or rejected applications.
           </p>
-          <p className="text-xs sm:text-sm md:text-base leading-relaxed" style={{ color: '#4b5563' }}>
+          <p className="text-xs sm:text-sm md:text-base leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
             At Khan Consultants, we assist business owners, professionals, and commercial establishments with accurate KMC licensing, ensuring your business is compliant, defensible, and future-ready.
           </p>
         </div>
       </section>
 
       {/* License Services */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-6xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">LICENSING SERVICES</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">LICENSING SERVICES</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -205,19 +205,19 @@ const Licenses = () => {
                     <ServiceIcon className={`text-xl sm:text-2xl ${iconColor.text}`} />
                   </div>
                   <div className="flex-1">
-                    <p className="text-[10px] sm:text-xs font-bold tracking-wider text-[#3d6b56] uppercase mb-1">Service 0{index + 1}</p>
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1.5" style={{ color: '#111827' }}>{license.title}</h3>
-                    <p className="text-xs sm:text-sm" style={{ color: '#4b5563' }}>{license.description}</p>
+                    <p className="text-[10px] sm:text-xs font-bold tracking-wider text-[var(--color-3d6b56)] uppercase mb-1">Service 0{index + 1}</p>
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1.5" style={{ color: 'var(--color-111827)' }}>{license.title}</h3>
+                    <p className="text-xs sm:text-sm" style={{ color: 'var(--color-4b5563)' }}>{license.description}</p>
                   </div>
                 </div>
                 
                 <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg sm:rounded-xl p-3.5 sm:p-4 md:p-5">
-                  <p className="text-sm sm:text-base font-semibold mb-2.5 sm:mb-3" style={{ color: '#111827' }}>We assist with:</p>
+                  <p className="text-sm sm:text-base font-semibold mb-2.5 sm:mb-3" style={{ color: 'var(--color-111827)' }}>We assist with:</p>
                   <ul className="space-y-2 sm:space-y-2.5">
                     {license.services.map((service, idx) => (
                       <li key={idx} className="flex items-start gap-2.5">
                         <FaCheckCircle className={`text-base sm:text-lg ${checklistColors[index % checklistColors.length]} flex-shrink-0 mt-0.5`} />
-                        <span className="text-xs sm:text-sm md:text-[15px]" style={{ color: '#374151' }}>{service}</span>
+                        <span className="text-xs sm:text-sm md:text-[15px]" style={{ color: 'var(--color-374151)' }}>{service}</span>
                       </li>
                     ))}
                   </ul>
@@ -303,13 +303,13 @@ const Licenses = () => {
       </section>
 
       {/* Legal Advantage */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">LEGAL ADVANTAGE</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">LEGAL ADVANTAGE</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -358,8 +358,8 @@ const Licenses = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] hidden md:block -translate-x-px"></div>
-            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#3d6b56] via-gray-300 to-[#3d6b56] md:hidden"></div>
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-3d6b56)] via-gray-300 to-[var(--color-3d6b56)] hidden md:block -translate-x-px"></div>
+            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-3d6b56)] via-gray-300 to-[var(--color-3d6b56)] md:hidden"></div>
 
             <div className="space-y-6 sm:space-y-8 md:space-y-0">
               {service.process.map((item, index) => {
@@ -377,7 +377,7 @@ const Licenses = () => {
                       </div>
                       <div className="flex-1 bg-gray-50 rounded-xl p-3.5 sm:p-4 border border-gray-100 hover:shadow-md transition-all">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
+                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
                         </div>
                         <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
                         <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
@@ -388,7 +388,7 @@ const Licenses = () => {
                       <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
                         <div className={`bg-gray-50 rounded-2xl p-5 lg:p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
                           <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
-                            <span className="text-xs font-bold tracking-wider uppercase bg-[#3d6b56] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
+                            <span className="text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
                           </div>
                           <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
                           <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
@@ -412,13 +412,13 @@ const Licenses = () => {
       </section>
 
       {/* Why Work With Us */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[#3d6b56]">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
         <div className="max-w-5xl mx-auto">
           {/* Professional Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
             <div className="inline-block">
               <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[#3d6b56] px-3 sm:px-4">WHY CHOOSE US</span>
+                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">WHY CHOOSE US</span>
                 <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
               </p>
             </div>
@@ -445,7 +445,7 @@ const Licenses = () => {
           </div>
 
           <div className="mt-10 sm:mt-12 md:mt-14 text-center">
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-white text-[#2c4d3f] border border-white/80 hover:bg-emerald-50 hover:shadow-lg transform hover:scale-[1.02]">
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-white text-[var(--color-2c4d3f)] border border-white/80 hover:bg-emerald-50 hover:shadow-lg transform hover:scale-[1.02]">
               <RiWhatsappFill className="text-xl sm:text-2xl" /> Chat with us on WhatsApp
             </a>
           </div>
@@ -460,7 +460,7 @@ const Licenses = () => {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Link 
               to="/contact" 
-              className="px-8 sm:px-10 py-4 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 bg-[#3d6b56] hover:bg-[#2c4d3f] text-white inline-flex items-center justify-center"
+              className="px-8 sm:px-10 py-4 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 btn-primary-sage text-white inline-flex items-center justify-center"
             >
               Start Your Case Now!
             </Link>
@@ -468,7 +468,7 @@ const Licenses = () => {
               href="tel:+916291139691" 
               className="px-8 sm:px-10 py-4 border-2 border-gray-300 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1 text-gray-900 inline-flex items-center justify-center gap-3"
             >
-              <MdPhone className="text-2xl text-[#3d6b56]" /> Call +91-6291-139-691
+              <MdPhone className="text-2xl text-[var(--color-3d6b56)]" /> Call +91-6291-139-691
             </a>
           </div>
         </div>

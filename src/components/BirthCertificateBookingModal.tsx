@@ -54,6 +54,7 @@ const DOCUMENT_OPTIONS = [
 ];
 
 const STEP_KEYS = ['relation', 'application', 'applicant', 'correction', 'documents', 'slot', 'payment', 'confirmation'] as const;
+const CORRECTION_STEP_KEYS = ['relation', 'application', 'correction', 'applicant', 'documents', 'slot', 'payment', 'confirmation'] as const;
 
 const initialFormData: BookingFormData = {
   relation: 'self',
@@ -85,6 +86,13 @@ function normalizePhone(value: string): string {
 function splitOtherDocuments(value: string): string[] {
   return value
     .split('|')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseOtherDocumentInput(value: string): string[] {
+  return value
+    .split(/[,\n]/)
     .map((item) => item.trim())
     .filter(Boolean);
 }
@@ -136,10 +144,12 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   const [confirmation, setConfirmation] = useState<BookingConfirmationData | null>(null);
   const [otherDocumentInput, setOtherDocumentInput] = useState('');
   const [phoneFieldErrors, setPhoneFieldErrors] = useState<{ fillerPhone?: string; applicantPhone?: string }>({});
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [dobInputType, setDobInputType] = useState<'text' | 'date'>('text');
 
   const activeSteps = useMemo(() => {
     if (formData.applicationType === 'correction') {
-      return STEP_KEYS;
+      return CORRECTION_STEP_KEYS;
     }
     return STEP_KEYS.filter((step) => step !== 'correction');
   }, [formData.applicationType]);
@@ -173,7 +183,33 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setConfirmation(null);
     setOtherDocumentInput('');
     setPhoneFieldErrors({});
+    setTermsAccepted(false);
+    setDobInputType('text');
   }, [isOpen]);
+
+  useEffect(() => {
+    if (formData.applicantDob) {
+      setDobInputType('date');
+      return;
+    }
+    setDobInputType('text');
+  }, [formData.applicantDob]);
+
+  useEffect(() => {
+    if (currentStep !== 'correction') {
+      return;
+    }
+
+    setFormData((prev) => {
+      if (prev.correctionEntries.length > 0) {
+        return prev;
+      }
+      return {
+        ...prev,
+        correctionEntries: [{ field: 'Name', incorrectValue: '', correctValue: '' }],
+      };
+    });
+  }, [currentStep]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -235,15 +271,22 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   };
 
   const addOtherDocument = () => {
-    const nextValue = otherDocumentInput.trim();
-    if (!nextValue) {
+    const parsedValues = parseOtherDocumentInput(otherDocumentInput);
+    if (parsedValues.length === 0) {
       return;
     }
-    if (otherDocuments.some((item) => item.toLowerCase() === nextValue.toLowerCase())) {
-      setOtherDocumentInput('');
-      return;
-    }
-    const nextDocuments = [...otherDocuments, nextValue];
+
+    const existingSet = new Set(otherDocuments.map((item) => item.toLowerCase()));
+    const nextDocuments = [...otherDocuments];
+
+    parsedValues.forEach((item) => {
+      const key = item.toLowerCase();
+      if (!existingSet.has(key)) {
+        nextDocuments.push(item);
+        existingSet.add(key);
+      }
+    });
+
     updateFormField('documentsOther', nextDocuments.join('|'));
     setOtherDocumentInput('');
   };
@@ -333,6 +376,10 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     }
 
     if (currentStep === 'payment') {
+      if (!termsAccepted) {
+        setErrorMessage('Please accept the Terms & Conditions and Privacy Policy to continue.');
+        return false;
+      }
       return Boolean(bookingFee);
     }
 
@@ -435,7 +482,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
           chosenThursday: formData.chosenThursday,
         },
         theme: {
-          color: '#3d6b56',
+          color: 'var(--color-3d6b56)',
         },
         handler: async (response: RazorpaySuccessResponse) => {
           try {
@@ -484,6 +531,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setStepIndex(0);
     setPhoneFieldErrors({});
     setOtherDocumentInput('');
+    setTermsAccepted(false);
     setFormData(
       getInitialFormData({
         relation: preservedRelation,
@@ -526,7 +574,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
             <div className="w-16" />
           </div>
           <div className="max-w-4xl mx-auto mt-3 h-2 rounded-full bg-gray-200 overflow-hidden">
-            <div className="h-full bg-[#3d6b56] transition-all duration-300" style={{ width: `${progressPercent}%` }} />
+            <div className="h-full bg-[var(--color-3d6b56)] transition-all duration-300" style={{ width: `${progressPercent}%` }} />
           </div>
         </div>
 
@@ -550,7 +598,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                       type="button"
                       onClick={() => updateFormField('relation', option.value as BookingFormData['relation'])}
                       className={`rounded-2xl border p-5 text-left transition ${
-                        formData.relation === option.value ? 'border-[#3d6b56] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
+                        formData.relation === option.value ? 'border-[var(--color-3d6b56)] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <p className="text-lg font-bold">{option.label}</p>
@@ -576,7 +624,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                       type="button"
                       onClick={() => updateFormField('applicationType', item.value as ApplicationType)}
                       className={`rounded-2xl border p-5 text-left transition ${
-                        formData.applicationType === item.value ? 'border-[#3d6b56] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
+                        formData.applicationType === item.value ? 'border-[var(--color-3d6b56)] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <p className="text-lg font-bold">{item.label}</p>
@@ -606,7 +654,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                 <div className="grid grid-cols-1 gap-4 sm:gap-5">
                   {formData.relation === 'other' && (
                     <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
-                      <p className="text-sm sm:text-base font-bold text-[#1f4d3b] mb-3">Filler details (you)</p>
+                      <p className="text-sm sm:text-base font-bold text-[var(--color-1f4d3b)] mb-3">Filler details (you)</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                           <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Your full name</label>
@@ -658,10 +706,18 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                       <div>
                         <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Date of birth</label>
                         <input
-                          type="date"
+                          type={dobInputType}
                           value={formData.applicantDob}
                           onChange={(event) => updateFormField('applicantDob', event.target.value)}
+                          onFocus={() => setDobInputType('date')}
+                          onClick={() => setDobInputType('date')}
+                          onBlur={() => {
+                            if (!formData.applicantDob) {
+                              setDobInputType('text');
+                            }
+                          }}
                           className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                          placeholder="Select date of birth"
                           max={todayIso}
                         />
                         <p className="text-[11px] sm:text-xs text-gray-500 mt-1">Tap to open date picker.</p>
@@ -705,7 +761,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
             {currentStep === 'correction' && (
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-2">Correction details</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Tap fields below to add/remove, then fill incorrect and correct values.</p>
+                <p className="text-sm sm:text-base text-gray-600 mb-6">Choose what needs correction, then fill the current and updated values.</p>
 
                 <div className="flex flex-wrap gap-3 mb-6">
                   {(['Name', 'DOB', 'Other'] as CorrectionField[]).map((field) => {
@@ -716,16 +772,16 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                         type="button"
                         onClick={() => (selected ? removeCorrectionEntry(field) : addCorrectionEntry(field))}
                         className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                          selected ? 'border-[#3d6b56] bg-emerald-50 text-[#3d6b56]' : 'border-gray-300 text-gray-700'
+                          selected ? 'border-[var(--color-3d6b56)] bg-emerald-50 text-[var(--color-3d6b56)]' : 'border-gray-300 text-gray-700 hover:border-gray-400'
                         }`}
                       >
-                        {selected ? `Remove ${field}` : `Add ${field}`}
+                        {selected ? `✓ ${field}` : `+ ${field}`}
                       </button>
                     );
                   })}
                 </div>
 
-                <p className="text-xs sm:text-sm text-gray-500 mb-4">Selected: {formData.correctionEntries.length} field(s)</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4">Selected: {formData.correctionEntries.length} field(s). Tip: start with Name if unsure.</p>
 
                 <div className="space-y-4">
                   {formData.correctionEntries.map((entry) => (
@@ -739,7 +795,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                             value={entry.incorrectValue}
                             onChange={(event) => updateCorrectionEntry(entry.field, { incorrectValue: event.target.value })}
                             className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                            placeholder="Current value in certificate"
+                            placeholder={`Current ${entry.field.toLowerCase()} in certificate`}
                           />
                         </div>
                         <div>
@@ -749,7 +805,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                             value={entry.correctValue}
                             onChange={(event) => updateCorrectionEntry(entry.field, { correctValue: event.target.value })}
                             className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                            placeholder="Expected correct value"
+                            placeholder={`Correct ${entry.field.toLowerCase()} you need`}
                           />
                         </div>
                       </div>
@@ -768,16 +824,20 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   {DOCUMENT_OPTIONS.map((doc) => {
                     const checked = formData.documents.includes(doc);
                     return (
-                      <button
+                      <label
                         key={doc}
-                        type="button"
-                        onClick={() => toggleDocument(doc)}
                         className={`rounded-xl border p-3 text-left text-sm font-medium transition ${
-                          checked ? 'border-[#3d6b56] bg-emerald-50 text-[#1f4d3b]' : 'border-gray-200 hover:border-gray-300'
+                          checked ? 'border-[var(--color-3d6b56)] bg-emerald-50 text-[var(--color-1f4d3b)]' : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        {doc}
-                      </button>
+                        <input
+                          type="checkbox"
+                          className="mr-2 align-middle"
+                          checked={checked}
+                          onChange={() => toggleDocument(doc)}
+                        />
+                        <span className="align-middle">{doc}</span>
+                      </label>
                     );
                   })}
                 </div>
@@ -791,7 +851,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                         value={otherDocumentInput}
                         onChange={(event) => setOtherDocumentInput(event.target.value)}
                         className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                        placeholder="Type one document and click Add"
+                        placeholder="Type one or many (comma separated), then Add"
                         onKeyDown={(event) => {
                           if (event.key === 'Enter') {
                             event.preventDefault();
@@ -802,9 +862,9 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                       <button
                         type="button"
                         onClick={addOtherDocument}
-                        className="rounded-xl border border-[#3d6b56] text-[#1f4d3b] px-4 py-3 font-semibold"
+                        className="rounded-xl border border-[var(--color-3d6b56)] text-[var(--color-1f4d3b)] px-4 py-3 font-semibold"
                       >
-                        Add
+                        Add document(s)
                       </button>
                     </div>
                     {otherDocuments.length > 0 && (
@@ -814,7 +874,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                             key={`${item}-${index}`}
                             type="button"
                             onClick={() => removeOtherDocument(index)}
-                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs sm:text-sm text-[#1f4d3b]"
+                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs sm:text-sm text-[var(--color-1f4d3b)]"
                             title="Remove document"
                           >
                             {item} <span className="font-bold">×</span>
@@ -822,7 +882,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                         ))}
                       </div>
                     )}
-                    <p className="mt-2 text-xs text-gray-500">You can add multiple documents one by one.</p>
+                    <p className="mt-2 text-xs text-gray-500">You can paste multiple items like: Aadhaar, School ID, Hospital Slip.</p>
                   </div>
                 )}
               </div>
@@ -846,7 +906,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                           disabled={slot.isFull}
                           className={`w-full rounded-xl border p-4 text-left transition ${
                             formData.chosenThursday === slot.date
-                              ? 'border-[#3d6b56] bg-emerald-50'
+                              ? 'border-[var(--color-3d6b56)] bg-emerald-50'
                               : slot.isFull
                                 ? 'border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed'
                                 : 'border-gray-200 hover:border-gray-300'
@@ -888,14 +948,35 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   <p className="text-sm text-gray-600">Selected Appointment</p>
                   <p className="text-lg font-bold">{formatDateLabel(formData.chosenThursday)}</p>
                   <p className="text-sm text-gray-600">Time Window: {bookingFee?.appointmentWindow || 'Will be shared on confirmation'}</p>
-                  <p className="text-xl sm:text-2xl font-bold text-[#3d6b56]">Booking Fee: ₹{bookingFee?.amount ?? '—'}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-[var(--color-3d6b56)]">Booking Fee: ₹{bookingFee?.amount ?? '—'}</p>
+
+                  <label className="mt-2 block rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700">
+                    <input
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(event) => setTermsAccepted(event.target.checked)}
+                      className="mr-2 align-middle"
+                    />
+                    <span className="align-middle">
+                      I agree to the{' '}
+                      <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                        Terms & Conditions
+                      </a>{' '}
+                      and{' '}
+                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                        Privacy Policy
+                      </a>
+                      .
+                    </span>
+                  </label>
                 </div>
 
+                <p className="mt-2 text-xs text-gray-500">By paying, you agree to our Terms & Conditions and Privacy Policy.</p>
                 <button
                   type="button"
                   onClick={handlePayment}
                   disabled={processingPayment || !bookingFee}
-                  className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#3d6b56] px-6 py-3.5 text-white font-bold disabled:opacity-60"
+                  className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-6 py-3.5 text-white font-bold disabled:opacity-60"
                 >
                   <FaLock /> {processingPayment ? 'Processing...' : 'Pay with Razorpay'}
                 </button>
@@ -904,7 +985,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
             {currentStep === 'confirmation' && confirmation && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-[#1f4d3b]">Booking confirmed</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-[var(--color-1f4d3b)]">Booking confirmed</h2>
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 sm:p-6">
                   <p className="inline-flex items-center gap-2 text-emerald-800 font-semibold mb-3"><FaCheckCircle /> Payment verified successfully</p>
                   <p className="text-sm sm:text-base mb-1"><strong>Appointment Date:</strong> {formatDateLabel(confirmation.appointmentDate)}</p>
@@ -916,7 +997,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   <button
                     type="button"
                     onClick={startAnotherBooking}
-                    className="inline-flex items-center justify-center rounded-xl bg-[#3d6b56] px-5 py-3 text-sm sm:text-base font-bold text-white"
+                    className="inline-flex items-center justify-center rounded-xl bg-[var(--color-3d6b56)] px-5 py-3 text-sm sm:text-base font-bold text-white"
                   >
                     Book for another person
                   </button>
@@ -949,7 +1030,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                 type="button"
                 onClick={goNext}
                 disabled={currentStep === 'payment' || processingPayment}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#3d6b56] px-5 py-2.5 text-sm sm:text-base font-bold text-white disabled:opacity-40 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-5 py-2.5 text-sm sm:text-base font-bold text-white disabled:opacity-40 w-full sm:w-auto"
               >
                 Continue <FaArrowRight />
               </button>
