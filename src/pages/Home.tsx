@@ -75,7 +75,7 @@ export default function Home() {
     <div style={{ backgroundColor: designTokens.colors.neutral.white }}>
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center min-h-[100svh] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex flex-col"
+        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex flex-col"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -85,51 +85,51 @@ export default function Home() {
       >
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative flex-1 flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-4 md:px-6 pt-20 sm:pt-24 md:pt-20 lg:pt-24 xl:pt-28 pb-6 sm:pb-10 md:pb-14 lg:pb-16 xl:pb-20 text-white">
+        <div className="relative flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-4 sm:px-4 md:px-6 py-4 sm:py-8 md:py-10 lg:py-8 text-white">
           {/* Content area */}
           <div className="flex flex-col justify-center max-w-4xl mx-auto w-full text-center">
             {/* Trust Badge */}
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mb-5 sm:mb-5 md:mb-6 lg:mb-8 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-sm mb-4 sm:mb-5 md:mb-6 lg:mb-5 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
               <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
               <span className="font-semibold text-white">Government Licensed KMC Consultants</span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-2xl sm:text-2xl mt-5 md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold leading-[1.15] mb-4 sm:mb-4 md:mb-5 lg:mb-6 xl:mb-7">
+            <h1 className="text-2xl sm:text-2xl mt-2 md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold leading-[1.15] mb-4 sm:mb-4 md:mb-5 lg:mb-5 xl:mb-6">
               <span className="inline-block">One Stop.</span>
-              <span className="inline-block text-amber-300"> 10000 Experts.</span>
+              <span className="inline-block text-amber-300"> 10000, Experts.</span>
               <span className="block mt-1.5 sm:mt-2 md:mt-3">Your Solution Starts Here</span>
             </h1>
 
             {/* Description */}
-            <p className="text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl mb-6 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12 leading-relaxed text-white/90 max-w-3xl mx-auto px-1">
+            <p className="text-sm sm:text-sm md:text-base lg:text-lg xl:text-lg mb-5 sm:mb-6 md:mb-7 lg:mb-6 xl:mb-7 leading-relaxed text-white/90 max-w-3xl mx-auto px-1">
               From business to property, legal to taxation—we've got you covered with our team of 10000+ experts.
             </p>
 
           </div>
 
           {/* Stats Section */}
-          <div className="grid mt-10 sm:mt-6 md:mt-8 lg:mt-10 grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5 max-w-5xl mx-auto w-full">
+          <div className="grid mt-6 sm:mt-6 md:mt-7 lg:mt-6 grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-4 max-w-5xl mx-auto w-full">
             <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-5 text-center bg-white/10 backdrop-blur-sm border border-white/10">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 md:mb-2 text-amber-300">50+</div>
+              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-0.5 md:mb-2 text-amber-300">50+</div>
               <div className="text-[9px] sm:text-sm md:text-base font-medium text-white/80 leading-tight">Years Exp.</div>
             </div>
             <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-5 text-center bg-white/10 backdrop-blur-sm border border-white/10">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 md:mb-2 text-amber-300">25+</div>
+              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-0.5 md:mb-2 text-amber-300">25+</div>
               <div className="text-[9px] sm:text-sm md:text-base font-medium text-white/80 leading-tight">KMC Licensed</div>
             </div>
             <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-5 text-center bg-white/10 backdrop-blur-sm border border-white/10">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 md:mb-2 text-amber-300">1K+</div>
+              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-0.5 md:mb-2 text-amber-300">1K+</div>
               <div className="text-[9px] sm:text-sm md:text-base font-medium text-white/80 leading-tight">Clients</div>
             </div>
             <div className="rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-5 text-center bg-white/10 backdrop-blur-sm border border-white/10">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-0.5 md:mb-2 text-amber-300">10K+</div>
+              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-0.5 md:mb-2 text-amber-300">10K+</div>
               <div className="text-[9px] sm:text-sm md:text-base font-medium text-white/80 leading-tight">Experts</div>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-2.5 mt-15 sm:gap-4 md:gap-5 justify-center items-center w-full mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-safe">
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-5 sm:mt-7 md:mt-8 lg:mt-6 pb-safe">
             <Link
               to="/contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] btn-primary-sage shadow-lg"
@@ -151,7 +151,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 px-3 sm:px-4 md:px-6 bg-white">
+      <section id="services" className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Professional Header - Compact */}
           <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">

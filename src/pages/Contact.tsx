@@ -159,7 +159,7 @@ const Contact = () => {
     <div style={{ backgroundColor: designTokens.colors.neutral.white }}>
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center min-h-[420px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] flex items-center"
+        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex items-center"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',

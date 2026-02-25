@@ -302,12 +302,13 @@ section :is(h3, h4) {
 
 .btn-primary-sage,
 .btn-book-slot {
-  background-color: var(--color-3d6b56);
+  background-color: var(--color-3d6b56) !important;
+  color: var(--color-ffffff) !important;
 }
 
 .btn-primary-sage:hover,
 .btn-book-slot:hover {
-  background-color: var(--color-2c4d3f);
+  background-color: var(--color-2c4d3f) !important;
 }
 
 #root section[class*="bg-[var(--color-517358)]"] .shadow,
@@ -354,8 +355,5 @@ button:focus-visible {
   }
   a:hover {
     color: var(--color-747bff);
-  }
-  button {
-    background-color: var(--color-f9f9f9);
   }
 }

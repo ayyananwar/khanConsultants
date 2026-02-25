@@ -10,7 +10,7 @@ interface SectionHeroProps {
 export default function SectionHero({ title, subtitle, bgImage, isStretchedMobile = true }: SectionHeroProps) {
   return (
     <section
-      className={`relative ${isStretchedMobile ? 'min-h-[100svh]' : 'min-h-[420px]'} sm:min-h-[500px] md:min-h-[580px] lg:min-h-[650px] xl:min-h-[700px] bg-cover bg-center flex items-center justify-center`}
+      className={`relative ${isStretchedMobile ? 'min-h-[calc(100svh-64px)]' : 'min-h-[420px]'} sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] bg-cover bg-center flex items-center justify-center`}
       style={{
         backgroundImage: bgImage ? `url(${bgImage})` : "url('/hero.png')",
         backgroundSize: 'cover',
