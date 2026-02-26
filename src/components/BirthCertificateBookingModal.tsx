@@ -75,6 +75,7 @@ type DynamicStepKey =
   | 'slot'
   | 'contact'
   | 'review'
+  | 'legal'
   | 'payment'
   | 'confirmation'
   | `correction-${CorrectionField}`;
@@ -192,6 +193,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   const [errorMessage, setErrorMessage] = useState('');
   const [confirmation, setConfirmation] = useState<BookingConfirmationData | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [legalPreview, setLegalPreview] = useState<'none' | 'terms' | 'privacy'>('none');
   const [isDobPickerOpen, setIsDobPickerOpen] = useState(false);
   const dobInputRef = useRef<HTMLInputElement | null>(null);
   const [isCorrectionIncorrectDobPickerOpen, setIsCorrectionIncorrectDobPickerOpen] = useState(false);
@@ -221,7 +223,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
       });
     }
 
-    steps.push('documents', 'slot', 'contact', 'review', 'payment', 'confirmation');
+    steps.push('documents', 'slot', 'contact', 'review', 'legal', 'payment', 'confirmation');
     return steps;
   }, [formData.relation, formData.applicationType, formData.correctionEntries]);
 
@@ -254,6 +256,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setErrorMessage('');
     setConfirmation(null);
     setTermsAccepted(false);
+    setLegalPreview('none');
     setIsDobPickerOpen(false);
     setIsCorrectionIncorrectDobPickerOpen(false);
     setIsCorrectionCorrectDobPickerOpen(false);
@@ -420,10 +423,14 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     }
 
     if (currentStep === 'payment') {
+      return Boolean(bookingFee);
+    }
+
+    if (currentStep === 'legal') {
       if (!termsAccepted) {
         return fail('Please accept the Terms & Conditions and Privacy Policy to continue.');
       }
-      return Boolean(bookingFee);
+      return true;
     }
 
     return true;
@@ -555,6 +562,26 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
               razorpaySignature: response.razorpay_signature,
             });
 
+            if (verifyResult.chosenThursday && verifyResult.chosenThursday !== 'WAITLIST') {
+              setSlots((prevSlots) =>
+                prevSlots.map((slot) => {
+                  if (slot.date !== verifyResult.chosenThursday) {
+                    return slot;
+                  }
+
+                  const nextBooked = Math.min(slot.maxSlots, slot.bookedCount + 1);
+                  const nextRemaining = Math.max(0, slot.maxSlots - nextBooked);
+
+                  return {
+                    ...slot,
+                    bookedCount: nextBooked,
+                    remainingSlots: nextRemaining,
+                    isFull: nextRemaining <= 0,
+                  };
+                }),
+              );
+            }
+
             setConfirmation({
               appointmentDate: verifyResult.chosenThursday,
               appointmentWindow: verifyResult.appointmentWindow || bookingFee.appointmentWindow,
@@ -595,6 +622,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setErrorMessage('');
     setStepIndex(0);
     setTermsAccepted(false);
+    setLegalPreview('none');
     setIsDobPickerOpen(false);
     setIsCorrectionIncorrectDobPickerOpen(false);
     setIsCorrectionCorrectDobPickerOpen(false);
@@ -641,13 +669,6 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
       setStepIndex(targetIndex);
       setErrorMessage('');
     }
-  };
-
-  const openLegalPopup = (path: string, title: string) => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.open(path, title, 'popup=yes,width=960,height=760,top=80,left=120,resizable=yes,scrollbars=yes');
   };
 
   return (
@@ -1318,40 +1339,6 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   <p className="text-lg font-bold">{formData.chosenThursday === 'WAITLIST' ? 'WAITLIST' : formatIndianDateTime(formData.chosenThursday, selectedTimeWindow)}</p>
                   <p className="text-sm text-gray-600">Time Window: {selectedTimeWindow}</p>
                   <p className="text-xl sm:text-2xl font-bold text-[var(--color-3d6b56)]">Booking Fee: ₹{bookingFee?.amount ?? '—'}</p>
-
-                  <label className="mt-2 block rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700">
-                    <input
-                      type="checkbox"
-                      checked={termsAccepted}
-                      onChange={(event) => setTermsAccepted(event.target.checked)}
-                      className="mr-2 align-middle"
-                    />
-                    <span className="align-middle">
-                      I agree to the{' '}
-                      <a
-                        href="/terms-of-service"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          openLegalPopup('/terms-of-service', 'TermsAndConditions');
-                        }}
-                        className="font-semibold text-[var(--color-3d6b56)] underline"
-                      >
-                        Terms & Conditions
-                      </a>{' '}
-                      and{' '}
-                      <a
-                        href="/privacy-policy"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          openLegalPopup('/privacy-policy', 'PrivacyPolicy');
-                        }}
-                        className="font-semibold text-[var(--color-3d6b56)] underline"
-                      >
-                        Privacy Policy
-                      </a>
-                      .
-                    </span>
-                  </label>
                 </div>
 
                 <p className="mt-2 text-xs text-gray-500">By paying, you agree to our Terms & Conditions and Privacy Policy.</p>
@@ -1363,6 +1350,55 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                 >
                   <FaLock /> {processingPayment ? 'Processing...' : 'Proceed to Secure Payment'}
                 </button>
+              </div>
+            )}
+
+            {currentStep === 'legal' && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Terms & Privacy consent</h2>
+                <p className="text-sm text-gray-600 mb-5">Please review and accept the Terms & Conditions and Privacy Policy before payment.</p>
+
+                <div className="rounded-2xl border border-gray-200 p-5 space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setLegalPreview((prev) => (prev === 'terms' ? 'none' : 'terms'))}
+                      className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
+                    >
+                      {legalPreview === 'terms' ? 'Hide Terms & Conditions' : 'View Terms & Conditions'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLegalPreview((prev) => (prev === 'privacy' ? 'none' : 'privacy'))}
+                      className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700"
+                    >
+                      {legalPreview === 'privacy' ? 'Hide Privacy Policy' : 'View Privacy Policy'}
+                    </button>
+                  </div>
+
+                  {legalPreview !== 'none' && (
+                    <div className="rounded-xl border border-gray-200 overflow-hidden bg-white">
+                      <div className="px-4 py-2 border-b border-gray-200 text-sm font-semibold text-gray-700">
+                        {legalPreview === 'terms' ? 'Terms & Conditions' : 'Privacy Policy'}
+                      </div>
+                      <iframe
+                        src={legalPreview === 'terms' ? '/terms-of-service' : '/privacy-policy'}
+                        title={legalPreview === 'terms' ? 'Terms and Conditions' : 'Privacy Policy'}
+                        className="w-full h-[340px]"
+                      />
+                    </div>
+                  )}
+
+                  <label className="block rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700">
+                    <input
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(event) => setTermsAccepted(event.target.checked)}
+                      className="mr-2 align-middle"
+                    />
+                    <span className="align-middle">I have read and agree to the Terms & Conditions and Privacy Policy.</span>
+                  </label>
+                </div>
               </div>
             )}
 
