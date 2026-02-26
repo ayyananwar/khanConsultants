@@ -686,15 +686,6 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
               <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{errorMessage}</div>
             )}
 
-            {currentStep !== 'confirmation' && (
-              <div className="mb-5 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                <div title="Secure" aria-label="Secure" className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-emerald-800 text-[11px] sm:text-xs font-semibold"><FaLock className="text-sm" /> Secure</div>
-                <div title="No hidden charges" aria-label="No hidden charges" className="rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-blue-800 text-[11px] sm:text-xs font-semibold"><FaShieldAlt className="text-sm" /> No hidden charges</div>
-                <div title="Data privacy" aria-label="Data privacy" className="rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-violet-800 text-[11px] sm:text-xs font-semibold"><FaUserShield className="text-sm" /> Data privacy</div>
-                <div title="Licensed KMC Consultant" aria-label="Licensed KMC Consultant" className="rounded-lg border border-green-200 bg-green-50 px-2 py-2 inline-flex items-center justify-center gap-1 text-green-800 text-[10px] sm:text-xs font-semibold whitespace-nowrap"><FaIdBadge className="text-sm shrink-0" /> Licensed KMC Consultant</div>
-              </div>
-            )}
-
             {currentStep === 'relation' && (
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold mb-2">Who is this application for?</h2>
@@ -1401,6 +1392,15 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                     Close
                   </button>
                 </div>
+              </div>
+            )}
+
+            {currentStep !== 'confirmation' && (
+              <div className="mt-5 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                <div title="Secure" aria-label="Secure" className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-emerald-800 text-[11px] sm:text-xs font-semibold"><FaLock className="text-sm" /> Secure</div>
+                <div title="No hidden charges" aria-label="No hidden charges" className="rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-blue-800 text-[11px] sm:text-xs font-semibold"><FaShieldAlt className="text-sm" /> No hidden charges</div>
+                <div title="Data privacy" aria-label="Data privacy" className="rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-violet-800 text-[11px] sm:text-xs font-semibold"><FaUserShield className="text-sm" /> Data privacy</div>
+                <div title="Licensed KMC Consultant" aria-label="Licensed KMC Consultant" className="rounded-lg border border-green-200 bg-green-50 px-2 py-2 inline-flex items-center justify-center gap-1 text-green-800 text-[10px] sm:text-xs font-semibold whitespace-nowrap"><FaIdBadge className="text-sm shrink-0" /> Licensed KMC Consultant</div>
               </div>
             )}
 
