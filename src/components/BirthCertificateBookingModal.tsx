@@ -643,6 +643,13 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     }
   };
 
+  const openLegalPopup = (path: string, title: string) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.open(path, title, 'popup=yes,width=960,height=760,top=80,left=120,resizable=yes,scrollbars=yes');
+  };
+
   return (
     <div className="fixed inset-0 z-[120] bg-black/70 backdrop-blur-sm">
       <div className="h-full w-full bg-white text-gray-900 flex flex-col">
@@ -677,6 +684,15 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
           <div className="max-w-4xl mx-auto">
             {errorMessage && (
               <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{errorMessage}</div>
+            )}
+
+            {currentStep !== 'confirmation' && (
+              <div className="mb-5 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                <div title="Secure" aria-label="Secure" className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-emerald-800 text-[11px] sm:text-xs font-semibold"><FaLock className="text-sm" /> Secure</div>
+                <div title="No hidden charges" aria-label="No hidden charges" className="rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-blue-800 text-[11px] sm:text-xs font-semibold"><FaShieldAlt className="text-sm" /> No hidden charges</div>
+                <div title="Data privacy" aria-label="Data privacy" className="rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-violet-800 text-[11px] sm:text-xs font-semibold"><FaUserShield className="text-sm" /> Data privacy</div>
+                <div title="Licensed KMC Consultant" aria-label="Licensed KMC Consultant" className="rounded-lg border border-green-200 bg-green-50 px-2 py-2 inline-flex items-center justify-center gap-1 text-green-800 text-[10px] sm:text-xs font-semibold whitespace-nowrap"><FaIdBadge className="text-sm shrink-0" /> Licensed KMC Consultant</div>
+              </div>
             )}
 
             {currentStep === 'relation' && (
@@ -1321,11 +1337,25 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                     />
                     <span className="align-middle">
                       I agree to the{' '}
-                      <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                      <a
+                        href="/terms-of-service"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          openLegalPopup('/terms-of-service', 'TermsAndConditions');
+                        }}
+                        className="font-semibold text-[var(--color-3d6b56)] underline"
+                      >
                         Terms & Conditions
                       </a>{' '}
                       and{' '}
-                      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                      <a
+                        href="/privacy-policy"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          openLegalPopup('/privacy-policy', 'PrivacyPolicy');
+                        }}
+                        className="font-semibold text-[var(--color-3d6b56)] underline"
+                      >
                         Privacy Policy
                       </a>
                       .
@@ -1390,15 +1420,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
         {currentStep !== 'confirmation' && (
           <div className="border-t border-gray-200 px-4 sm:px-6 py-3 sm:py-4 bg-white">
-            <div className="max-w-4xl mx-auto pb-[max(env(safe-area-inset-bottom),0px)] space-y-3">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
-                <div title="Secure" aria-label="Secure" className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-emerald-800 text-[11px] sm:text-xs font-semibold"><FaLock className="text-sm" /> Secure</div>
-                <div title="No hidden charges" aria-label="No hidden charges" className="rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-blue-800 text-[11px] sm:text-xs font-semibold"><FaShieldAlt className="text-sm" /> No hidden charges</div>
-                <div title="Data privacy" aria-label="Data privacy" className="rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-violet-800 text-[11px] sm:text-xs font-semibold"><FaUserShield className="text-sm" /> Data privacy</div>
-                <div title="Verified support" aria-label="Verified support" className="rounded-lg border border-amber-200 bg-amber-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-amber-800 text-[11px] sm:text-xs font-semibold"><FaCheckCircle className="text-sm" /> Verified support</div>
-                <div title="Licensed KMC Consultant" aria-label="Licensed KMC Consultant" className="rounded-lg border border-green-200 bg-green-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-green-800 text-[11px] sm:text-xs font-semibold"><FaIdBadge className="text-sm" /> Licensed KMC Consultant</div>
-              </div>
-
+            <div className="max-w-4xl mx-auto pb-[max(env(safe-area-inset-bottom),0px)]">
               <div className="flex items-center justify-center">
                 <div className="w-full sm:w-auto flex flex-col sm:items-center gap-1.5">
                   {currentStep !== 'payment' && currentStep !== 'relation' && currentStep !== 'application' && (
