@@ -2,7 +2,16 @@ export type ApplicantRelation = 'self' | 'other';
 
 export type ApplicationType = 'new' | 'correction' | 'digital' | 'other';
 
-export type CorrectionField = 'Name' | 'DOB' | 'Other';
+export type CorrectionField = 'Name' | 'DOB' | 'Address' | 'Other';
+
+export type RelationshipToApplicant =
+  | 'Father'
+  | 'Mother'
+  | 'Spouse'
+  | 'Guardian'
+  | 'Sibling'
+  | 'Child'
+  | 'Other';
 
 export interface CorrectionEntry {
   field: CorrectionField;
@@ -13,6 +22,7 @@ export interface CorrectionEntry {
 export interface SlotOption {
   date: string;
   label: string;
+  timeWindow?: string;
   maxSlots: number;
   bookedCount: number;
   remainingSlots: number;
@@ -22,7 +32,10 @@ export interface SlotOption {
 export interface BookingFormData {
   relation: ApplicantRelation;
   fillerName: string;
+  fillerEmail: string;
   fillerPhone: string;
+  relationshipToApplicant: RelationshipToApplicant;
+  relationshipOther: string;
   applicationType: ApplicationType;
   applicationTypeOther: string;
   applicantName: string;

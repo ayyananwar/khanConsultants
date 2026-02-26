@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { FaArrowLeft, FaArrowRight, FaCheckCircle, FaLock } from 'react-icons/fa';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { FaArrowLeft, FaArrowRight, FaCalendarAlt, FaCheckCircle, FaIdBadge, FaLock, FaShieldAlt, FaTimes, FaUserShield, FaWhatsapp } from 'react-icons/fa';
 import {
   createRazorpayOrder,
   getAvailableSlots,
@@ -13,6 +13,7 @@ import type {
   BookingFormData,
   CorrectionEntry,
   CorrectionField,
+  RelationshipToApplicant,
   SlotOption,
 } from '../types/birthBooking';
 
@@ -50,16 +51,41 @@ const DOCUMENT_OPTIONS = [
   'Voter ID',
   'PAN Card',
   'Driving License',
-  'Other',
 ];
 
-const STEP_KEYS = ['relation', 'application', 'applicant', 'correction', 'documents', 'slot', 'payment', 'confirmation'] as const;
-const CORRECTION_STEP_KEYS = ['relation', 'application', 'correction', 'applicant', 'documents', 'slot', 'payment', 'confirmation'] as const;
+const APPLICATION_OPTIONS: Array<{ label: string; value: ApplicationType }> = [
+  { label: 'New', value: 'new' },
+  { label: 'Correction', value: 'correction' },
+  { label: 'Digital', value: 'digital' },
+  { label: 'Other', value: 'other' },
+];
+
+const RELATIONSHIP_OPTIONS: RelationshipToApplicant[] = ['Father', 'Mother', 'Spouse', 'Guardian', 'Sibling', 'Child', 'Other'];
+
+const CORRECTION_FIELDS: CorrectionField[] = ['Name', 'DOB', 'Address', 'Other'];
+
+type DynamicStepKey =
+  | 'relation'
+  | 'filler'
+  | 'application'
+  | 'application-other'
+  | 'applicant'
+  | 'correction-select'
+  | 'documents'
+  | 'slot'
+  | 'contact'
+  | 'review'
+  | 'payment'
+  | 'confirmation'
+  | `correction-${CorrectionField}`;
 
 const initialFormData: BookingFormData = {
   relation: 'self',
   fillerName: '',
+  fillerEmail: '',
   fillerPhone: '',
+  relationshipToApplicant: 'Father',
+  relationshipOther: '',
   applicationType: 'new',
   applicationTypeOther: '',
   applicantName: '',
@@ -83,20 +109,6 @@ function normalizePhone(value: string): string {
   return value.replace(/\D/g, '').slice(0, 10);
 }
 
-function splitOtherDocuments(value: string): string[] {
-  return value
-    .split('|')
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function parseOtherDocumentInput(value: string): string[] {
-  return value
-    .split(/[,\n]/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
 function formatDateLabel(value: string): string {
   if (value === 'WAITLIST') {
     return 'WAITLIST';
@@ -114,6 +126,43 @@ function formatDateLabel(value: string): string {
     month: 'long',
     year: 'numeric',
   });
+}
+
+function formatIndianDateTime(dateValue: string, timeWindow: string): string {
+  if (dateValue === 'WAITLIST') {
+    return 'WAITLIST';
+  }
+  if (!dateValue) {
+    return '—';
+  }
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) {
+    return `${dateValue} • ${timeWindow}`;
+  }
+  return `${date.toLocaleDateString('en-IN', {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })} • ${timeWindow} IST`;
+}
+
+function isCorrectionDetailStep(step: DynamicStepKey): step is `correction-${CorrectionField}` {
+  return step.startsWith('correction-') && step !== 'correction-select';
+}
+
+function getCorrectionFieldFromStep(step: `correction-${CorrectionField}`): CorrectionField {
+  return step.replace('correction-', '') as CorrectionField;
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function stepDisplayName(step: DynamicStepKey): string {
+  if (step === 'correction-select') return 'Correction details';
+  if (isCorrectionDetailStep(step)) return `Correction: ${getCorrectionFieldFromStep(step)}`;
+  return step.replace('-', ' ').replace(/\b\w/g, (s) => s.toUpperCase());
 }
 
 async function loadRazorpayScript(): Promise<void> {
@@ -142,22 +191,45 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   const [processingPayment, setProcessingPayment] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [confirmation, setConfirmation] = useState<BookingConfirmationData | null>(null);
-  const [otherDocumentInput, setOtherDocumentInput] = useState('');
-  const [phoneFieldErrors, setPhoneFieldErrors] = useState<{ fillerPhone?: string; applicantPhone?: string }>({});
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [dobInputType, setDobInputType] = useState<'text' | 'date'>('text');
+  const [isDobPickerOpen, setIsDobPickerOpen] = useState(false);
+  const dobInputRef = useRef<HTMLInputElement | null>(null);
+  const [isCorrectionIncorrectDobPickerOpen, setIsCorrectionIncorrectDobPickerOpen] = useState(false);
+  const [isCorrectionCorrectDobPickerOpen, setIsCorrectionCorrectDobPickerOpen] = useState(false);
+  const correctionIncorrectDobInputRef = useRef<HTMLInputElement | null>(null);
+  const correctionCorrectDobInputRef = useRef<HTMLInputElement | null>(null);
 
-  const activeSteps = useMemo(() => {
-    if (formData.applicationType === 'correction') {
-      return CORRECTION_STEP_KEYS;
+  const activeSteps = useMemo<DynamicStepKey[]>(() => {
+    const steps: DynamicStepKey[] = ['relation'];
+
+    if (formData.relation === 'other') {
+      steps.push('filler');
     }
-    return STEP_KEYS.filter((step) => step !== 'correction');
-  }, [formData.applicationType]);
+
+    steps.push('application');
+
+    if (formData.applicationType === 'other') {
+      steps.push('application-other');
+    }
+
+    steps.push('applicant');
+
+    if (formData.applicationType === 'correction') {
+      steps.push('correction-select');
+      formData.correctionEntries.forEach((entry) => {
+        steps.push(`correction-${entry.field}`);
+      });
+    }
+
+    steps.push('documents', 'slot', 'contact', 'review', 'payment', 'confirmation');
+    return steps;
+  }, [formData.relation, formData.applicationType, formData.correctionEntries]);
 
   const currentStep = activeSteps[stepIndex];
   const progressPercent = Math.round(((stepIndex + 1) / activeSteps.length) * 100);
   const todayIso = new Date().toISOString().split('T')[0];
-  const otherDocuments = useMemo(() => splitOtherDocuments(formData.documentsOther), [formData.documentsOther]);
+  const selectedSlot = useMemo(() => slots.find((slot) => slot.date === formData.chosenThursday), [slots, formData.chosenThursday]);
+  const selectedTimeWindow = selectedSlot?.timeWindow || bookingFee?.appointmentWindow || 'Will be shared on confirmation';
 
   useEffect(() => {
     if (!isOpen) {
@@ -181,35 +253,17 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setStepIndex(0);
     setErrorMessage('');
     setConfirmation(null);
-    setOtherDocumentInput('');
-    setPhoneFieldErrors({});
     setTermsAccepted(false);
-    setDobInputType('text');
+    setIsDobPickerOpen(false);
+    setIsCorrectionIncorrectDobPickerOpen(false);
+    setIsCorrectionCorrectDobPickerOpen(false);
   }, [isOpen]);
 
   useEffect(() => {
-    if (formData.applicantDob) {
-      setDobInputType('date');
-      return;
+    if (stepIndex >= activeSteps.length) {
+      setStepIndex(Math.max(0, activeSteps.length - 1));
     }
-    setDobInputType('text');
-  }, [formData.applicantDob]);
-
-  useEffect(() => {
-    if (currentStep !== 'correction') {
-      return;
-    }
-
-    setFormData((prev) => {
-      if (prev.correctionEntries.length > 0) {
-        return prev;
-      }
-      return {
-        ...prev,
-        correctionEntries: [{ field: 'Name', incorrectValue: '', correctValue: '' }],
-      };
-    });
-  }, [currentStep]);
+  }, [activeSteps.length, stepIndex]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -231,7 +285,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
         setBookingFee(feeData);
       } catch (error) {
         if (!cancelled) {
-          setErrorMessage(error instanceof Error ? error.message : 'Failed to load booking details');
+          setErrorMessage(error instanceof Error ? error.message : "We couldn't load booking details. Please try again.");
         }
       } finally {
         if (!cancelled) {
@@ -255,130 +309,119 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   const handleFillerPhoneChange = (value: string) => {
     const normalized = normalizePhone(value);
     updateFormField('fillerPhone', normalized);
-    setPhoneFieldErrors((prev) => ({
-      ...prev,
-      fillerPhone: normalized.length === 0 || normalized.length === 10 ? '' : 'Phone number must be exactly 10 digits',
-    }));
   };
 
   const handleApplicantPhoneChange = (value: string) => {
     const normalized = normalizePhone(value);
     updateFormField('applicantPhone', normalized);
-    setPhoneFieldErrors((prev) => ({
-      ...prev,
-      applicantPhone: normalized.length === 0 || normalized.length === 10 ? '' : 'Phone number must be exactly 10 digits',
-    }));
   };
 
-  const addOtherDocument = () => {
-    const parsedValues = parseOtherDocumentInput(otherDocumentInput);
-    if (parsedValues.length === 0) {
-      return;
-    }
-
-    const existingSet = new Set(otherDocuments.map((item) => item.toLowerCase()));
-    const nextDocuments = [...otherDocuments];
-
-    parsedValues.forEach((item) => {
-      const key = item.toLowerCase();
-      if (!existingSet.has(key)) {
-        nextDocuments.push(item);
-        existingSet.add(key);
+  const validateCurrentStep = (showError: boolean) => {
+    const fail = (message: string) => {
+      if (showError) {
+        setErrorMessage(message);
       }
-    });
+      return false;
+    };
 
-    updateFormField('documentsOther', nextDocuments.join('|'));
-    setOtherDocumentInput('');
-  };
-
-  const removeOtherDocument = (indexToRemove: number) => {
-    const nextDocuments = otherDocuments.filter((_, index) => index !== indexToRemove);
-    updateFormField('documentsOther', nextDocuments.join('|'));
-  };
-
-  const validateCurrentStep = () => {
     if (currentStep === 'relation') {
       return true;
     }
 
+    if (currentStep === 'filler') {
+      if (!formData.fillerName.trim()) {
+        return fail('Please enter your full name.');
+      }
+      if (!formData.relationshipToApplicant) {
+        return fail('Please select your relationship to the applicant.');
+      }
+      if (formData.relationshipToApplicant === 'Other' && !formData.relationshipOther.trim()) {
+        return fail('Please specify your relationship to the applicant.');
+      }
+      return true;
+    }
+
     if (currentStep === 'application') {
-      if (formData.applicationType === 'other' && !formData.applicationTypeOther.trim()) {
-        setErrorMessage('Please enter your application type.');
-        return false;
+      if (!formData.applicationType) {
+        return fail('Please select application type.');
+      }
+      return true;
+    }
+
+    if (currentStep === 'application-other') {
+      if (!formData.applicationTypeOther.trim()) {
+        return fail('Please enter the application type.');
       }
       return true;
     }
 
     if (currentStep === 'applicant') {
-      if (formData.relation === 'other' && (!formData.fillerName.trim() || !formData.fillerPhone.trim())) {
-        setErrorMessage('Please enter your name and phone number.');
-        return false;
-      }
-      if (formData.relation === 'other') {
-        const fillerDigitsOnly = formData.fillerPhone.replace(/\D/g, '');
-        if (fillerDigitsOnly.length !== 10) {
-          setPhoneFieldErrors((prev) => ({ ...prev, fillerPhone: 'Phone number must be exactly 10 digits' }));
-          setErrorMessage('Filler phone number must be exactly 10 digits.');
-          return false;
-        }
-      }
-      if (!formData.applicantName.trim() || !formData.applicantDob || !formData.applicantPhone.trim() || !formData.applicantEmail.trim()) {
-        setErrorMessage('Please complete all applicant details.');
-        return false;
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.applicantEmail)) {
-        setErrorMessage('Please enter a valid email address.');
-        return false;
-      }
-      const digitsOnly = formData.applicantPhone.replace(/\D/g, '');
-      if (digitsOnly.length !== 10) {
-        setPhoneFieldErrors((prev) => ({ ...prev, applicantPhone: 'Phone number must be exactly 10 digits' }));
-        setErrorMessage('Applicant phone number must be exactly 10 digits.');
-        return false;
+      if (!formData.applicantName.trim() || !formData.applicantDob) {
+        return fail('Please enter applicant name and date of birth.');
       }
       return true;
     }
 
-    if (currentStep === 'correction') {
+    if (currentStep === 'correction-select') {
       if (formData.correctionEntries.length === 0) {
-        setErrorMessage('Please add at least one correction item.');
-        return false;
+        return fail('Please select at least one correction field.');
       }
-      const hasInvalidEntry = formData.correctionEntries.some(
-        (entry) => !entry.incorrectValue.trim() || !entry.correctValue.trim(),
-      );
-      if (hasInvalidEntry) {
-        setErrorMessage('Please fill incorrect and correct values for each correction field.');
-        return false;
+      return true;
+    }
+
+    if (isCorrectionDetailStep(currentStep)) {
+      const field = getCorrectionFieldFromStep(currentStep);
+      const entry = formData.correctionEntries.find((item) => item.field === field);
+      if (!entry || !entry.incorrectValue.trim() || !entry.correctValue.trim()) {
+        return fail(`Please fill both incorrect and correct values for ${field}.`);
       }
       return true;
     }
 
     if (currentStep === 'documents') {
       if (formData.documents.length === 0) {
-        setErrorMessage('Select at least one document.');
-        return false;
+        return fail('Please select at least one document.');
       }
-      if (formData.documents.includes('Other') && otherDocuments.length === 0) {
-        setErrorMessage('Please add at least one other document.');
-        return false;
+      if (formData.documents.length > 4) {
+        return fail('Please select up to four documents.');
       }
       return true;
     }
 
     if (currentStep === 'slot') {
       if (!formData.chosenThursday) {
-        setErrorMessage('Please choose a slot to continue.');
-        return false;
+        return fail('Please select an appointment slot.');
       }
+      return true;
+    }
+
+    if (currentStep === 'contact') {
+      if (formData.relation === 'self') {
+        if (formData.applicantPhone.replace(/\D/g, '').length !== 10) {
+          return fail('Please enter a valid 10-digit applicant phone number.');
+        }
+        if (!isValidEmail(formData.applicantEmail)) {
+          return fail('Please enter a valid applicant email address.');
+        }
+        return true;
+      }
+
+      if (formData.fillerPhone.replace(/\D/g, '').length !== 10) {
+        return fail('Please enter a valid 10-digit representative phone number.');
+      }
+      if (!isValidEmail(formData.fillerEmail)) {
+        return fail('Please enter a valid representative email address.');
+      }
+      return true;
+    }
+
+    if (currentStep === 'review') {
       return true;
     }
 
     if (currentStep === 'payment') {
       if (!termsAccepted) {
-        setErrorMessage('Please accept the Terms & Conditions and Privacy Policy to continue.');
-        return false;
+        return fail('Please accept the Terms & Conditions and Privacy Policy to continue.');
       }
       return Boolean(bookingFee);
     }
@@ -387,7 +430,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
   };
 
   const goNext = () => {
-    if (!validateCurrentStep()) {
+    if (!validateCurrentStep(true)) {
       return;
     }
     if (stepIndex < activeSteps.length - 1) {
@@ -406,10 +449,14 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     setFormData((prev) => {
       const exists = prev.documents.includes(doc);
       const nextDocs = exists ? prev.documents.filter((item) => item !== doc) : [...prev.documents, doc];
+
+      if (nextDocs.length > 4) {
+        return prev;
+      }
+
       return {
         ...prev,
         documents: nextDocs,
-        documentsOther: doc === 'Other' && exists ? '' : prev.documentsOther,
       };
     });
   };
@@ -419,9 +466,11 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
       if (prev.correctionEntries.some((entry) => entry.field === field)) {
         return prev;
       }
+      const ordered = [...prev.correctionEntries, { field, incorrectValue: '', correctValue: '' }];
+      ordered.sort((a, b) => CORRECTION_FIELDS.indexOf(a.field) - CORRECTION_FIELDS.indexOf(b.field));
       return {
         ...prev,
-        correctionEntries: [...prev.correctionEntries, { field, incorrectValue: '', correctValue: '' }],
+        correctionEntries: ordered,
       };
     });
   };
@@ -442,13 +491,26 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
   const handlePayment = async () => {
     if (!bookingFee) {
-      setErrorMessage('Booking fee is unavailable. Please refresh and try again.');
+      setErrorMessage('Booking fee is currently unavailable. Please refresh and try again.');
       return;
     }
 
-    if (!validateCurrentStep()) {
+    if (!validateCurrentStep(true)) {
       return;
     }
+
+    const contactPhone = formData.relation === 'self' ? formData.applicantPhone : formData.fillerPhone;
+    const contactEmail = formData.relation === 'self' ? formData.applicantEmail : formData.fillerEmail;
+    const contactName = formData.relation === 'self' ? formData.applicantName : formData.fillerName;
+
+    const normalizedFormData: BookingFormData = {
+      ...formData,
+      fillerName: formData.relation === 'self' ? formData.applicantName : formData.fillerName,
+      fillerPhone: formData.relation === 'self' ? formData.applicantPhone : formData.fillerPhone,
+      fillerEmail: formData.relation === 'self' ? formData.applicantEmail : formData.fillerEmail,
+      applicantPhone: formData.relation === 'self' ? formData.applicantPhone : (formData.applicantPhone || formData.fillerPhone),
+      applicantEmail: formData.relation === 'self' ? formData.applicantEmail : (formData.applicantEmail || formData.fillerEmail),
+    };
 
     try {
       setProcessingPayment(true);
@@ -456,9 +518,9 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
       await loadRazorpayScript();
 
       const order = await createRazorpayOrder({
-        applicantName: formData.applicantName,
-        applicantEmail: formData.applicantEmail,
-        applicantPhone: formData.applicantPhone,
+        applicantName: contactName,
+        applicantEmail: contactEmail,
+        applicantPhone: contactPhone,
       });
 
       if (!window.Razorpay) {
@@ -473,9 +535,9 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
         name: 'Khan Consultants',
         description: 'Birth Certificate Consultation Booking',
         prefill: {
-          name: formData.applicantName,
-          email: formData.applicantEmail,
-          contact: formData.applicantPhone,
+          name: contactName,
+          email: contactEmail,
+          contact: contactPhone,
         },
         notes: {
           applicationType: formData.applicationType,
@@ -487,7 +549,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
         handler: async (response: RazorpaySuccessResponse) => {
           try {
             const verifyResult = await verifyPaymentAndSave({
-              formData,
+              formData: normalizedFormData,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpayOrderId: response.razorpay_order_id,
               razorpaySignature: response.razorpay_signature,
@@ -502,7 +564,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
             setStepIndex(activeSteps.length - 1);
           } catch (error) {
-            setErrorMessage(error instanceof Error ? error.message : 'Payment verification failed. Please retry.');
+            setErrorMessage(error instanceof Error ? error.message : 'Payment verification failed. Please try again.');
           } finally {
             setProcessingPayment(false);
           }
@@ -525,18 +587,25 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     const preservedRelation = formData.relation;
     const preservedFillerName = formData.fillerName;
     const preservedFillerPhone = formData.fillerPhone;
+    const preservedFillerEmail = formData.fillerEmail;
+    const preservedRelationship = formData.relationshipToApplicant;
+    const preservedRelationshipOther = formData.relationshipOther;
 
     setConfirmation(null);
     setErrorMessage('');
     setStepIndex(0);
-    setPhoneFieldErrors({});
-    setOtherDocumentInput('');
     setTermsAccepted(false);
+    setIsDobPickerOpen(false);
+    setIsCorrectionIncorrectDobPickerOpen(false);
+    setIsCorrectionCorrectDobPickerOpen(false);
     setFormData(
       getInitialFormData({
         relation: preservedRelation,
         fillerName: preservedFillerName,
         fillerPhone: preservedFillerPhone,
+        fillerEmail: preservedFillerEmail,
+        relationshipToApplicant: preservedRelationship,
+        relationshipOther: preservedRelationshipOther,
       }),
     );
 
@@ -548,7 +617,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
       setWaitlistAllowed(slotData.waitlistAllowed);
       setBookingFee(feeData);
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to refresh booking details');
+      setErrorMessage(error instanceof Error ? error.message : "We couldn't refresh booking details. Please try again.");
     } finally {
       setLoadingSlots(false);
     }
@@ -558,27 +627,53 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
     return null;
   }
 
+  const canContinue = currentStep === 'relation' ? false : validateCurrentStep(false);
+  const whatsappMessage = encodeURIComponent(
+    `Hello, I need assistance with Birth Certificate booking. Step: ${stepDisplayName(currentStep)} | Application: ${formData.applicationType}${
+      formData.chosenThursday ? ` | Slot: ${formatDateLabel(formData.chosenThursday)}` : ''
+    }`,
+  );
+  const whatsappHref = `https://wa.me/916291139691?text=${whatsappMessage}`;
+
+  const jumpToStep = (stepKey: DynamicStepKey) => {
+    const targetIndex = activeSteps.indexOf(stepKey);
+    if (targetIndex !== -1) {
+      setStepIndex(targetIndex);
+      setErrorMessage('');
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[120] bg-black/70 backdrop-blur-sm">
       <div className="h-full w-full bg-white text-gray-900 flex flex-col">
         <div className="border-b border-gray-200 px-4 sm:px-6 py-4">
-          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+          <div className="max-w-4xl mx-auto relative flex items-center justify-between min-h-10">
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={stepIndex === 0 || processingPayment}
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gray-700 disabled:opacity-40"
+            >
+              <FaArrowLeft /> Back
+            </button>
+            <p className="absolute left-1/2 -translate-x-1/2 text-[11px] sm:text-sm font-semibold text-gray-600 max-w-[180px] sm:max-w-none truncate text-center">
+              Birth Certificate Booking Form
+            </p>
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-gray-700 hover:text-gray-900"
+              className="inline-flex items-center gap-1.5 rounded-full border border-red-300 px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold text-red-600 hover:text-red-700 hover:border-red-400"
+              aria-label="Close booking form"
             >
-              <FaArrowLeft /> Close
+              <FaTimes /> Close
             </button>
-            <p className="text-xs sm:text-sm font-semibold text-gray-600">Birth Certificate Booking</p>
-            <div className="w-16" />
           </div>
           <div className="max-w-4xl mx-auto mt-3 h-2 rounded-full bg-gray-200 overflow-hidden">
             <div className="h-full bg-[var(--color-3d6b56)] transition-all duration-300" style={{ width: `${progressPercent}%` }} />
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 pt-5 pb-24 sm:pb-8 sm:pt-8">
+        <div className="flex-1 overflow-y-auto px-3 sm:px-6 pt-4 sm:pt-8 pb-24 sm:pb-8">
           <div className="max-w-4xl mx-auto">
             {errorMessage && (
               <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{errorMessage}</div>
@@ -586,8 +681,8 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
             {currentStep === 'relation' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Is it for yourself?</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Choose who this application is for.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Who is this application for?</h2>
+                <p className="text-sm text-gray-600 mb-5">Choose one option to proceed.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {[
                     { label: 'Yes', value: 'self' },
@@ -596,98 +691,131 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => updateFormField('relation', option.value as BookingFormData['relation'])}
+                      onClick={() => {
+                        updateFormField('relation', option.value as BookingFormData['relation']);
+                        if (option.value === 'self') {
+                          updateFormField('relationshipToApplicant', 'Father');
+                          updateFormField('relationshipOther', '');
+                        }
+                        if (stepIndex < activeSteps.length - 1) {
+                          setStepIndex((prev) => prev + 1);
+                        }
+                      }}
                       className={`rounded-2xl border p-5 text-left transition ${
                         formData.relation === option.value ? 'border-[var(--color-3d6b56)] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <p className="text-lg font-bold">{option.label}</p>
+                      <p className="text-sm text-gray-500 mt-1">{option.value === 'self' ? 'I am the applicant' : 'I am applying on behalf of someone else'}</p>
                     </button>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {currentStep === 'filler' && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Representative details</h2>
+                <p className="text-sm text-gray-600 mb-5">Enter your details as the person submitting this application.</p>
+
+                <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 space-y-4">
+                  <div>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Full name</label>
+                    <input
+                      type="text"
+                      value={formData.fillerName}
+                      onChange={(event) => updateFormField('fillerName', event.target.value)}
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                      placeholder="Example: Imran Khan"
+                      autoComplete="name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Relationship with applicant</label>
+                    <select
+                      value={formData.relationshipToApplicant}
+                      onChange={(event) => updateFormField('relationshipToApplicant', event.target.value as RelationshipToApplicant)}
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                    >
+                      {RELATIONSHIP_OPTIONS.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {formData.relationshipToApplicant === 'Other' && (
+                    <div>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Specify relationship</label>
+                      <input
+                        type="text"
+                        value={formData.relationshipOther}
+                        onChange={(event) => updateFormField('relationshipOther', event.target.value)}
+                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                        placeholder="Example: Uncle"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             )}
 
             {currentStep === 'application' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">What type of application is this?</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Select one option to continue.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Select application type</h2>
+                <p className="text-sm text-gray-600 mb-5">Choose the category that best matches your request.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { label: 'New', value: 'new' },
-                    { label: 'Correction', value: 'correction' },
-                    { label: 'Digital', value: 'digital' },
-                    { label: 'Other', value: 'other' },
-                  ].map((item) => (
+                  {APPLICATION_OPTIONS.map((item) => (
                     <button
                       key={item.value}
                       type="button"
-                      onClick={() => updateFormField('applicationType', item.value as ApplicationType)}
+                      onClick={() => {
+                        updateFormField('applicationType', item.value as ApplicationType);
+                        if (item.value !== 'other') {
+                          updateFormField('applicationTypeOther', '');
+                        }
+                        if (stepIndex < activeSteps.length - 1) {
+                          setStepIndex((prev) => prev + 1);
+                        }
+                      }}
                       className={`rounded-2xl border p-5 text-left transition ${
                         formData.applicationType === item.value ? 'border-[var(--color-3d6b56)] bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <p className="text-lg font-bold">{item.label}</p>
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                        {item.value === 'other' ? 'Not listed? choose this option to enter manually.' : 'Select to continue'}
+                      </p>
                     </button>
                   ))}
                 </div>
-                {formData.applicationType === 'other' && (
-                  <div className="mt-5">
-                    <label className="block text-sm font-semibold mb-2">Enter your application type</label>
-                    <input
-                      type="text"
-                      value={formData.applicationTypeOther}
-                      onChange={(event) => updateFormField('applicationTypeOther', event.target.value)}
-                      className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                      placeholder="Example: Name Inclusion"
-                    />
-                  </div>
-                )}
+              </div>
+            )}
+
+            {currentStep === 'application-other' && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Enter application type</h2>
+                <p className="text-sm text-gray-600 mb-5">Provide a short and clear application category.</p>
+                <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5">
+                  <label className="block text-sm font-semibold mb-2">Application type</label>
+                  <input
+                    type="text"
+                    value={formData.applicationTypeOther}
+                    onChange={(event) => updateFormField('applicationTypeOther', event.target.value)}
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                    placeholder="Example: Name Inclusion"
+                  />
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500">Example: Name Inclusion, Delayed Registration, Data Update.</p>
+                </div>
               </div>
             )}
 
             {currentStep === 'applicant' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Applicant details</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Fill details exactly as official documents. All fields are visible below for mobile users.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Applicant details</h2>
+                <p className="text-sm text-gray-600 mb-5">Enter the applicant name and date of birth exactly as records.</p>
 
                 <div className="grid grid-cols-1 gap-4 sm:gap-5">
-                  {formData.relation === 'other' && (
-                    <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5">
-                      <p className="text-sm sm:text-base font-bold text-[var(--color-1f4d3b)] mb-3">Filler details (you)</p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                        <div>
-                          <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Your full name</label>
-                          <input
-                            type="text"
-                            value={formData.fillerName}
-                            onChange={(event) => updateFormField('fillerName', event.target.value)}
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                            placeholder="Example: Imran Khan"
-                            autoComplete="name"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Your phone number</label>
-                          <input
-                            type="tel"
-                            value={formData.fillerPhone}
-                            onChange={(event) => handleFillerPhoneChange(event.target.value)}
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                            placeholder="10-digit mobile number"
-                            autoComplete="tel"
-                            inputMode="numeric"
-                            pattern="[0-9]{10}"
-                            maxLength={10}
-                          />
-                          {phoneFieldErrors.fillerPhone && (
-                            <p className="mt-1 text-xs text-red-600">{phoneFieldErrors.fillerPhone}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
                   <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5">
                     <p className="text-sm sm:text-base font-bold text-gray-900 mb-3">Applicant details</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
@@ -705,51 +833,53 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
 
                       <div>
                         <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Date of birth</label>
+                        <div className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base inline-flex items-center justify-between gap-3 bg-white">
+                          <span className={formData.applicantDob ? 'text-gray-900' : 'text-gray-500'}>
+                            {formData.applicantDob ? formatDateLabel(formData.applicantDob) : 'Select date of birth'}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const pickerInput = dobInputRef.current as (HTMLInputElement & { showPicker?: () => void }) | null;
+                              if (!pickerInput) {
+                                return;
+                              }
+
+                              if (isDobPickerOpen) {
+                                pickerInput.blur();
+                                setIsDobPickerOpen(false);
+                                return;
+                              }
+
+                              setIsDobPickerOpen(true);
+                              pickerInput.focus();
+                              if (typeof pickerInput.showPicker === 'function') {
+                                pickerInput.showPicker();
+                              }
+                            }}
+                            onMouseDown={(event) => event.preventDefault()}
+                            aria-label="Toggle date of birth calendar"
+                            className={`inline-flex items-center justify-center h-8 w-8 rounded-full border transition ${
+                              isDobPickerOpen
+                                ? 'border-[var(--color-3d6b56)] text-[var(--color-3d6b56)] bg-emerald-50'
+                                : 'border-gray-300 text-gray-500 bg-white hover:border-gray-400'
+                            }`}
+                          >
+                            <FaCalendarAlt className="text-sm" />
+                          </button>
+                        </div>
                         <input
-                          type={dobInputType}
+                          ref={dobInputRef}
+                          type="date"
                           value={formData.applicantDob}
-                          onChange={(event) => updateFormField('applicantDob', event.target.value)}
-                          onFocus={() => setDobInputType('date')}
-                          onClick={() => setDobInputType('date')}
-                          onBlur={() => {
-                            if (!formData.applicantDob) {
-                              setDobInputType('text');
-                            }
+                          onChange={(event) => {
+                            updateFormField('applicantDob', event.target.value);
+                            setIsDobPickerOpen(false);
                           }}
-                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                          placeholder="Select date of birth"
+                          onBlur={() => setIsDobPickerOpen(false)}
+                          className="sr-only"
+                          tabIndex={-1}
                           max={todayIso}
-                        />
-                        <p className="text-[11px] sm:text-xs text-gray-500 mt-1">Tap to open date picker.</p>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Applicant phone number</label>
-                        <input
-                          type="tel"
-                          value={formData.applicantPhone}
-                          onChange={(event) => handleApplicantPhoneChange(event.target.value)}
-                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                          placeholder="10-digit mobile number"
-                          autoComplete="tel"
-                          inputMode="numeric"
-                          pattern="[0-9]{10}"
-                          maxLength={10}
-                        />
-                        {phoneFieldErrors.applicantPhone && (
-                          <p className="mt-1 text-xs text-red-600">{phoneFieldErrors.applicantPhone}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Applicant email</label>
-                        <input
-                          type="email"
-                          value={formData.applicantEmail}
-                          onChange={(event) => updateFormField('applicantEmail', event.target.value)}
-                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
-                          placeholder="example@email.com"
-                          autoComplete="email"
                         />
                       </div>
                     </div>
@@ -758,13 +888,13 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
               </div>
             )}
 
-            {currentStep === 'correction' && (
+            {currentStep === 'correction-select' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Correction details</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Choose what needs correction, then fill the current and updated values.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Correction details</h2>
+                <p className="text-sm text-gray-600 mb-5">Select the fields you want to correct. Each field will open separately.</p>
 
-                <div className="flex flex-wrap gap-3 mb-6">
-                  {(['Name', 'DOB', 'Other'] as CorrectionField[]).map((field) => {
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                  {CORRECTION_FIELDS.map((field) => {
                     const selected = formData.correctionEntries.some((entry) => entry.field === field);
                     return (
                       <button
@@ -781,44 +911,167 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   })}
                 </div>
 
-                <p className="text-xs sm:text-sm text-gray-500 mb-4">Selected: {formData.correctionEntries.length} field(s). Tip: start with Name if unsure.</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4">Selected fields: {formData.correctionEntries.length}</p>
+              </div>
+            )}
 
-                <div className="space-y-4">
-                  {formData.correctionEntries.map((entry) => (
-                    <div key={entry.field} className="rounded-2xl border border-gray-200 p-4">
-                      <p className="font-bold mb-3">{entry.field}</p>
+            {isCorrectionDetailStep(currentStep) && (
+              <div>
+                {(() => {
+                  const field = getCorrectionFieldFromStep(currentStep);
+                  const entry = formData.correctionEntries.find((item) => item.field === field);
+                  if (!entry) {
+                    return <p className="text-sm text-gray-600">Select correction fields first.</p>;
+                  }
+
+                  return (
+                    <div className="rounded-2xl border border-gray-200 p-4">
+                      <h2 className="text-xl sm:text-2xl font-bold mb-2">Correction: {field}</h2>
+                      <p className="text-sm text-gray-600 mb-5">Enter the current value and the corrected value for {field}.</p>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Incorrect value</label>
-                          <input
-                            type="text"
-                            value={entry.incorrectValue}
-                            onChange={(event) => updateCorrectionEntry(entry.field, { incorrectValue: event.target.value })}
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                            placeholder={`Current ${entry.field.toLowerCase()} in certificate`}
-                          />
+                          {field === 'DOB' ? (
+                            <>
+                              <div className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base inline-flex items-center justify-between gap-3 bg-white">
+                                <span className={entry.incorrectValue ? 'text-gray-900' : 'text-gray-500'}>
+                                  {entry.incorrectValue ? formatDateLabel(entry.incorrectValue) : 'Select incorrect DOB'}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const pickerInput = correctionIncorrectDobInputRef.current as (HTMLInputElement & { showPicker?: () => void }) | null;
+                                    if (!pickerInput) {
+                                      return;
+                                    }
+
+                                    if (isCorrectionIncorrectDobPickerOpen) {
+                                      pickerInput.blur();
+                                      setIsCorrectionIncorrectDobPickerOpen(false);
+                                      return;
+                                    }
+
+                                    setIsCorrectionIncorrectDobPickerOpen(true);
+                                    setIsCorrectionCorrectDobPickerOpen(false);
+                                    correctionCorrectDobInputRef.current?.blur();
+                                    pickerInput.focus();
+                                    if (typeof pickerInput.showPicker === 'function') {
+                                      pickerInput.showPicker();
+                                    }
+                                  }}
+                                  onMouseDown={(event) => event.preventDefault()}
+                                  aria-label="Toggle incorrect DOB calendar"
+                                  className={`inline-flex items-center justify-center h-8 w-8 rounded-full border transition ${
+                                    isCorrectionIncorrectDobPickerOpen
+                                      ? 'border-[var(--color-3d6b56)] text-[var(--color-3d6b56)] bg-emerald-50'
+                                      : 'border-gray-300 text-gray-500 bg-white hover:border-gray-400'
+                                  }`}
+                                >
+                                  <FaCalendarAlt className="text-sm" />
+                                </button>
+                              </div>
+                              <input
+                                ref={correctionIncorrectDobInputRef}
+                                type="date"
+                                value={entry.incorrectValue}
+                                onChange={(event) => {
+                                  updateCorrectionEntry(field, { incorrectValue: event.target.value });
+                                  setIsCorrectionIncorrectDobPickerOpen(false);
+                                }}
+                                onBlur={() => setIsCorrectionIncorrectDobPickerOpen(false)}
+                                className="sr-only"
+                                tabIndex={-1}
+                                max={todayIso}
+                              />
+                            </>
+                          ) : (
+                            <input
+                              type="text"
+                              value={entry.incorrectValue}
+                              onChange={(event) => updateCorrectionEntry(field, { incorrectValue: event.target.value })}
+                              className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                              placeholder={`Current ${field.toLowerCase()} in certificate`}
+                            />
+                          )}
                         </div>
                         <div>
                           <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Correct value</label>
-                          <input
-                            type="text"
-                            value={entry.correctValue}
-                            onChange={(event) => updateCorrectionEntry(entry.field, { correctValue: event.target.value })}
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                            placeholder={`Correct ${entry.field.toLowerCase()} you need`}
-                          />
+                          {field === 'DOB' ? (
+                            <>
+                              <div className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base inline-flex items-center justify-between gap-3 bg-white">
+                                <span className={entry.correctValue ? 'text-gray-900' : 'text-gray-500'}>
+                                  {entry.correctValue ? formatDateLabel(entry.correctValue) : 'Select correct DOB'}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const pickerInput = correctionCorrectDobInputRef.current as (HTMLInputElement & { showPicker?: () => void }) | null;
+                                    if (!pickerInput) {
+                                      return;
+                                    }
+
+                                    if (isCorrectionCorrectDobPickerOpen) {
+                                      pickerInput.blur();
+                                      setIsCorrectionCorrectDobPickerOpen(false);
+                                      return;
+                                    }
+
+                                    setIsCorrectionCorrectDobPickerOpen(true);
+                                    setIsCorrectionIncorrectDobPickerOpen(false);
+                                    correctionIncorrectDobInputRef.current?.blur();
+                                    pickerInput.focus();
+                                    if (typeof pickerInput.showPicker === 'function') {
+                                      pickerInput.showPicker();
+                                    }
+                                  }}
+                                  onMouseDown={(event) => event.preventDefault()}
+                                  aria-label="Toggle correct DOB calendar"
+                                  className={`inline-flex items-center justify-center h-8 w-8 rounded-full border transition ${
+                                    isCorrectionCorrectDobPickerOpen
+                                      ? 'border-[var(--color-3d6b56)] text-[var(--color-3d6b56)] bg-emerald-50'
+                                      : 'border-gray-300 text-gray-500 bg-white hover:border-gray-400'
+                                  }`}
+                                >
+                                  <FaCalendarAlt className="text-sm" />
+                                </button>
+                              </div>
+                              <input
+                                ref={correctionCorrectDobInputRef}
+                                type="date"
+                                value={entry.correctValue}
+                                onChange={(event) => {
+                                  updateCorrectionEntry(field, { correctValue: event.target.value });
+                                  setIsCorrectionCorrectDobPickerOpen(false);
+                                }}
+                                onBlur={() => setIsCorrectionCorrectDobPickerOpen(false)}
+                                className="sr-only"
+                                tabIndex={-1}
+                                max={todayIso}
+                              />
+                            </>
+                          ) : (
+                            <input
+                              type="text"
+                              value={entry.correctValue}
+                              onChange={(event) => updateCorrectionEntry(field, { correctValue: event.target.value })}
+                              className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                              placeholder={`Correct ${field.toLowerCase()} required`}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  );
+                })()}
               </div>
             )}
 
             {currentStep === 'documents' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Documents available</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Select all documents currently available with you.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Available documents</h2>
+                <p className="text-sm text-gray-600 mb-2">Select the documents currently available (minimum 1, recommended up to 4).</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-5">You may continue even if only one document is available.</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {DOCUMENT_OPTIONS.map((doc) => {
@@ -841,57 +1094,13 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                     );
                   })}
                 </div>
-
-                {formData.documents.includes('Other') && (
-                  <div className="mt-5">
-                    <label className="block text-sm font-semibold mb-2">Other document(s)</label>
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <input
-                        type="text"
-                        value={otherDocumentInput}
-                        onChange={(event) => setOtherDocumentInput(event.target.value)}
-                        className="w-full rounded-xl border border-gray-300 px-4 py-3"
-                        placeholder="Type one or many (comma separated), then Add"
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter') {
-                            event.preventDefault();
-                            addOtherDocument();
-                          }
-                        }}
-                      />
-                      <button
-                        type="button"
-                        onClick={addOtherDocument}
-                        className="rounded-xl border border-[var(--color-3d6b56)] text-[var(--color-1f4d3b)] px-4 py-3 font-semibold"
-                      >
-                        Add document(s)
-                      </button>
-                    </div>
-                    {otherDocuments.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {otherDocuments.map((item, index) => (
-                          <button
-                            key={`${item}-${index}`}
-                            type="button"
-                            onClick={() => removeOtherDocument(index)}
-                            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs sm:text-sm text-[var(--color-1f4d3b)]"
-                            title="Remove document"
-                          >
-                            {item} <span className="font-bold">×</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                    <p className="mt-2 text-xs text-gray-500">You can paste multiple items like: Aadhaar, School ID, Hospital Slip.</p>
-                  </div>
-                )}
               </div>
             )}
 
             {currentStep === 'slot' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Choose your slot</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Only upcoming Thursdays are available for booking.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Choose appointment slot</h2>
+                <p className="text-sm text-gray-600 mb-5">Date and time are shown in Indian format.</p>
 
                 {loadingSlots ? (
                   <p className="text-sm text-gray-600">Loading slots...</p>
@@ -912,15 +1121,15 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                                 : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
-                          <p className="font-bold text-base sm:text-lg">{slot.label || formatDateLabel(slot.date)}</p>
-                          <p className="text-sm mt-1">{slot.isFull ? 'Fully booked' : `${slot.remainingSlots} slots left`}</p>
+                            <p className="font-bold text-base sm:text-lg">{formatIndianDateTime(slot.date, slot.timeWindow || bookingFee?.appointmentWindow || 'Time will be shared')}</p>
+                            <p className="text-sm mt-1">{slot.isFull ? 'Fully booked' : `${slot.remainingSlots} slots left`}</p>
                         </button>
                       ))}
                     </div>
 
                     {allSlotsFull && waitlistAllowed && (
                       <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-                        <p className="text-sm text-amber-800 font-semibold mb-3">All slots are booked — join paid waitlist and our team will contact you.</p>
+                        <p className="text-sm text-amber-800 font-semibold mb-3">All slots are currently full. Join the paid waitlist and our team will contact you.</p>
                         <button
                           type="button"
                           onClick={() => updateFormField('chosenThursday', 'WAITLIST')}
@@ -939,15 +1148,168 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
               </div>
             )}
 
+            {currentStep === 'contact' && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Contact details</h2>
+                <p className="text-sm text-gray-600 mb-5">Enter a valid phone number and email for booking updates.</p>
+
+                <div className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {formData.relation === 'self' ? (
+                    <>
+                      <div>
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Applicant phone</label>
+                        <input
+                          type="tel"
+                          value={formData.applicantPhone}
+                          onChange={(event) => handleApplicantPhoneChange(event.target.value)}
+                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                          placeholder="10-digit mobile number"
+                          inputMode="numeric"
+                          maxLength={10}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Applicant email</label>
+                        <input
+                          type="email"
+                          value={formData.applicantEmail}
+                          onChange={(event) => updateFormField('applicantEmail', event.target.value)}
+                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                          placeholder="example@email.com"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Filler phone</label>
+                        <input
+                          type="tel"
+                          value={formData.fillerPhone}
+                          onChange={(event) => handleFillerPhoneChange(event.target.value)}
+                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                          placeholder="10-digit mobile number"
+                          inputMode="numeric"
+                          maxLength={10}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">Filler email</label>
+                        <input
+                          type="email"
+                          value={formData.fillerEmail}
+                          onChange={(event) => updateFormField('fillerEmail', event.target.value)}
+                          className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm sm:text-base"
+                          placeholder="example@email.com"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {currentStep === 'review' && (
+              <div>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Review details</h2>
+                <p className="text-sm text-gray-600 mb-5">Please review all details before proceeding to payment.</p>
+
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-bold">Applicant</p>
+                      <button type="button" onClick={() => jumpToStep('applicant')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                    </div>
+                    <p className="text-sm"><strong>Name:</strong> {formData.applicantName || '—'}</p>
+                    <p className="text-sm"><strong>DOB:</strong> {formatDateLabel(formData.applicantDob)}</p>
+                  </div>
+
+                  {formData.relation === 'other' && (
+                    <div className="rounded-2xl border border-gray-200 p-4">
+                      <div className="flex items-center justify-between gap-3 mb-2">
+                        <p className="font-bold">Filler & Relationship</p>
+                        <button type="button" onClick={() => jumpToStep('filler')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                      </div>
+                      <p className="text-sm"><strong>Filler:</strong> {formData.fillerName || '—'}</p>
+                      <p className="text-sm"><strong>Relationship:</strong> {formData.relationshipToApplicant === 'Other' ? formData.relationshipOther || 'Other' : formData.relationshipToApplicant}</p>
+                    </div>
+                  )}
+
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-bold">Application</p>
+                      <button type="button" onClick={() => jumpToStep('application')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                    </div>
+                    <p className="text-sm"><strong>Type:</strong> {formData.applicationType === 'other' ? formData.applicationTypeOther || 'Other' : formData.applicationType}</p>
+                  </div>
+
+                  {formData.applicationType === 'correction' && (
+                    <div className="rounded-2xl border border-gray-200 p-4">
+                      <div className="flex items-center justify-between gap-3 mb-2">
+                        <p className="font-bold">Correction details</p>
+                        <button type="button" onClick={() => jumpToStep('correction-select')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit fields</button>
+                      </div>
+                      <div className="space-y-2">
+                        {formData.correctionEntries.map((entry) => (
+                          <div key={entry.field} className="rounded-xl border border-gray-100 bg-gray-50 p-3">
+                            <div className="flex items-center justify-between gap-2 mb-1">
+                              <p className="text-sm font-semibold">{entry.field}</p>
+                              <button type="button" onClick={() => jumpToStep(`correction-${entry.field}`)} className="text-xs font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                            </div>
+                            <p className="text-xs sm:text-sm"><strong>Incorrect:</strong> {entry.incorrectValue || '—'}</p>
+                            <p className="text-xs sm:text-sm"><strong>Correct:</strong> {entry.correctValue || '—'}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-bold">Documents</p>
+                      <button type="button" onClick={() => jumpToStep('documents')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                    </div>
+                    <p className="text-sm">{formData.documents.length ? formData.documents.join(', ') : '—'}</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-bold">Slot</p>
+                      <button type="button" onClick={() => jumpToStep('slot')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                    </div>
+                    <p className="text-sm">{formData.chosenThursday === 'WAITLIST' ? 'WAITLIST' : formatIndianDateTime(formData.chosenThursday, selectedTimeWindow)}</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <p className="font-bold">Contact</p>
+                      <button type="button" onClick={() => jumpToStep('contact')} className="text-sm font-semibold text-[var(--color-3d6b56)]">Edit</button>
+                    </div>
+                    {formData.relation === 'self' ? (
+                      <>
+                        <p className="text-sm"><strong>Phone:</strong> {formData.applicantPhone || '—'}</p>
+                        <p className="text-sm"><strong>Email:</strong> {formData.applicantEmail || '—'}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-sm"><strong>Phone:</strong> {formData.fillerPhone || '—'}</p>
+                        <p className="text-sm"><strong>Email:</strong> {formData.fillerEmail || '—'}</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {currentStep === 'payment' && (
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">Confirm and pay</h2>
-                <p className="text-sm sm:text-base text-gray-600 mb-6">Payment is required to lock your booking request.</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2">Secure payment</h2>
+                <p className="text-sm text-gray-600 mb-5">Your booking is confirmed after successful payment verification.</p>
 
                 <div className="rounded-2xl border border-gray-200 p-5 space-y-3">
                   <p className="text-sm text-gray-600">Selected Appointment</p>
-                  <p className="text-lg font-bold">{formatDateLabel(formData.chosenThursday)}</p>
-                  <p className="text-sm text-gray-600">Time Window: {bookingFee?.appointmentWindow || 'Will be shared on confirmation'}</p>
+                  <p className="text-lg font-bold">{formData.chosenThursday === 'WAITLIST' ? 'WAITLIST' : formatIndianDateTime(formData.chosenThursday, selectedTimeWindow)}</p>
+                  <p className="text-sm text-gray-600">Time Window: {selectedTimeWindow}</p>
                   <p className="text-xl sm:text-2xl font-bold text-[var(--color-3d6b56)]">Booking Fee: ₹{bookingFee?.amount ?? '—'}</p>
 
                   <label className="mt-2 block rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700">
@@ -976,9 +1338,9 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   type="button"
                   onClick={handlePayment}
                   disabled={processingPayment || !bookingFee}
-                  className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-6 py-3.5 text-white font-bold disabled:opacity-60"
+                  className="mt-2 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-6 py-3.5 text-white font-bold disabled:opacity-60"
                 >
-                  <FaLock /> {processingPayment ? 'Processing...' : 'Pay with Razorpay'}
+                  <FaLock /> {processingPayment ? 'Processing...' : 'Proceed to Secure Payment'}
                 </button>
               </div>
             )}
@@ -1011,29 +1373,46 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                 </div>
               </div>
             )}
+
+            {currentStep !== 'confirmation' && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 w-full rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-emerald-800"
+              >
+                <FaWhatsapp />
+                <span>Need assistance with this step? Chat on WhatsApp</span>
+              </a>
+            )}
           </div>
         </div>
 
         {currentStep !== 'confirmation' && (
           <div className="border-t border-gray-200 px-4 sm:px-6 py-3 sm:py-4 bg-white">
-            <div className="max-w-4xl mx-auto flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-4 pb-[max(env(safe-area-inset-bottom),0px)]">
-              <button
-                type="button"
-                onClick={goBack}
-                disabled={stepIndex === 0 || processingPayment}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2.5 text-sm sm:text-base font-semibold text-gray-700 disabled:opacity-40 w-full sm:w-auto"
-              >
-                <FaArrowLeft /> Back
-              </button>
+            <div className="max-w-4xl mx-auto pb-[max(env(safe-area-inset-bottom),0px)] space-y-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                <div title="Secure" aria-label="Secure" className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-emerald-800 text-[11px] sm:text-xs font-semibold"><FaLock className="text-sm" /> Secure</div>
+                <div title="No hidden charges" aria-label="No hidden charges" className="rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-blue-800 text-[11px] sm:text-xs font-semibold"><FaShieldAlt className="text-sm" /> No hidden charges</div>
+                <div title="Data privacy" aria-label="Data privacy" className="rounded-lg border border-violet-200 bg-violet-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-violet-800 text-[11px] sm:text-xs font-semibold"><FaUserShield className="text-sm" /> Data privacy</div>
+                <div title="Verified support" aria-label="Verified support" className="rounded-lg border border-amber-200 bg-amber-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-amber-800 text-[11px] sm:text-xs font-semibold"><FaCheckCircle className="text-sm" /> Verified support</div>
+                <div title="Licensed KMC Consultant" aria-label="Licensed KMC Consultant" className="rounded-lg border border-green-200 bg-green-50 px-2.5 py-2 inline-flex items-center justify-center gap-1.5 text-green-800 text-[11px] sm:text-xs font-semibold"><FaIdBadge className="text-sm" /> Licensed KMC Consultant</div>
+              </div>
 
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={currentStep === 'payment' || processingPayment}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-5 py-2.5 text-sm sm:text-base font-bold text-white disabled:opacity-40 w-full sm:w-auto"
-              >
-                Continue <FaArrowRight />
-              </button>
+              <div className="flex items-center justify-center">
+                <div className="w-full sm:w-auto flex flex-col sm:items-center gap-1.5">
+                  {currentStep !== 'payment' && currentStep !== 'relation' && currentStep !== 'application' && (
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      disabled={!canContinue || processingPayment}
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-3d6b56)] px-8 py-3.5 text-base sm:text-lg font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed w-full sm:min-w-[320px] sm:w-auto"
+                    >
+                      Continue <FaArrowRight />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}

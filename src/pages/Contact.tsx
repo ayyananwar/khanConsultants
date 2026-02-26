@@ -168,7 +168,7 @@ const Contact = () => {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center flex flex-col items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center flex flex-col items-center gap-3 sm:gap-5 md:gap-6 lg:gap-8">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
             <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
             <span className="font-semibold text-white">Licensed KMC Consultant</span>

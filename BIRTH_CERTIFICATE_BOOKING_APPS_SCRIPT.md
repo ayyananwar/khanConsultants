@@ -14,7 +14,7 @@ Create a Google Sheet with these tabs:
 ### `Bookings`
 Headers (row 1):
 
-`Timestamp | Filler_Name | Filler_Phone | Application_Type | Applicant_Name | Applicant_DOB | Applicant_Phone | Applicant_Email | Correction_Fields_JSON | Documents_Selected_JSON | Chosen_Thursday | Payment_ID | Payment_Status | Booking_Reference`
+`Timestamp | Filler_Name | Filler_Phone | Filler_Email | Application_Type | Applicant_Name | Applicant_DOB | Applicant_Phone | Applicant_Email | Relationship_To_Applicant | Correction_Fields_JSON | Documents_Selected_JSON | Chosen_Thursday | Payment_ID | Payment_Status | Booking_Reference`
 
 ### `Settings`
 Headers/value:
@@ -27,9 +27,10 @@ Headers/value:
 ### `Slots`
 Headers:
 
-`Date | Max_Slots | Booked_Count`
+`Date | Max_Slots | Booked_Count | Time_Window`
 
 Use ISO date in `Date` column (example: `2026-02-26`).
+`Time_Window` is optional per date (example: `9:20 AM - 9:50 AM`). If blank, fallback to `Settings!Appointment_Window`.
 
 ## 2) Apps Script Code (`Code.gs`)
 
@@ -93,7 +94,35 @@ function jsonResponse(success, data, error) {
 }
 
 function getSheet(name) {
-  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(name);
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(name);
+  if (!sheet) {
+    throw new Error('Missing required sheet: ' + name);
+  }
+  return sheet;
+}
+
+function getBookingsColumnMap() {
+  const sheet = getSheet('Bookings');
+  if (sheet.getLastRow() < 1) {
+    throw new Error('Bookings sheet is missing header row');
+  }
+
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const map = {};
+  headers.forEach(function (header, index) {
+    const key = String(header || '').trim();
+    if (key) {
+      map[key] = index + 1;
+    }
+  });
+
+  ['Payment_ID', 'Payment_Status', 'Booking_Reference'].forEach(function (requiredHeader) {
+    if (!map[requiredHeader]) {
+      throw new Error('Missing required Bookings header: ' + requiredHeader);
+    }
+  });
+
+  return map;
 }
 
 function getSettingsMap() {
@@ -132,9 +161,11 @@ function nextThreeThursdays() {
 
 function handleGetSlots() {
   const slotsSheet = getSheet('Slots');
+  const settings = getSettingsMap();
+  const defaultWindow = String(settings.Appointment_Window || '9:20 AM - 9:50 AM');
   const map = {};
   const rows = slotsSheet.getLastRow() > 1
-    ? slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 3).getValues()
+    ? slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 4).getValues()
     : [];
 
   rows.forEach((row) => {
@@ -142,16 +173,18 @@ function handleGetSlots() {
     map[String(row[0])] = {
       maxSlots: Number(row[1] || 10),
       bookedCount: Number(row[2] || 0),
+      timeWindow: String(row[3] || defaultWindow),
     };
   });
 
   const dates = nextThreeThursdays();
   const slots = dates.map((date) => {
-    const existing = map[date] || { maxSlots: 10, bookedCount: 0 };
+    const existing = map[date] || { maxSlots: 10, bookedCount: 0, timeWindow: defaultWindow };
     const remaining = Math.max(0, existing.maxSlots - existing.bookedCount);
     return {
       date,
       label: date,
+      timeWindow: existing.timeWindow || defaultWindow,
       maxSlots: existing.maxSlots,
       bookedCount: existing.bookedCount,
       remainingSlots: remaining,
@@ -243,7 +276,7 @@ function incrementSlotIfAvailable(chosenThursday) {
 
   const sheet = getSheet('Slots');
   const rows = sheet.getLastRow() > 1
-    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 3).getValues()
+    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues()
     : [];
 
   for (let i = 0; i < rows.length; i++) {
@@ -258,14 +291,14 @@ function incrementSlotIfAvailable(chosenThursday) {
     return true;
   }
 
-  sheet.appendRow([chosenThursday, 10, 1]);
+  sheet.appendRow([chosenThursday, 10, 1, '']);
   return true;
 }
 
 function areAllUpcomingSlotsFull(upcomingDates) {
   const sheet = getSheet('Slots');
   const rows = sheet.getLastRow() > 1
-    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 3).getValues()
+    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues()
     : [];
 
   const map = {};
@@ -286,7 +319,8 @@ function areAllUpcomingSlotsFull(upcomingDates) {
 function bookingAlreadyExists(paymentId) {
   const sheet = getSheet('Bookings');
   if (sheet.getLastRow() <= 1) return false;
-  const values = sheet.getRange(2, 12, sheet.getLastRow() - 1, 1).getValues();
+  const columns = getBookingsColumnMap();
+  const values = sheet.getRange(2, columns.Payment_ID, sheet.getLastRow() - 1, 1).getValues();
   return values.some((row) => String(row[0] || '') === paymentId);
 }
 
@@ -295,22 +329,24 @@ function validateBookingFormData(formData) {
   const applicantDob = sanitizeText(formData.applicantDob, 20);
   const applicantPhone = String(formData.applicantPhone || '').replace(/\D/g, '');
   const applicantEmail = sanitizeText(formData.applicantEmail, 160);
+  const relation = sanitizeText(formData.relation || 'self', 16);
+  const fillerPhoneRaw = String(formData.fillerPhone || '').replace(/\D/g, '');
+  const fillerEmailRaw = sanitizeText(formData.fillerEmail, 160);
+  const fillerPhone = relation === 'self' ? (fillerPhoneRaw || applicantPhone) : fillerPhoneRaw;
+  const fillerEmail = relation === 'self' ? (fillerEmailRaw || applicantEmail) : fillerEmailRaw;
   const chosenThursday = sanitizeText(formData.chosenThursday, 32);
 
   if (!applicantName) throw new Error('Applicant name is required');
   if (!applicantDob) throw new Error('Applicant DOB is required');
   if (applicantPhone.length !== 10) throw new Error('Applicant phone must be exactly 10 digits');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(applicantEmail)) throw new Error('Applicant email is invalid');
+  if (fillerPhone.length !== 10) throw new Error('Filler phone must be exactly 10 digits');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fillerEmail)) throw new Error('Filler email is invalid');
   if (!chosenThursday) throw new Error('Slot is required');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(applicantDob)) throw new Error('Applicant DOB format is invalid');
 
   const documents = Array.isArray(formData.documents) ? formData.documents : [];
   if (documents.length === 0) throw new Error('At least one document is required');
-
-  const documentsOtherList = parsePipeList(formData.documentsOther);
-  if (documents.indexOf('Other') !== -1 && documentsOtherList.length === 0) {
-    throw new Error('Other documents list cannot be empty when Other is selected');
-  }
 
   const correctionEntries = Array.isArray(formData.correctionEntries) ? formData.correctionEntries : [];
   const applicationType = sanitizeText(formData.applicationType, 32).toLowerCase();
@@ -325,7 +361,12 @@ function validateBookingFormData(formData) {
     });
   }
 
-  const relation = sanitizeText(formData.relation || 'self', 16);
+  const relationshipToApplicant = sanitizeText(formData.relationshipToApplicant, 64);
+  const relationshipOther = sanitizeText(formData.relationshipOther, 120);
+  if (relation === 'other' && !relationshipToApplicant) throw new Error('Relationship with applicant is required for relation=other');
+  if (relation === 'other' && relationshipToApplicant === 'Other' && !relationshipOther) {
+    throw new Error('Relationship details are required when relationship is Other');
+  }
   if (relation === 'other') {
     const fillerName = sanitizeText(formData.fillerName, 120);
     const fillerPhone = String(formData.fillerPhone || '').replace(/\D/g, '');
@@ -337,15 +378,54 @@ function validateBookingFormData(formData) {
 function getExistingBookingReferenceByPaymentId(paymentId) {
   const sheet = getSheet('Bookings');
   if (sheet.getLastRow() <= 1) return '';
-  const values = sheet.getRange(2, 12, sheet.getLastRow() - 1, 3).getValues();
+  const columns = getBookingsColumnMap();
+  const startCol = Math.min(columns.Payment_ID, columns.Payment_Status, columns.Booking_Reference);
+  const endCol = Math.max(columns.Payment_ID, columns.Payment_Status, columns.Booking_Reference);
+  const width = endCol - startCol + 1;
+  const values = sheet.getRange(2, startCol, sheet.getLastRow() - 1, width).getValues();
 
-  for (let i = 0; i < values.length; i++) {
-    const rowPaymentId = String(values[i][0] || '');
+  const paymentOffset = columns.Payment_ID - startCol;
+  const statusOffset = columns.Payment_Status - startCol;
+  const referenceOffset = columns.Booking_Reference - startCol;
+
+  for (let i = values.length - 1; i >= 0; i--) {
+    const rowPaymentId = String(values[i][paymentOffset] || '');
     if (rowPaymentId === paymentId) {
-      return String(values[i][2] || '');
+      const rowStatus = String(values[i][statusOffset] || '').toLowerCase();
+      const reference = String(values[i][referenceOffset] || '');
+      if (reference && (!rowStatus || rowStatus === 'success')) {
+        return reference;
+      }
     }
   }
+
+  for (let i = values.length - 1; i >= 0; i--) {
+    const rowPaymentId = String(values[i][paymentOffset] || '');
+    if (rowPaymentId === paymentId) {
+      return String(values[i][referenceOffset] || '');
+    }
+  }
+
   return '';
+}
+
+function getAppointmentWindowForDate(chosenThursday, fallbackWindow) {
+  if (!chosenThursday || chosenThursday === 'WAITLIST') {
+    return fallbackWindow;
+  }
+
+  const sheet = getSheet('Slots');
+  const rows = sheet.getLastRow() > 1
+    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues()
+    : [];
+
+  for (let i = 0; i < rows.length; i++) {
+    const rowDate = String(rows[i][0] || '');
+    if (rowDate !== chosenThursday) continue;
+    return String(rows[i][3] || fallbackWindow);
+  }
+
+  return fallbackWindow;
 }
 
 function handleVerifyPaymentAndSave(body) {
@@ -379,10 +459,12 @@ function handleVerifyPaymentAndSave(body) {
   try {
     if (bookingAlreadyExists(paymentId)) {
       const existingReference = getExistingBookingReferenceByPaymentId(paymentId);
+      const existingChosenThursday = String(formData.chosenThursday || '');
+      const existingAppointmentWindow = getAppointmentWindowForDate(existingChosenThursday, appointmentWindow);
       return {
         bookingReference: existingReference || ('EXISTING-' + paymentId),
-        chosenThursday: String(formData.chosenThursday || ''),
-        appointmentWindow,
+        chosenThursday: existingChosenThursday,
+        appointmentWindow: existingAppointmentWindow,
         paymentId,
       };
     }
@@ -402,6 +484,8 @@ function handleVerifyPaymentAndSave(body) {
       throw new Error('Selected slot is unavailable for booking. Please retry.');
     }
 
+    const selectedAppointmentWindow = getAppointmentWindowForDate(chosenThursday, appointmentWindow);
+
     const sheet = getSheet('Bookings');
     const bookingReference = 'BC-' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyyMMdd-HHmmss');
 
@@ -409,13 +493,15 @@ function handleVerifyPaymentAndSave(body) {
       new Date(),
       sanitizeText(formData.fillerName || formData.applicantName || '', 120),
       sanitizeText(formData.fillerPhone || formData.applicantPhone || '', 20),
+      sanitizeText(formData.fillerEmail || formData.applicantEmail || '', 160),
       sanitizeText(formData.applicationType === 'other' ? formData.applicationTypeOther : formData.applicationType, 64),
       sanitizeText(formData.applicantName || '', 120),
       sanitizeText(formData.applicantDob || '', 20),
       sanitizeText(formData.applicantPhone || '', 20),
       sanitizeText(formData.applicantEmail || '', 160),
+      sanitizeText(formData.relationshipToApplicant === 'Other' ? formData.relationshipOther : formData.relationshipToApplicant, 120),
       JSON.stringify(formData.correctionEntries || []),
-      JSON.stringify({ selected: formData.documents || [], other: parsePipeList(formData.documentsOther || '') }),
+      JSON.stringify({ selected: formData.documents || [], other: [] }),
       chosenThursday,
       paymentId,
       'Success',
@@ -424,7 +510,7 @@ function handleVerifyPaymentAndSave(body) {
 
     try {
       MailApp.sendEmail({
-        to: sanitizeText(formData.applicantEmail, 160),
+        to: sanitizeText(formData.applicantEmail || formData.fillerEmail, 160),
         subject: 'Birth Certificate Appointment Confirmation',
         body:
           'Khan Consultants\n' +
@@ -433,7 +519,7 @@ function handleVerifyPaymentAndSave(body) {
           'Your booking has been successfully confirmed.\n\n' +
           'Booking Reference: ' + bookingReference + '\n' +
           'Appointment Date: ' + sanitizeText(chosenThursday, 32) + '\n' +
-          'Time Window: ' + sanitizeText(appointmentWindow, 64) + '\n' +
+          'Time Window: ' + sanitizeText(selectedAppointmentWindow, 64) + '\n' +
           'Payment ID: ' + sanitizeText(paymentId, 120) + '\n\n' +
           'Please carry all original supporting documents during your appointment.\n\n' +
           'Need help?\n' +
@@ -442,40 +528,40 @@ function handleVerifyPaymentAndSave(body) {
           'Regards,\n' +
           'Khan Consultants',
         htmlBody:
-          '<div style="font-family:Arial,sans-serif;background:var(--color-f5f7fb);padding:24px;">' +
-            '<div style="max-width:620px;margin:0 auto;background:var(--color-ffffff);border:1px solid var(--color-e5e7eb);border-radius:12px;overflow:hidden;">' +
-              '<div style="background:var(--color-1f4d3b);padding:20px 24px;">' +
-                '<h2 style="margin:0;font-size:20px;line-height:1.3;color:var(--color-ffffff);">Khan Consultants</h2>' +
-                '<p style="margin:6px 0 0 0;font-size:13px;color:var(--color-d1fae5);">Birth Certificate Appointment Confirmation</p>' +
+          '<div style="font-family:Arial,sans-serif;background:#f5f7fb;padding:24px;">' +
+            '<div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">' +
+              '<div style="background:#1f4d3b;padding:20px 24px;">' +
+                '<h2 style="margin:0;font-size:20px;line-height:1.3;color:#ffffff;">Khan Consultants</h2>' +
+                '<p style="margin:6px 0 0 0;font-size:13px;color:#d1fae5;">Birth Certificate Appointment Confirmation</p>' +
               '</div>' +
-              '<div style="padding:22px 24px;color:var(--color-111827);">' +
+              '<div style="padding:22px 24px;color:#111827;">' +
                 '<p style="margin:0 0 12px 0;font-size:14px;">Dear ' + sanitizeText(formData.applicantName, 120) + ',</p>' +
-                '<p style="margin:0 0 16px 0;font-size:14px;color:var(--color-374151);">Your booking has been successfully confirmed. Please find your appointment details below.</p>' +
+                '<p style="margin:0 0 16px 0;font-size:14px;color:#374151;">Your booking has been successfully confirmed. Please find your appointment details below.</p>' +
                 '<table style="width:100%;border-collapse:collapse;font-size:14px;">' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Booking Reference</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;font-weight:700;color:var(--color-111827);">' + bookingReference + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Booking Reference</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;font-weight:700;color:#111827;">' + bookingReference + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Appointment Date</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(chosenThursday, 32) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Appointment Date</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(chosenThursday, 32) + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Time Window</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(appointmentWindow, 64) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Time Window</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(selectedAppointmentWindow, 64) + '</td>' +
                   '</tr>' +
                   '<tr>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);color:var(--color-6b7280);">Payment ID</td>' +
-                    '<td style="padding:10px 0;border-top:1px solid var(--color-e5e7eb);text-align:right;color:var(--color-111827);">' + sanitizeText(paymentId, 120) + '</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;color:#6b7280;">Payment ID</td>' +
+                    '<td style="padding:10px 0;border-top:1px solid #e5e7eb;text-align:right;color:#111827;">' + sanitizeText(paymentId, 120) + '</td>' +
                   '</tr>' +
                 '</table>' +
-                '<div style="margin-top:16px;padding:12px 14px;background:var(--color-f9fafb);border:1px solid var(--color-e5e7eb);border-radius:8px;">' +
-                  '<p style="margin:0;font-size:13px;color:var(--color-374151);">Please carry all original supporting documents during your appointment.</p>' +
+                '<div style="margin-top:16px;padding:12px 14px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;">' +
+                  '<p style="margin:0;font-size:13px;color:#374151;">Please carry all original supporting documents during your appointment.</p>' +
                 '</div>' +
               '</div>' +
-              '<div style="padding:14px 24px;background:var(--color-f9fafb);border-top:1px solid var(--color-e5e7eb);">' +
-                '<p style="margin:0 0 6px 0;font-size:12px;color:var(--color-6b7280);">Need help?</p>' +
-                '<p style="margin:0;font-size:13px;color:var(--color-111827);">WhatsApp: <a href="https://wa.me/916291139691" style="color:var(--color-1f4d3b);text-decoration:none;">+91 62911 39691</a> | Email: <a href="mailto:support@khanconsultants.in" style="color:var(--color-1f4d3b);text-decoration:none;">support@khanconsultants.in</a></p>' +
+              '<div style="padding:14px 24px;background:#f9fafb;border-top:1px solid #e5e7eb;">' +
+                '<p style="margin:0 0 6px 0;font-size:12px;color:#6b7280;">Need help?</p>' +
+                '<p style="margin:0;font-size:13px;color:#111827;">WhatsApp: <a href="https://wa.me/916291139691" style="color:#1f4d3b;text-decoration:none;">+91 62911 39691</a> | Email: <a href="mailto:support@khanconsultants.in" style="color:#1f4d3b;text-decoration:none;">support@khanconsultants.in</a></p>' +
               '</div>' +
             '</div>' +
           '</div>',
@@ -487,7 +573,7 @@ function handleVerifyPaymentAndSave(body) {
     return {
       bookingReference,
       chosenThursday,
-      appointmentWindow,
+      appointmentWindow: selectedAppointmentWindow,
       paymentId,
     };
   } finally {
@@ -495,6 +581,12 @@ function handleVerifyPaymentAndSave(body) {
   }
 }
 ```
+
+### Contact Validation Behavior (Important)
+
+- For `relation = self`, backend validation allows `fillerPhone` / `fillerEmail` to be omitted in payload and automatically falls back to applicant phone/email before validation.
+- For `relation = other`, `fillerName`, `fillerPhone`, and valid `fillerEmail` are required.
+- This keeps backend validation aligned with frontend normalization and avoids false failures when self-flow does not send separate filler contact values.
 
 ## 3) Deployment
 
@@ -563,13 +655,20 @@ If you do not have a Razorpay account yet, follow this exactly:
 - Secrets handling: ✅ keys stored in Google Sheet / Apps Script only (not frontend).
 - Confirmation email: ✅ applicant confirmation email is sent after verified save (logged if email provider fails).
 
-## 8) Data Format Note (Other Documents)
+## 8) Data Format Note (Documents)
 
-- Frontend now allows multiple custom "Other documents" values.
-- These are sent in `documentsOther` as pipe-separated text (example: `Hospital Slip|Municipal Receipt`).
-- Apps Script now parses this safely and stores as array JSON under `Documents_Selected_JSON.other`.
+- Current frontend flow uses predefined document options only.
+- At least one document is required; users can continue with one.
+- `documentsOther` may still be present as blank/legacy for backward compatibility, but the UI no longer asks for custom "Other" input.
 
-## 9) CORS & Preflight (Production Note)
+## 9) Slot Time/Capacity from Sheet (Operations)
+
+- You can control slot count and slot time from the `Slots` sheet.
+- `Max_Slots` controls capacity per date.
+- `Time_Window` controls time per date (optional). If empty, `Settings!Appointment_Window` is used.
+- Frontend displays slot date + time in Indian format and uses the returned `timeWindow` value.
+
+## 10) CORS & Preflight (Production Note)
 
 Why the current flow works:
 
