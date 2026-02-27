@@ -1,6 +1,6 @@
 export type ApplicantRelation = 'self' | 'other';
 
-export type ApplicationType = 'new' | 'correction' | 'digital' | 'other';
+export type ApplicationType = 'new' | 'correction' | 'digital' | 'lost-destroyed' | 'get-copy';
 
 export type CorrectionField = 'Name' | 'DOB' | 'Address' | 'Other';
 

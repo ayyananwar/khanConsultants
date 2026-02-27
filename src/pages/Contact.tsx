@@ -182,34 +182,34 @@ const Contact = () => {
 
       {/* Contact Section with Modern Design */}
       <section className="relative bg-white overflow-hidden py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6">
-        {/* Decorative gradient blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 -right-32 w-96 h-96 bg-gradient-to-br from-emerald-100/40 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-20 -left-32 w-96 h-96 bg-gradient-to-tr from-teal-100/40 to-transparent rounded-full blur-3xl"></div>
-        </div>
-
         <div className="relative max-w-7xl mx-auto">
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6 md:mb-8">
-            <a href="tel:+916291139691" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
-              <MdPhone className="mx-auto text-lg sm:text-xl text-emerald-700" />
-              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">Call</p>
+          <div className="flex justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+            <a href="tel:+916291139691" className="group flex flex-col items-center gap-1.5" title="Call Us">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+                <MdPhone className="text-white text-xl sm:text-2xl" />
+              </div>
+              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Call</span>
             </a>
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
-              <BsWhatsapp className="mx-auto text-lg sm:text-xl text-emerald-700" />
-              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">WhatsApp</p>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5" title="WhatsApp">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+                <BsWhatsapp className="text-white text-xl sm:text-2xl" />
+              </div>
+              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">WhatsApp</span>
             </a>
-            <a href="mailto:hello@khanconsultants.in" className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-3 text-center hover:bg-emerald-100 transition">
-              <MdEmail className="mx-auto text-lg sm:text-xl text-emerald-700" />
-              <p className="mt-1 text-[11px] sm:text-xs font-semibold text-emerald-800">Email</p>
+            <a href="mailto:hello@khanconsultants.in" className="group flex flex-col items-center gap-1.5" title="Email Us">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
+                <MdEmail className="text-white text-xl sm:text-2xl" />
+              </div>
+              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Email</span>
             </a>
           </div>
 
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
             {/* Contact Form */}
-            <div className="order-1 lg:order-1 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-emerald-200 shadow-xl">
+            <div className="order-1 lg:order-1 bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-gray-200 shadow-lg">
               <div className="flex items-center gap-2 mb-4 sm:mb-5 md:mb-6">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[var(--color-3d6b56)] text-white flex items-center justify-center">
                   <MdEmail className="text-base sm:text-lg" />
                 </div>
                 <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900">Send Us a Message</h3>
@@ -232,68 +232,78 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 {/* Name Field */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Full Name</label>
+                  <label htmlFor="contact-name" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Full Name</label>
                   <input
+                    id="contact-name"
                     type="text"
                     placeholder="Rahul Sharma"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="name"
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition"
+                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
                   />
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Email Address</label>
+                  <label htmlFor="contact-email" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Email Address</label>
                   <input
+                    id="contact-email"
                     type="email"
                     placeholder="rahul.sharma@example.com"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="email"
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition"
+                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Phone Number</label>
+                  <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Phone Number</label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     placeholder="+91 98765-43210"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    autoComplete="tel"
+                    inputMode="tel"
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition"
+                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
                   />
                 </div>
 
                 {/* Company */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Company Name</label>
+                  <label htmlFor="contact-company" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Company Name</label>
                   <input
+                    id="contact-company"
                     type="text"
                     placeholder="Sharma Enterprises Pvt Ltd"
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition"
+                    autoComplete="organization"
+                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
                   />
                 </div>
 
                 {/* Service Interest */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Service Interested</label>
+                  <label htmlFor="contact-service" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Service Interested</label>
                   <select
+                    id="contact-service"
                     name="serviceInterest"
                     value={formData.serviceInterest}
                     onChange={handleChange}
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition"
+                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
                   >
                     <option value="">Select a service</option>
                     <option value="legal">Trade Mark & Legal</option>
@@ -307,13 +317,15 @@ const Contact = () => {
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Message</label>
+                  <label htmlFor="contact-message" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Message</label>
                   <textarea
-                    rows={3}
+                    id="contact-message"
+                    rows={4}
                     placeholder="Tell us about your requirements..."
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
                     className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition resize-none"
                   />
@@ -340,11 +352,10 @@ const Contact = () => {
                   </span>
                 </label>
 
-                <p className="text-[11px] sm:text-xs text-gray-500 text-center">By submitting, you agree to our Terms & Conditions and Privacy Policy.</p>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-semibold py-3 sm:py-3.5 text-sm sm:text-base rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-semibold py-3 sm:py-3.5 text-sm sm:text-base rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg min-h-[48px]"
                 >
                   {isLoading ? 'Sending...' : 'Send Message'}
                   {!isLoading && <span className="text-lg">→</span>}
@@ -355,9 +366,9 @@ const Contact = () => {
             {/* Contact Information Cards */}
             <div className="order-2 lg:order-2 space-y-3 sm:space-y-4 md:space-y-5">
               {/* Business Hours Highlight */}
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-emerald-200 shadow-lg hover:shadow-xl transition-all">
+              <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all">
                 <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-[var(--color-3d6b56)] flex items-center justify-center flex-shrink-0">
                     <MdSchedule className="text-white text-xl sm:text-2xl md:text-3xl" />
                   </div>
                   <div>
@@ -365,23 +376,23 @@ const Contact = () => {
                     <p className="text-gray-600 text-[10px] sm:text-xs">We're here when you need us</p>
                   </div>
                 </div>
-                  <div className="bg-white rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4 shadow-sm">
+                  <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-3 md:p-4 shadow-sm">
                   <div className="flex justify-between items-center mb-1 sm:mb-2">
-                    <span className="text-xs sm:text-sm text-gray-600">Mon - Sat</span>
-                    <span className="text-xs sm:text-sm font-semibold text-gray-900">11:00 AM - 9:00 PM</span>
+                    <span className="text-sm text-gray-600">Mon - Sat</span>
+                    <span className="text-sm font-semibold text-gray-900">11:00 AM - 9:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs sm:text-sm text-gray-600">Sunday</span>
-                    <span className="text-xs sm:text-sm font-semibold text-red-600">Closed</span>
+                    <span className="text-sm text-gray-600">Sunday</span>
+                    <span className="text-sm font-semibold text-red-600">Closed</span>
                   </div>
                 </div>
               </div>
 
               {/* Contact Cards Grid */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                 {/* Phone */}
-                <a href="tel:+916291139691" className="group bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 hover:from-blue-100 hover:to-blue-200/50 transition-all hover:shadow-lg border border-emerald-200 hover:border-emerald-300">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-blue-600 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
+                <a href="tel:+916291139691" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 transition-all hover:shadow-lg border border-gray-200 hover:bg-gray-100 min-h-[84px] flex items-center gap-3 sm:block">
+                  <div className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-blue-600 flex items-center justify-center sm:mb-2 md:mb-3 group-hover:scale-110 transition-transform flex-shrink-0">
                     <MdPhone className="text-white text-lg sm:text-xl md:text-2xl" />
                   </div>
                   <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Call Now</h4>
@@ -389,8 +400,8 @@ const Contact = () => {
                 </a>
 
                 {/* Email */}
-                <a href="mailto:hello@khanconsultants.in" className="group bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 hover:from-orange-100 hover:to-orange-200/50 transition-all hover:shadow-lg border border-emerald-200 hover:border-emerald-300">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-orange-600 flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
+                <a href="mailto:hello@khanconsultants.in" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 transition-all hover:shadow-lg border border-gray-200 hover:bg-gray-100 min-h-[84px] flex items-center gap-3 sm:block">
+                  <div className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-orange-600 flex items-center justify-center sm:mb-2 md:mb-3 group-hover:scale-110 transition-transform flex-shrink-0">
                     <MdEmail className="text-white text-lg sm:text-xl md:text-2xl" />
                   </div>
                   <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Email</h4>
@@ -399,7 +410,7 @@ const Contact = () => {
               </div>
 
               {/* Location Card */}
-              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="group block bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-emerald-200 hover:border-emerald-300 hover:shadow-lg transition-all">
+              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="group block bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 hover:bg-gray-100 hover:shadow-lg transition-all">
                 <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <MdLocationOn className="text-white text-xl sm:text-2xl md:text-3xl" />
@@ -416,7 +427,7 @@ const Contact = () => {
               </a>
 
               {/* Social Media */}
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-emerald-200 shadow-lg">
+              <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 shadow-lg">
                 <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-3 sm:mb-4">Follow Us</h4>
                 <div className="flex gap-2 sm:gap-3">
                   <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-1877f2)] hover:bg-[var(--color-0f6ae6)] text-white hover:scale-110 transition-transform shadow-lg">
