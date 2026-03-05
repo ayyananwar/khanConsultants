@@ -3,9 +3,9 @@
 ## Executive Summary
 This project is a React + TypeScript + Tailwind website for Khan Consultants with:
 - Marketing and service-detail pages
-- Lead/contact submission via Apps Script endpoint
-- A production-grade Birth Certificate booking + Razorpay payment flow (no traditional backend)
-- Netlify deployment with SPA routing, SEO hardening, and booking proxy function
+- Lead/contact submission via backend API
+- A production-grade Birth Certificate booking + Razorpay payment flow via backend
+- Deployment with SPA routing and SEO hardening
 
 ## What Was Built / Decided
 
@@ -27,12 +27,12 @@ This project is a React + TypeScript + Tailwind website for Khan Consultants wit
 ### Booking/Payment System
 - Modal wizard implemented for birth certificate booking.
 - Typed API client and response models added.
-- Apps Script integration supports actions:
+- Backend integration supports actions:
   - getSlots
   - getBookingFee
   - createOrder
   - verifyPaymentAndSave
-- Security decisions in script template include:
+- Security decisions in backend include:
   - signature verification
   - payment capture and amount verification
   - lock-based slot write
@@ -42,24 +42,21 @@ This project is a React + TypeScript + Tailwind website for Khan Consultants wit
   - email confirmation
 
 ### CORS and Production Safety
-- Direct browser mode uses simple request strategy to reduce Apps Script preflight issues.
-- Netlify proxy created for robust CORS/preflight handling:
-  - netlify/functions/booking-proxy.mjs
-  - route: /api/booking
-  - upstream via NETLIFY_BOOKING_SCRIPT_URL
+- Frontend is backend-managed for contact, enquiry, and booking APIs.
+- Backend CORS policy is controlled by `CORS_ORIGIN`.
 
 ## Fresh Start Guide (New Session)
 1) Read .github/copilot-instructions.md first.
 2) Verify env config:
-   - frontend: VITE_BOOKING_API_URL and/or VITE_BOOKING_SCRIPT_URL
-   - netlify: NETLIFY_BOOKING_SCRIPT_URL
+  - frontend: VITE_BACKEND_URL plus endpoint vars
+  - backend: DATABASE_URL, CORS_ORIGIN, ADMIN_PASSWORD
 3) Validate build: npm run build
 4) For booking changes, inspect these first:
    - src/components/BirthCertificateBookingModal.tsx
    - src/api/birthBookingApi.ts
    - src/types/birthBooking.ts
-   - netlify/functions/booking-proxy.mjs
-   - BIRTH_CERTIFICATE_BOOKING_APPS_SCRIPT.md
+  - backend/src/routes/birth.ts
+  - backend/src/services/birthAction.ts
 5) For SEO/routing changes, inspect:
    - src/components/SeoManager.tsx
    - src/App.tsx
@@ -68,9 +65,9 @@ This project is a React + TypeScript + Tailwind website for Khan Consultants wit
    - netlify.toml
 
 ## Red Flags and Prior Breakages
-1) Apps Script CORS preflight failures
-- Symptom: browser fetch fails from localhost/production due to OPTIONS behavior
-- Fix: use simple request mode or route through Netlify proxy
+1) Backend CORS origin mismatch
+- Symptom: browser requests are blocked by CORS policy
+- Fix: ensure exact frontend origin is listed in `CORS_ORIGIN`
 
 2) Search Console reporting /home and host variants
 - Symptom: redirect/404 indexing noise
@@ -84,8 +81,7 @@ This project is a React + TypeScript + Tailwind website for Khan Consultants wit
 - Fix: perform small scoped edits and build-check after each pass
 
 ## Current Operational Status
-- Booking proxy route is live and tested returning getBookingFee from /api/booking.
-- GitHub->Netlify deployment flow is in use.
+- Backend APIs are used for contact, enquiry, and booking flows.
 - Build currently passes.
 
 ## Suggested Immediate Next Improvements

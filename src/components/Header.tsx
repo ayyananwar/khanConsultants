@@ -20,8 +20,6 @@ export default function Navbar() {
     },
     { name: 'Trade Mark & Legal', path: '/services/legal' },
     { name: 'GST & Accounting', path: '/services/gst-accounting' },
-    { name: 'Import & Export', path: '/services/import-export' },
-    { name: 'Visas & Immigration', path: '/services/visas-immigration' },
   ];
 
   useEffect(() => {

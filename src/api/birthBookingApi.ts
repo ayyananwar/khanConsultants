@@ -6,7 +6,25 @@ import type {
   VerifyPaymentResponse,
 } from '../types/birthBooking';
 
-const BOOKING_API_URL = import.meta.env.VITE_BOOKING_API_URL || import.meta.env.VITE_BOOKING_SCRIPT_URL;
+const BACKEND_BASE_URL = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000').replace(/\/$/, '');
+
+function resolveBookingApiUrl(): string {
+  const configured = String(import.meta.env.VITE_BOOKING_API_URL || '').trim();
+
+  // Migrate old Netlify proxy path to direct backend route.
+  if (!configured || configured === '/api/booking') {
+    return `${BACKEND_BASE_URL}/api/v1/birth/action`;
+  }
+
+  if (configured.startsWith('http://') || configured.startsWith('https://')) {
+    return configured;
+  }
+
+  const normalizedPath = configured.startsWith('/') ? configured : `/${configured}`;
+  return `${BACKEND_BASE_URL}${normalizedPath}`;
+}
+
+const BOOKING_API_URL = resolveBookingApiUrl();
 
 interface ApiEnvelope<T> {
   success: boolean;
@@ -38,7 +56,7 @@ async function postAction<TResponse, TPayload = Record<string, unknown>>(
   payload: TPayload,
 ): Promise<TResponse> {
   if (!BOOKING_API_URL) {
-    throw new Error('VITE_BOOKING_API_URL or VITE_BOOKING_SCRIPT_URL is not configured');
+    throw new Error('VITE_BOOKING_API_URL is not configured');
   }
 
   const response = await fetch(BOOKING_API_URL, {

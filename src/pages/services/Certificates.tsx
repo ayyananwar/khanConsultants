@@ -1,27 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { designTokens } from '../../tokens';
-import { FaShieldAlt, FaCheckCircle, FaFileAlt, FaUserTie, FaCalendarCheck, FaQuoteLeft, FaRupeeSign, FaStar } from 'react-icons/fa';
+import { useSearchParams } from 'react-router-dom';
+import { FaShieldAlt, FaCheckCircle, FaFileAlt, FaUserTie, FaCalendarCheck, FaQuoteLeft } from 'react-icons/fa';
 import { RiWhatsappFill } from 'react-icons/ri';
-import { MdOutlineChildCare, MdEditNote, MdBadge, MdGavel, MdCloudUpload, MdWarningAmber, MdFindInPage, MdSyncProblem, MdCancel, MdSearch, MdDescription, MdUploadFile, MdTaskAlt } from 'react-icons/md';
-import BirthCertificateBookingModal from '../../components/BirthCertificateBookingModal';
+import { MdOutlineChildCare, MdEditNote, MdGavel, MdCloudUpload, MdWarningAmber, MdFindInPage, MdSyncProblem, MdCancel, MdDescription, MdUploadFile, MdTaskAlt } from 'react-icons/md';
+import { openBirthBooking } from '../../lib/birthBookingLauncher';
 
 const Certificates = () => {
   const [activeReview, setActiveReview] = useState(0);
-  const [bookingOpen, setBookingOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const service = {
-    title: 'Birth Certificate & Civil Documents in Kolkata',
-    heroDescription: 'Whether it is a new baby, a lost document, or a correction in your child\'s birth certificate — we get it done. No running around, no long queues at the Kolkata Municipal Corporation (KMC).',
-    
-    birthCertificateServices: [
-      'New Registrations: For newborns (Hospital or Home birth)',
-      'Corrections: Fixing spelling mistakes in names, parents\' names, or addresses',
-      'Name Inclusion: Adding your child\'s name to an old certificate without a name',
-      'Delayed Registration: If you missed the 1-year deadline, we handle the Magistrate permission and court paperwork',
-      'Digitization (Old to Online): Converting your old handwritten paper certificate into a digital, computer-generated one'
-    ],
-    
     commonProblems: [
       'Birth not registered at the time',
       'Certificate not found in KMC records',
@@ -29,47 +17,6 @@ const Certificates = () => {
       'Different names across documents',
       'Rejection by school, passport, or authorities'
     ],
-    
-    otherCertificates: [
-      {
-        icon: FaFileAlt,
-        title: 'Death Certificates',
-        description: 'Assisting families with cremation/burial records and obtaining the final Death Certificate from KMC for bank and property claims.'
-      },
-      {
-        icon: FaUserTie,
-        title: 'Marriage Registration',
-        description: 'Guidance on registering marriages under the Special Marriage Act or Hindu Marriage Act in Kolkata.'
-      },
-      {
-        icon: FaShieldAlt,
-        title: 'Succession & Legal Heir Certificates',
-        description: 'Legal support to prove inheritance for property and bank transfers.'
-      }
-    ],
-    
-    process: [
-      {
-        step: 1,
-        title: 'Initial Review',
-        description: 'We understand your issue and check available documents.'
-      },
-      {
-        step: 2,
-        title: 'Document Preparation',
-        description: 'We help prepare forms, affidavits, and supporting papers.'
-      },
-      {
-        step: 3,
-        title: 'Submission & Follow-Ups',
-        description: 'We assist with filing and coordination with KMC departments.'
-      },
-      {
-        step: 4,
-        title: 'Completion',
-        description: 'We track the case and keep you informed till resolution.'
-      }
-    ]
   };
 
   const reviews = [
@@ -95,13 +42,6 @@ const Certificates = () => {
     },
   ];
 
-  const handleCards = [
-    { icon: MdOutlineChildCare, title: 'New Registrations', detail: service.birthCertificateServices[0], color: 'from-blue-500 to-cyan-500' },
-    { icon: MdEditNote, title: 'Corrections', detail: service.birthCertificateServices[1], color: 'from-emerald-500 to-teal-500' },
-    { icon: MdBadge, title: 'Name Inclusion', detail: service.birthCertificateServices[2], color: 'from-violet-500 to-purple-500' },
-    { icon: MdGavel, title: 'Delayed Registration', detail: service.birthCertificateServices[3], color: 'from-amber-500 to-orange-500' },
-    { icon: MdCloudUpload, title: 'Digitization', detail: service.birthCertificateServices[4], color: 'from-rose-500 to-pink-500' },
-  ];
 
   const issueCards = [
     { icon: MdWarningAmber, title: service.commonProblems[0], color: 'from-amber-500 to-orange-500' },
@@ -109,13 +49,6 @@ const Certificates = () => {
     { icon: MdSyncProblem, title: service.commonProblems[2], color: 'from-violet-500 to-purple-500' },
     { icon: MdEditNote, title: service.commonProblems[3], color: 'from-emerald-500 to-teal-500' },
     { icon: MdCancel, title: service.commonProblems[4], color: 'from-rose-500 to-red-500' },
-  ];
-
-  const processVisuals = [
-    { icon: MdSearch, color: 'bg-blue-500' },
-    { icon: MdDescription, color: 'bg-emerald-500' },
-    { icon: MdUploadFile, color: 'bg-violet-500' },
-    { icon: MdTaskAlt, color: 'bg-amber-500' },
   ];
 
   useEffect(() => {
@@ -126,11 +59,23 @@ const Certificates = () => {
     return () => window.clearInterval(intervalId);
   }, [reviews.length]);
 
+
+  useEffect(() => {
+    if (searchParams.get('openBirthBooking') !== '1') {
+      return;
+    }
+
+    openBirthBooking();
+    const next = new URLSearchParams(searchParams);
+    next.delete('openBirthBooking');
+    setSearchParams(next, { replace: true });
+  }, [searchParams, setSearchParams]);
+
   return (
     <div className="bg-white service-page">
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex flex-col"
+        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex flex-col overflow-x-clip"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -138,178 +83,189 @@ const Certificates = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-3 sm:px-4 md:px-6 py-2.5 sm:py-8 md:py-10 lg:py-8 text-white">
-          <div className="flex flex-col justify-center max-w-4xl mx-auto w-full text-center">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-sm mb-3 sm:mb-5 md:mb-6 lg:mb-5 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
-              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
-              <span className="font-semibold text-white">Licensed KMC Consultant</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold leading-[1.15] mt-1 mb-4 sm:mb-7 md:mb-8 lg:mb-5 xl:mb-6">{service.title}</h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-lg mb-4 sm:mb-6 md:mb-8 lg:mb-6 xl:mb-7 max-w-3xl mx-auto leading-relaxed text-white/90 px-1">{service.heroDescription}</p>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75"></div>
+        <div className="relative flex-1 flex flex-col justify-center max-w-3xl lg:max-w-[1320px] xl:max-w-[1440px] mx-auto w-full px-5 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 text-white text-center">
+          {/* Trust Badge */}
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm mb-5 sm:mb-6 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
+            <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full text-xs sm:text-sm font-bold bg-amber-500 text-white">☆</span>
+            <span className="font-semibold text-white">Licensed KMC Consultants</span>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-4 sm:mt-8 md:mt-9 lg:mt-6 pb-safe">
-            <button type="button" onClick={() => setBookingOpen(true)} className="btn-book-slot w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] shadow-lg">
-              <FaCalendarCheck className="text-base sm:text-lg" /> Book a Slot 199.00 Only
-            </button>
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
-              <RiWhatsappFill className="text-xl" /> Chat on WhatsApp
+
+          {/* Main Heading */}
+          <h1 className="text-[1.6rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.18] mb-4 sm:mb-5 text-amber-300">Birth Certificates? Sorted!</h1>
+          <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/90 max-w-xl lg:max-w-4xl mx-auto mb-6 sm:mb-8">New application, corrections or digital QR — we get it done. No running around, no long queues at the Kolkata Municipal Corporation (KMC).</p>
+
+          {/* Tell Us About Your Application */}
+          <div className="mb-5 sm:mb-6">
+            <div className="inline-flex items-center gap-2 mb-2 sm:mb-3">
+              <RiWhatsappFill className="text-xl sm:text-2xl text-[var(--color-25d366)]" />
+              <p className="text-base sm:text-lg md:text-xl font-bold text-white">Tell us about your application</p>
+            </div>
+            <p className="text-sm sm:text-base text-white/80 mb-3 sm:mb-4">Need guidance?&nbsp; Chat with us.</p>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex lg:hidden items-center justify-center gap-2 rounded-full px-8 sm:px-10 py-2.5 sm:py-3 bg-[#e8dcc8] hover:bg-[#ddd0b8] text-[var(--color-1f3a30)] text-sm sm:text-base font-bold transition-all shadow-md hover:shadow-lg min-h-[42px]">
+              Whatsapp
             </a>
           </div>
+
+          {/* KMC Applications + Fee Badge */}
+          <div className="mb-4 sm:mb-5">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+              <p className="text-base sm:text-lg md:text-xl font-bold text-white leading-snug">We help you with your<br />KMC Applications</p>
+              <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-amber-400 text-[var(--color-1f3a30)] text-[10px] sm:text-xs font-extrabold tracking-wide rotate-[-6deg] shadow-md whitespace-nowrap">Fee: Rs 199 only</span>
+            </div>
+          </div>
+
+          {/* Checklist Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-2.5 max-w-sm sm:max-w-md lg:max-w-6xl mx-auto mb-5 sm:mb-6">
+            {['Get KMC Booking.', 'Document Review.', 'Full Consultation.', 'Application Prepared.'].map((item) => (
+              <div key={item} className="flex items-center gap-2 text-left lg:justify-center">
+                <FaCheckCircle className="text-[var(--color-25d366)] text-sm sm:text-base flex-shrink-0" />
+                <span className="text-xs sm:text-sm text-white/90 font-medium whitespace-nowrap">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Book Now CTA */}
+          <button type="button" onClick={openBirthBooking} className="btn-book-slot lg:hidden mx-auto inline-flex items-center justify-center gap-2 rounded-full px-10 sm:px-14 py-3 sm:py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider text-white transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px] shadow-lg mb-4 sm:mb-5">
+            Book Now
+          </button>
+
+          <div className="hidden lg:flex flex-wrap justify-center items-center gap-4 mb-4 sm:mb-5">
+            <button type="button" onClick={openBirthBooking} className="btn-book-slot inline-flex items-center justify-center gap-2 rounded-full px-10 py-3.5 text-base font-extrabold uppercase tracking-wider text-white transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px] shadow-lg">
+              Book Now
+            </button>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full px-10 py-3.5 bg-[#e8dcc8] hover:bg-[#ddd0b8] text-[var(--color-1f3a30)] text-base font-bold transition-all shadow-md hover:shadow-lg min-h-[48px]">
+              Whatsapp
+            </a>
+          </div>
+
+          <p className="text-xs sm:text-sm text-white/70 font-medium italic">Professional guidance from Licensed Consultant.</p>
         </div>
       </section>
 
-      {/* Main Priority - Birth Certificates */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.neutral.white }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">MAIN PRIORITY</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>Your Birth Certificate. Handled Correctly.</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
+      {/* Application Types */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8 sm:mb-10 md:mb-14">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">APPLICATION TYPES</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">What's your application Type?</h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-4 sm:mb-6" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">All types handled! Choose category for your application:</p>
           </div>
 
-          <div className="max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12">
-            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: 'var(--color-4b5563)' }}>
-              A Birth Certificate is the most important document for school admission, passports, and visas. But in Kolkata, getting it right can be stressful. One spelling mistake can cause years of trouble.
-            </p>
-            <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-4" style={{ color: 'var(--color-4b5563)' }}>
-              We don't just "submit files." We check every detail before it goes to the KMC office to ensure your application is approved the first time.
-            </p>
-          </div>
-
-          <div className="mb-6 sm:mb-8 md:mb-10">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-5 md:mb-6 text-center" style={{ color: 'var(--color-111827)' }}>What We Handle:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
-              {handleCards.map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <div key={item.title} className="group rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
-                        <IconComponent className="text-xl" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase text-gray-500">Task {String(index + 1).padStart(2, '0')}</span>
-                        </div>
-                        <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-1 sm:mb-1.5">{item.title}</h4>
-                        <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">{item.detail}</p>
-                      </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            {[
+              { icon: MdOutlineChildCare, title: 'New First Time Registrations', detail: 'If you never applied before', bg: 'bg-blue-50 border-blue-200', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
+              { icon: MdEditNote, title: 'Correction: Name & Date', detail: 'Need any name or date corrected.', bg: 'bg-emerald-50 border-emerald-200', iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600' },
+              { icon: MdCloudUpload, title: 'Digitalization & QR Code', detail: 'Full consultation on your certificate application.', bg: 'bg-violet-50 border-violet-200', iconBg: 'bg-violet-100', iconColor: 'text-violet-600' },
+              { icon: MdFindInPage, title: 'Lost / Destroyed or Get a Copy', detail: 'Get an original Birth Certificate copy', bg: 'bg-amber-50 border-amber-200', iconBg: 'bg-amber-100', iconColor: 'text-amber-600' },
+            ].map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={item.title} className={`rounded-xl p-4 sm:p-5 border ${item.bg} transition-all hover:shadow-md`}>
+                  <div className="flex items-start gap-3">
+                    <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
+                      <IconComponent className={`text-lg sm:text-xl ${item.iconColor}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.detail}</p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="text-center">
-            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6" style={{ color: 'var(--color-4b5563)' }}>
-              At Khan Consultants, we help residents of Kolkata complete certificate-related work correctly, legally, and without unnecessary stress.
-            </p>
-            <Link to="/contact" className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-gray-900 hover:bg-gray-800">
-              Request a Quote for Birth Certificate
-            </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Consultation Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-22 px-3 sm:px-4 md:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="rounded-2xl sm:rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-emerald-50 p-4 sm:p-6 md:p-8 lg:p-10 shadow-sm">
-            <div className="text-center mb-6 sm:mb-8 md:mb-10">
-              <p className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.18em] uppercase text-amber-700 mb-2 sm:mb-3">Priority Consultation</p>
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">Confused? Book an Consultation!</h2>
-              <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Get a fast case review before spending on the full process.</p>
-            </div>
+      {/* What You Get Section */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-6 sm:mb-8">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">CONSULTATION</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">What you get?</h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-3 sm:mb-5" />
+            <p className="text-gray-500 text-sm sm:text-base">With our Consultation Slot:</p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-              <div className="rounded-xl sm:rounded-2xl bg-white border border-amber-200 p-4 sm:p-5 md:p-6 shadow-sm">
-                <div className="flex items-center gap-3 mb-3 sm:mb-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
-                    <FaRupeeSign className="text-lg" />
+          {/* Checklist + CTA Card */}
+          <div className="rounded-xl sm:rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mb-6 sm:mb-8">
+            <div className="flex flex-col items-center text-center">
+              <div className="space-y-2 sm:space-y-2.5 mb-5 sm:mb-6">
+                {['Get full guidance.', 'Professional guidance from Licensed Consultant.'].map((item) => (
+                  <div key={item} className="flex items-center gap-2 justify-center">
+                    <FaCheckCircle className="text-[var(--color-25d366)] text-sm sm:text-base flex-shrink-0" />
+                    <span className="text-sm sm:text-base text-gray-700 font-medium">{item}</span>
                   </div>
-                  <div>
-                    <p className="text-xs sm:text-sm font-semibold text-gray-600">Consultation Price</p>
-                    <p className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">₹199.00 Only</p>
-                  </div>
-                </div>
-                <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">The consultation amount gets deducted from your final service fee when you proceed with us.</p>
+                ))}
               </div>
-
-              <div className="rounded-xl sm:rounded-2xl bg-white border border-emerald-200 p-4 sm:p-5 md:p-6 shadow-sm">
-                <div className="flex items-center gap-3 mb-3 sm:mb-4">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                    <FaCalendarCheck className="text-lg" />
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl font-bold text-gray-900">What You Get</p>
-                </div>
-                <ul className="space-y-2.5 sm:space-y-3">
-                  {[
-                    '15-minute one-to-one expert call',
-                    'Document checklist specific to your case',
-                    'Clear timeline and next-step roadmap',
-                    'Risk flags before filing',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-xs sm:text-sm md:text-base text-gray-700">
-                      <FaCheckCircle className="text-emerald-600 mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-5 sm:mt-6 md:mt-8 rounded-xl sm:rounded-2xl bg-red-50 border border-red-200 p-4 sm:p-5 md:p-6">
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-100 text-red-700 flex items-center justify-center flex-shrink-0">
-                  <FaStar className="text-sm sm:text-base" />
-                </div>
-                <div>
-                  <p className="text-sm sm:text-base md:text-lg font-bold text-red-800">Limited Availability for Urgent Cases</p>
-                  <p className="text-xs sm:text-sm md:text-base text-red-700 mt-1 sm:mt-1.5">Same-day priority slots are limited and filled on first-come basis. Book early if your application has a deadline or prior rejection.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button type="button" onClick={() => setBookingOpen(true)} className="btn-book-slot w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white transition-all">
-                <FaCalendarCheck className="text-base" /> Book a Slot 199.00 Only
+              <button type="button" onClick={openBirthBooking} className="btn-book-slot inline-flex items-center justify-center gap-2 rounded-full px-10 sm:px-14 py-3 sm:py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider text-white transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px] shadow-lg mb-3 sm:mb-4">
+                Book Now
               </button>
-              <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 transition-all">
-                <RiWhatsappFill className="text-lg text-[var(--color-25d366)]" /> Chat on WhatsApp
-              </a>
+              <p className="text-base sm:text-lg font-bold text-gray-900">Book a Consultation!</p>
             </div>
+          </div>
+
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 mb-5 sm:mb-6">
+            {[
+              { icon: MdDescription, title: 'Full Document Review', detail: 'We go through all your documents. Full audit of your current proof.', bg: 'bg-blue-50 border-blue-200', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
+              { icon: FaCalendarCheck, title: 'Complete Consultation', detail: 'We provide you complete guidance.', bg: 'bg-emerald-50 border-emerald-200', iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600' },
+              { icon: MdUploadFile, title: 'Application Preparation', detail: 'Draft support for your application.', bg: 'bg-violet-50 border-violet-200', iconBg: 'bg-violet-100', iconColor: 'text-violet-600' },
+              { icon: MdTaskAlt, title: 'Your KMC Appointment', detail: 'We book an instant appointment with the KMC for your specific application.', bg: 'bg-amber-50 border-amber-200', iconBg: 'bg-amber-100', iconColor: 'text-amber-600' },
+            ].map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={item.title} className={`rounded-xl p-4 sm:p-5 border ${item.bg} transition-all hover:shadow-md`}>
+                  <div className="flex items-start gap-3">
+                    <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
+                      <IconComponent className={`text-lg sm:text-xl ${item.iconColor}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.detail}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Fee Badge */}
+          <div className="text-center">
+            <span className="inline-block px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-amber-400 text-[var(--color-1f3a30)] text-sm sm:text-base font-extrabold shadow-md">Fee: Rs 199 only</span>
           </div>
         </div>
       </section>
 
       {/* Reviews Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-22 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block mb-3 sm:mb-4">
-            <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold uppercase">Client Reviews</p>
-          </div>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 sm:mb-8 md:mb-10">What Clients Say About Us</h2>
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-emerald-400/[0.06] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-400/[0.04] rounded-full blur-3xl pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto text-center">
+          <p className="text-[10px] sm:text-xs tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase">CLIENT REVIEWS</p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3">What Clients <span className="text-amber-300">Say</span> About Us</h2>
+          <div className="w-12 sm:w-16 h-1 bg-emerald-400 mx-auto rounded-full mb-6 sm:mb-8" />
 
-          <div className="relative max-w-3xl mx-auto rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-5 sm:p-7 md:p-9 min-h-[230px] sm:min-h-[250px] flex flex-col justify-center">
-            <FaQuoteLeft className="text-2xl sm:text-3xl text-amber-300 mx-auto mb-3 sm:mb-4" />
-            <p className="text-sm sm:text-base md:text-lg text-white leading-relaxed mb-4 sm:mb-5">“{reviews[activeReview].review}”</p>
-            <p className="text-base sm:text-lg md:text-xl font-bold text-amber-200">{reviews[activeReview].name}</p>
+          <div className="relative max-w-2xl mx-auto rounded-xl sm:rounded-2xl bg-white/[0.15] backdrop-blur-sm border border-white/[0.15] shadow-lg shadow-black/10 p-5 sm:p-6 md:p-8 min-h-[200px] sm:min-h-[220px] flex flex-col justify-center">
+            <FaQuoteLeft className="text-2xl sm:text-3xl text-amber-400/70 mx-auto mb-3 sm:mb-4" />
+            <p className="text-sm sm:text-base text-white leading-relaxed mb-4 sm:mb-5">“{reviews[activeReview].review}”</p>
+            <div className="flex items-center gap-3 justify-center">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-400/90 flex items-center justify-center">
+                <span className="text-[var(--color-1f3a30)] font-bold text-xs sm:text-sm">{reviews[activeReview].name.charAt(0)}</span>
+              </div>
+              <p className="font-semibold text-white text-sm sm:text-base">{reviews[activeReview].name}</p>
+            </div>
 
-            <div className="mt-5 sm:mt-6 flex justify-center gap-2">
+            <div className="mt-4 sm:mt-5 flex justify-center gap-2">
               {reviews.map((review, index) => (
                 <button
                   key={review.name}
                   type="button"
                   onClick={() => setActiveReview(index)}
-                  className={`h-2 rounded-full transition-all ${activeReview === index ? 'w-6 bg-amber-300' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+                  className={`rounded-full transition-all duration-300 ${activeReview === index ? 'w-8 h-2.5 bg-amber-400' : 'w-2.5 h-2.5 bg-white/25 hover:bg-white/45'}`}
                   aria-label={`Show review ${index + 1}`}
                 />
               ))}
@@ -319,132 +275,130 @@ const Certificates = () => {
       </section>
 
       {/* Common Problems */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">COMMON ISSUES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">Facing Issues With Your Birth Certificate?</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-3xl mx-auto px-2">Here are some common Birth Certificate problems we handle:</p>
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-14">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">COMMON ISSUES</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">Facing Issues With Your Birth Certificate?</h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-4 sm:mb-6" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">Here are some common Birth Certificate problems we handle:</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10 md:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 mb-8 sm:mb-10">
             {issueCards.map((issue) => {
               const IconComponent = issue.icon;
+              const issueColors: Record<string, { bg: string; iconBg: string; iconColor: string }> = {
+                'from-amber-500 to-orange-500': { bg: 'bg-amber-50 border-amber-200', iconBg: 'bg-amber-100', iconColor: 'text-amber-600' },
+                'from-blue-500 to-cyan-500': { bg: 'bg-blue-50 border-blue-200', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
+                'from-violet-500 to-purple-500': { bg: 'bg-violet-50 border-violet-200', iconBg: 'bg-violet-100', iconColor: 'text-violet-600' },
+                'from-emerald-500 to-teal-500': { bg: 'bg-emerald-50 border-emerald-200', iconBg: 'bg-emerald-100', iconColor: 'text-emerald-600' },
+                'from-rose-500 to-red-500': { bg: 'bg-rose-50 border-rose-200', iconBg: 'bg-rose-100', iconColor: 'text-rose-600' },
+              };
+              const c = issueColors[issue.color] || { bg: 'bg-gray-50 border-gray-200', iconBg: 'bg-gray-100', iconColor: 'text-gray-600' };
               return (
-                <div key={issue.title} className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white/10 backdrop-blur border border-white/20 hover:border-white/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-white/5 to-transparent"></div>
-                  <div className="relative flex items-center gap-3 sm:gap-4">
-                    <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br ${issue.color} flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg`}>
-                      <IconComponent />
-                    </div>
-                    <p className="text-sm sm:text-base md:text-lg font-semibold text-white leading-snug">{issue.title}</p>
+                <div key={issue.title} className={`rounded-xl p-4 sm:p-5 border ${c.bg} transition-all hover:shadow-md flex items-center gap-3`}>
+                  <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${c.iconBg} flex items-center justify-center flex-shrink-0`}>
+                    <IconComponent className={`text-lg sm:text-xl ${c.iconColor}`} />
                   </div>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 leading-snug">{issue.title}</p>
                 </div>
               );
             })}
           </div>
 
           <div className="text-center">
-            <p className="text-sm sm:text-base md:text-lg text-white/80 font-semibold mb-6 sm:mb-8">If your case has been rejected earlier or seems complicated, we can review it and guide you properly.</p>
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-white rounded-lg sm:rounded-xl font-bold transition text-sm sm:text-base bg-white/15 hover:bg-white/25 border border-white/20 hover:shadow-lg transform hover:scale-105">
-              <RiWhatsappFill className="text-xl sm:text-2xl" /> WhatsApp Us
+            <p className="text-gray-500 text-sm sm:text-base font-medium mb-5 sm:mb-6">If your case has been rejected or seems complicated, we can review it and guide you properly.</p>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-7 py-3 sm:py-3.5 rounded-xl font-bold text-sm sm:text-base btn-primary-sage text-white transition-all min-h-[44px]">
+              <RiWhatsappFill className="text-lg" /> WhatsApp Us
             </a>
           </div>
         </div>
       </section>
 
-      {/* Other Important Certificates */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">OTHER SERVICES</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">Other Civil Documents We Manage</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base max-w-3xl mx-auto px-2 text-gray-600">
-              We provide the same expert fast-tracking for other essential life documents.
-            </p>
+      {/* Other Services */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-400/[0.07] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-amber-400/[0.05] rounded-full blur-3xl pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto">
+          <div className="text-center mb-8 sm:mb-10 md:mb-14">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase">MORE SERVICES</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-white">Other <span className="text-amber-300">Services</span></h2>
+            <div className="w-12 sm:w-16 h-1 bg-emerald-400 mx-auto rounded-full mb-4 sm:mb-6" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-            {service.otherCertificates.map((cert, index) => {
-              const IconComponent = cert.icon;
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+            {[
+              { icon: FaFileAlt, title: 'Death Certificates', iconBg: 'bg-blue-400/25', iconColor: 'text-blue-300' },
+              { icon: FaUserTie, title: 'Marriage Certificates', iconBg: 'bg-amber-400/25', iconColor: 'text-amber-300' },
+              { icon: MdEditNote, title: 'Official Name Change', iconBg: 'bg-emerald-400/25', iconColor: 'text-emerald-300' },
+              { icon: MdGavel, title: 'Divorce Proceedings', iconBg: 'bg-rose-400/25', iconColor: 'text-rose-300' },
+              { icon: FaShieldAlt, title: 'ID Documentation & more', iconBg: 'bg-violet-400/25', iconColor: 'text-violet-300' },
+            ].map((item) => {
+              const IconComponent = item.icon;
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 hover:shadow-lg transition bg-white border border-gray-200">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-5 md:mb-6 bg-gray-100">
-                    <IconComponent className="text-2xl sm:text-3xl text-gray-700" />
+                <div key={item.title} className="rounded-xl p-4 sm:p-5 bg-white/[0.15] backdrop-blur-sm border border-white/[0.15] shadow-lg shadow-black/10 hover:bg-white/[0.22] hover:border-white/25 hover:shadow-xl transition-all flex items-center gap-3">
+                  <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${item.iconBg} flex items-center justify-center flex-shrink-0`}>
+                    <IconComponent className={`text-lg sm:text-xl ${item.iconColor}`} />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>{cert.title}</h3>
-                  <p className="text-xs sm:text-sm" style={{ color: 'var(--color-4b5563)' }}>{cert.description}</p>
+                  <h3 className="text-sm sm:text-base font-bold text-white">{item.title}</h3>
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-            <p className="text-sm sm:text-base md:text-lg font-semibold" style={{ color: 'var(--color-374151)' }}>We provide you a single stop for all your certification needs.</p>
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">How We Work</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">A clear four-step workflow designed to reduce delays and mistakes.</p>
+          <div className="text-center mb-8 sm:mb-10 md:mb-14">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">OUR PROCESS</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">What is the Process?</h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-4 sm:mb-6" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">Our process for Birth Certificate Applications</p>
           </div>
 
           <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 hidden md:block -translate-x-px"></div>
-            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 md:hidden"></div>
+            {/* Desktop center line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 hidden md:block -translate-x-px"></div>
+            {/* Mobile left line */}
+            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gray-200 md:hidden"></div>
 
             <div className="space-y-6 sm:space-y-8 md:space-y-0">
-              {service.process.map((item, index) => {
-                const IconComponent = processVisuals[index].icon;
-                const stepColor = processVisuals[index].color;
+              {[
+                { step: 1, title: 'Book consultation with us.', description: 'Meet us in person with all your documents.', icon: FaCalendarCheck, color: 'bg-blue-500' },
+                { step: 2, title: 'KMC appointment booked.', description: 'We confirm your appointment with KMC.', icon: MdTaskAlt, color: 'bg-emerald-500' },
+                { step: 3, title: 'Complete Guidance.', description: 'Full consultation on your certificate application.', icon: MdDescription, color: 'bg-violet-500' },
+                { step: 4, title: 'Additional Legal Support.', description: 'Our panel of lawyers ready for extra support.', icon: FaShieldAlt, color: 'bg-amber-500' },
+              ].map((item, index) => {
+                const IconComponent = item.icon;
                 const isEven = index % 2 === 0;
 
                 return (
                   <div key={item.step} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
+                    {/* Mobile layout */}
                     <div className="md:hidden flex gap-3 sm:gap-4 items-start">
                       <div className="relative z-10 flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[var(--color-3d6b56)]`}>
+                        <div className={`w-10 h-10 rounded-full ${item.color} flex items-center justify-center shadow-lg ring-4 ring-white`}>
                           <IconComponent className="text-white text-base" />
                         </div>
                       </div>
-                      <div className="flex-1 bg-white/95 rounded-xl p-3.5 sm:p-4 border border-white/30 hover:shadow-md transition-all">
+                      <div className="flex-1 bg-gray-50 rounded-xl p-3.5 sm:p-4 border border-gray-100 hover:shadow-md transition-all">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
+                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[var(--color-3d6b56)]">Step 0{item.step}</span>
                         </div>
                         <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
                         <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
                       </div>
                     </div>
 
+                    {/* Desktop layout */}
                     <div className="hidden md:flex md:w-full md:items-center">
                       <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
-                        <div className={`bg-white/95 rounded-2xl p-5 lg:p-6 border border-white/30 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
+                        <div className={`bg-gray-50 rounded-xl p-5 lg:p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
                           <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
-                            <span className="text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
+                            <span className="text-xs font-bold tracking-wider uppercase text-[var(--color-3d6b56)]">Step 0{item.step}</span>
                           </div>
                           <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
                           <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
@@ -452,7 +406,7 @@ const Certificates = () => {
                       </div>
 
                       <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
-                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[var(--color-3d6b56)]`}>
+                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${item.color} flex items-center justify-center shadow-xl ring-4 ring-white`}>
                           <IconComponent className="text-white text-xl lg:text-2xl" />
                         </div>
                       </div>
@@ -467,30 +421,26 @@ const Certificates = () => {
         </div>
       </section>
 
-      {/* Why Kolkata Trusts Us */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">WHY KOLKATA TRUSTS US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--color-111827)' }}>Local Experts, Legal Backing.</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-          </div>
+      {/* Why Kolkata Trusts Us + Final CTA */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">WHY KOLKATA TRUSTS US</p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 text-gray-900">Local Experts, Legal Backing.</h2>
+          <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-4 sm:mb-6" />
+          <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto">
+            Agents outside the KMC building often promise quick results but leave you with half-done work or fake promises. Khan Consultants is different — we have a proper office, a legal team for affidavits, and years of experience dealing with Kolkata Municipal Corporation officials. We do it the right way, legally and securely.
+          </p>
 
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6" style={{ color: 'var(--color-374151)' }}>
-              Agents outside the KMC building often promise quick results but leave you with half-done work or fake promises. Khan Consultants is different. We have a proper office, a legal team for affidavits, and years of experience dealing with Kolkata Municipal Corporation officials. We do it the right way, legally and securely.
-            </p>
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center">
+            <button type="button" onClick={openBirthBooking} className="btn-book-slot w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-white transition-all min-h-[44px]">
+              <FaCalendarCheck className="text-base" /> Book a Consultation
+            </button>
+            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold bg-white border border-gray-200 text-gray-800 hover:bg-gray-100 transition-all min-h-[44px] shadow-sm">
+              <RiWhatsappFill className="text-lg text-[var(--color-25d366)]" /> Chat on WhatsApp
+            </a>
           </div>
         </div>
       </section>
-
-      <BirthCertificateBookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
 
     </div>
   );

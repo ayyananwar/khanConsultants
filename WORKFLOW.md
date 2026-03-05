@@ -29,7 +29,7 @@ If Copilot makes a wrong change:
 2. Re-state invariant constraints:
    - do not break booking verification flow
    - do not remove canonical/404 SEO setup
-   - do not change env contracts
+   - do not change frontend/backend env contracts
 3. Ask for a minimal patch and build check.
 
 ## 5) Safe Checkpoints for Commits
@@ -48,20 +48,20 @@ Suggested commit format:
 ## 6) Pre-Push Checklist
 - npm run build passes
 - No accidental edits outside scope
-- netlify.toml still has canonical redirects + proxy route
+- netlify.toml still has canonical redirects
 - robots.txt and sitemap.xml still present and valid
-- booking env vars unchanged unless intended
+- booking/contact/enquiry env vars unchanged unless intended
 
 ## 7) Deploy Workflow
 Preferred:
 1. git add -A
 2. git commit -m "..."
 3. git push origin main
-4. Verify Netlify deploy + /api/booking health
+4. Verify frontend deploy + backend `/api/v1/health`
 
 ## 8) Quick Recovery Plan
 If production booking fails:
-- test /api/booking with action=getBookingFee
-- verify NETLIFY_BOOKING_SCRIPT_URL in Netlify env
-- verify Apps Script deployment URL/version
-- check browser network for route using /api/booking vs direct URL
+- test backend booking endpoint with action=getBookingFee
+- verify backend env for Razorpay and booking fee settings
+- check backend logs for payment verification errors
+- check browser network for calls to backend `VITE_BACKEND_URL`

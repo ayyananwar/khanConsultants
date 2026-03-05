@@ -59,16 +59,6 @@ const routeMeta: Record<string, MetaConfig> = {
     description:
       'Fast GST registration, compliance setup, filing support, and accounting guidance with complete credential handover and structured advisory.',
   },
-  '/services/import-export': {
-    title: 'Import Export Services in Kolkata | IEC & Compliance Assistance',
-    description:
-      'Import-export consulting, documentation guidance, and compliance support for businesses handling cross-border trade from Kolkata.',
-  },
-  '/services/visas-immigration': {
-    title: 'Visa & Immigration Services in Kolkata | End-to-End Guidance',
-    description:
-      'Consulting support for visa and immigration cases with proper documentation, process guidance, and transparent coordination.',
-  },
   '/privacy-policy': {
     title: 'Privacy Policy | Khan Consultants',
     description: 'Read the Privacy Policy for Khan Consultants and understand how your data is collected, used, and protected.',
@@ -92,8 +82,6 @@ const breadcrumbName: Record<string, string> = {
   property: 'Property',
   legal: 'Trade Mark & Legal',
   'gst-accounting': 'GST & Accounting',
-  'import-export': 'Import & Export',
-  'visas-immigration': 'Visas & Immigration',
   about: 'About',
   contact: 'Contact',
   'privacy-policy': 'Privacy Policy',

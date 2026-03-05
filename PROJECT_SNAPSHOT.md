@@ -6,9 +6,7 @@ khanConsultants/
 - .env
 - .env.example
 - .gitignore
-- BIRTH_CERTIFICATE_BOOKING_APPS_SCRIPT.md
 - DESIGN_GUIDELINES.md
-- GOOGLE_APPS_SCRIPT_SETUP.md
 - README.md
 - eslint.config.js
 - index.html
@@ -26,7 +24,6 @@ khanConsultants/
     - deploy.yml
 - netlify/
   - functions/
-    - booking-proxy.mjs
 - public/
   - footerlogo.svg
   - hero.png
@@ -91,12 +88,11 @@ khanConsultants/
 - SEO manager with dynamic route metadata + JSON-LD
 - Canonical host redirects and robots/sitemap support
 - 404 route/page with noindex behavior
-- Birth Certificate booking modal:
+- Birth Certificate booking modal + backend API flow:
   - multi-step form
   - slot selection and waitlist handling
   - Razorpay checkout integration
   - payment verification and confirmation path
-- Netlify function proxy for booking API (preflight-safe architecture)
 
 ## In Progress
 - Hero and section spacing tuning (mobile/desktop viewport fit consistency)

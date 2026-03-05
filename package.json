@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:preview": "npx netlify deploy --dir=dist",
+    "predeploy:prod": "npm run build",
+    "deploy:prod": "npx netlify deploy --prod --dir=dist"
   },
   "dependencies": {
     "react": "^19.2.0",

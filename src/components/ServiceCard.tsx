@@ -11,55 +11,54 @@ interface ServiceCardProps {
 export default function ServiceCard({ icon, title, description, features, href }: ServiceCardProps) {
   const content = (
     <>
-      <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-xl sm:rounded-2xl text-white flex items-center justify-center text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-3 sm:mb-4 md:mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" style={{
-        background: 'linear-gradient(135deg, var(--color-ffffff), var(--color-ffffff))'
-      }}>
+      {/* Icon */}
+      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-xl md:text-3xl mb-2.5 sm:mb-3 md:mb-4 bg-emerald-50 group-hover:scale-105 transition-transform duration-300">
         {icon}
       </div>
 
-      <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-1 sm:mb-2 md:mb-3 text-gray-900 leading-tight">
+      <h3 className="text-sm sm:text-[15px] md:text-lg font-bold mb-1 sm:mb-1.5 md:mb-2 text-gray-900 leading-snug">
         {title}
       </h3>
 
-      <p className="text-xs sm:text-sm md:text-base leading-relaxed mb-2 sm:mb-3 md:mb-4 text-gray-600 line-clamp-2 sm:line-clamp-none">
+      <p className="text-[11px] sm:text-[13px] md:text-base leading-relaxed mb-2.5 sm:mb-3 md:mb-4 text-gray-500 line-clamp-3 md:line-clamp-none">
         {description}
       </p>
 
       {features && features.length > 0 && (
-        <ul className="flex flex-col space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 md:mb-5">
-          {features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm text-gray-600">
-              <span className="mt-0.5 text-xs sm:text-sm font-bold text-emerald-500">✓</span>
-              <span className="leading-snug">{feature}</span>
+        <ul className="flex flex-col gap-1 sm:gap-1.5 md:gap-2 mb-3 sm:mb-4 md:mb-5">
+          {features.slice(0, 3).map((feature, index) => (
+            <li key={index} className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm text-gray-600">
+              <span className="text-emerald-500 text-[10px] sm:text-xs font-bold shrink-0">✓</span>
+              <span className="line-clamp-1">{feature}</span>
             </li>
           ))}
+          {features.length > 3 && (
+            <li className="hidden md:flex items-center gap-2 text-sm text-gray-600">
+              <span className="text-emerald-500 text-xs font-bold shrink-0">✓</span>
+              <span>{features[3]}</span>
+            </li>
+          )}
         </ul>
       )}
 
-      <div className="inline-flex text-xs sm:text-sm md:text-base font-semibold items-center gap-1.5 sm:gap-2 mt-auto text-emerald-600 group-hover:gap-2 sm:group-hover:gap-3 transition-all">
-        Learn More <span aria-hidden="true" className="text-sm sm:text-base md:text-lg">→</span>
+      <div className="inline-flex text-[11px] sm:text-sm md:text-base font-semibold items-center gap-1 sm:gap-1.5 mt-auto text-emerald-600 group-hover:gap-2.5 transition-all">
+        Learn More <span aria-hidden="true">→</span>
       </div>
     </>
   );
 
+  const cardClasses = "group flex flex-col rounded-xl sm:rounded-xl md:rounded-2xl p-3.5 sm:p-4 md:p-6 bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300";
+
   if (href) {
     return (
-      <Link
-        to={href}
-        className="group flex flex-col rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer border-2 bg-white hover:border-emerald-300"
-        style={{
-          borderColor: 'var(--color-e8f0eb)'
-        }}
-      >
+      <Link to={href} className={cardClasses + " cursor-pointer"}>
         {content}
       </Link>
     );
   }
 
   return (
-    <div className="group flex flex-col rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 border-2 bg-white" style={{
-      borderColor: 'var(--color-e8f0eb)'
-    }}>
+    <div className={cardClasses}>
       {content}
     </div>
   );

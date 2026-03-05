@@ -4,6 +4,9 @@ import { MdPhone, MdSearch, MdDescription, MdUploadFile, MdTaskAlt } from 'react
 import { IoMdPeople } from 'react-icons/io';
 import { FaShieldAlt, FaBullseye, FaBalanceScale, FaBolt, FaCheckCircle } from 'react-icons/fa';
 import { RiBuilding2Fill, RiBriefcaseFill } from 'react-icons/ri';
+import { BsWhatsapp } from 'react-icons/bs';
+import { HiDocumentCheck, HiClock, HiShieldCheck, HiUserGroup } from 'react-icons/hi2';
+import { openServiceEnquiry } from '../../lib/serviceEnquiryLauncher';
 
 const KolkataCorporation = () => {
   const service = {
@@ -102,7 +105,7 @@ const KolkataCorporation = () => {
     <div className="bg-white service-page">
       {/* Hero Section */}
       <section
-        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex flex-col"
+        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex flex-col overflow-x-clip"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -110,86 +113,208 @@ const KolkataCorporation = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full px-3 sm:px-4 md:px-6 py-2.5 sm:py-8 md:py-10 lg:py-8 text-white">
-          <div className="flex flex-col justify-center max-w-4xl mx-auto w-full text-center">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-sm mb-3 sm:mb-5 md:mb-6 lg:mb-5 mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
-              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
-              <span className="font-semibold text-white">Licensed KMC Consultant</span>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75"></div>
+        <div className="relative flex-1 flex flex-col justify-center max-w-3xl lg:max-w-6xl xl:max-w-7xl mx-auto w-full px-5 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 text-white">
+          <div className="text-center">
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] sm:text-xs md:text-sm mb-5 sm:mb-6 bg-white/10 backdrop-blur-sm border border-white/20">
+              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full text-[10px] sm:text-xs font-bold bg-amber-500 text-white">&#9733;</span>
+              <span className="font-semibold">Licensed KMC Consultant</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold leading-[1.15] mt-1 mb-4 sm:mb-7 md:mb-8 lg:mb-5 xl:mb-6">{service.heroTitle}</h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-lg mb-3 sm:mb-4 md:mb-5 max-w-3xl mx-auto leading-relaxed text-white/90 px-1">{service.heroDescription}</p>
-            <p className="text-xs sm:text-sm md:text-base mb-4 sm:mb-6 md:mb-8 lg:mb-6 xl:mb-7 text-white/80">{service.heroSubtitle}</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 md:gap-5 justify-center items-center w-full mt-4 sm:mt-8 md:mt-9 lg:mt-6 pb-safe">
-            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 text-white min-h-[48px] btn-primary-sage shadow-lg">
-              Get in Touch
-            </Link>
-            <Link to="/contact" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 md:px-10 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base md:text-lg font-bold transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px]">
-              Book Initial Review
-            </Link>
+
+            <h1 className="text-[1.6rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.18] mb-4 sm:mb-5">{service.heroTitle}</h1>
+            <p className="text-sm sm:text-base md:text-lg text-white/85 max-w-xl mx-auto leading-relaxed mb-3 sm:mb-4">{service.heroDescription}</p>
+            <p className="text-xs sm:text-sm md:text-base text-white/70 mb-6 sm:mb-8">{service.heroSubtitle}</p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              <button
+                type="button"
+                onClick={() => openServiceEnquiry({ serviceType: 'kmc' })}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white min-h-[48px] btn-primary-sage shadow-lg hover:shadow-xl transition-all"
+              >
+                Get in Touch <span>&rarr;</span>
+              </button>
+              <a
+                href="https://wa.me/916291139691"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base font-bold min-h-[48px] transition-all"
+              >
+                <BsWhatsapp className="text-lg text-[var(--color-25d366)]" />
+                Chat on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Intro Section */}
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 px-4 sm:px-6 md:px-8" style={{ backgroundColor: designTokens.colors.neutral.white }}>
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6 sm:mb-7 md:mb-8 leading-snug" style={{ color: 'var(--color-111827)' }}>Your Bridge to the Kolkata Municipal Corporation</h2>
-          <div className="space-y-4 sm:space-y-5 md:space-y-6">
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
-              Dealing with KMC often involves complicated processes, endless queues, and complex documentation. Whether you are a citizen securing a birth certificate, a business owner needing a trade license, or a property owner resolving tax disputes, mistakes are costly.
-            </p>
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
-              At Khan Consultants, we combine administrative expertise with strong legal backing to ensure your files are processed correctly, legally, and efficiently.
-            </p>
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8" style={{ backgroundColor: designTokens.colors.neutral.white }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16 items-start">
+            {/* Left Column — Text */}
+            <div className="mb-8 lg:mb-0">
+              <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">About KMC Services</p>
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--color-111827)' }}>
+                Your Bridge to the<br className="hidden sm:block" />
+                <span className="text-[var(--color-3d6b56)]">Kolkata Municipal Corporation</span>
+              </h2>
+              <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] rounded-full mb-4 sm:mb-6" />
+              <div className="space-y-4 sm:space-y-5">
+                <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
+                  Dealing with KMC often involves complicated processes, endless queues, and complex documentation. Whether you are a citizen securing a birth certificate, a business owner needing a trade license, or a property owner resolving tax disputes, mistakes are costly.
+                </p>
+                <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--color-4b5563)' }}>
+                  At Khan Consultants, we combine administrative expertise with strong legal backing to ensure your files are processed correctly, legally, and efficiently.
+                </p>
+              </div>
+
+              {/* Quick stats */}
+              <div className="grid grid-cols-2 gap-3 mt-6 sm:mt-8">
+                {[
+                  { value: '25+', label: 'Years KMC Licensed' },
+                  { value: '1,000+', label: 'Cases Handled' },
+                ].map((s) => (
+                  <div key={s.label} className="rounded-xl p-3.5 sm:p-4 bg-gray-50 border border-gray-100">
+                    <div className="text-xl sm:text-2xl font-bold text-[var(--color-3d6b56)] leading-none">{s.value}</div>
+                    <div className="text-[11px] sm:text-xs text-gray-500 font-medium mt-1">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column — Feature highlight cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {[
+                { icon: HiDocumentCheck, color: 'text-blue-500', bg: 'bg-blue-50', title: 'Correct Documentation', desc: 'We ensure every application is filed with the right documents from the start.' },
+                { icon: HiShieldCheck, color: 'text-emerald-600', bg: 'bg-emerald-50', title: 'Legal Backing', desc: 'In-house lawyers handle affidavits, court orders, and magistrate permissions.' },
+                { icon: HiClock, color: 'text-amber-500', bg: 'bg-amber-50', title: 'Faster Processing', desc: 'Skip the trial-and-error. We know the correct process for each KMC department.' },
+                { icon: HiUserGroup, color: 'text-violet-500', bg: 'bg-violet-50', title: 'Dedicated Handling', desc: 'One team handles your case end-to-end — no passing between agents.' },
+              ].map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <div key={i} className="group rounded-xl p-4 sm:p-5 bg-gray-50 border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all">
+                    <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${f.bg} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className={`${f.color} text-xl sm:text-2xl`} />
+                    </div>
+                    <h4 className="font-bold text-gray-900 text-[13px] sm:text-sm md:text-base leading-snug mb-1.5">{f.title}</h4>
+                    <p className="text-gray-500 text-[11px] sm:text-xs md:text-sm leading-relaxed">{f.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Core Services Section */}
-      <section className="py-10 sm:py-14 md:py-18 lg:py-24 px-4 sm:px-6 md:px-8 bg-[var(--color-3d6b56)]">
-        <div className="max-w-7xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-            <div className="inline-block">
-              <p className="text-[11px] sm:text-xs md:text-sm tracking-[0.3em] text-amber-300 font-bold mb-3 sm:mb-4 uppercase relative">
-                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">SERVICES UNDER KMC</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-5 text-white leading-snug">Our Core Services</h2>
-            <div className="w-12 sm:w-16 md:w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2 text-white/85 leading-relaxed">
-              Our KMC services are broadly divided into three key areas:
+      {/* Core Services Section — Dark */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+        {/* Ambient glows */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/[0.07] rounded-full -mr-48 -mt-48 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[28rem] h-[28rem] bg-amber-400/[0.05] rounded-full -ml-56 -mb-56 blur-3xl" />
+
+        <div className="relative max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10 sm:mb-12 md:mb-14">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase">Services Under KMC</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+              Our <span className="text-amber-300">Core Services</span>
+            </h2>
+            <p className="text-white/90 text-sm sm:text-base max-w-xl mx-auto">
+              Our KMC services are broadly divided into three key areas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-7 lg:gap-8">
+          {/* Service cards — stacked on mobile, side-by-side on lg */}
+          <div className="space-y-8 sm:space-y-10 md:space-y-12">
             {service.coreServices.map((item, index) => {
               const IconComponent = item.icon;
-              const iconGradients = ['from-blue-500 to-cyan-500', 'from-amber-500 to-orange-500', 'from-violet-500 to-purple-500'];
+              const accentColors = ['from-blue-400 to-cyan-400', 'from-amber-400 to-orange-400', 'from-violet-400 to-purple-400'];
+              const iconBgs = ['bg-blue-400/25', 'bg-amber-400/25', 'bg-violet-400/25'];
+              const iconTexts = ['text-blue-400', 'text-amber-400', 'text-violet-400'];
+              const isReversed = index % 2 !== 0;
+
               return (
-                <div key={index} className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 hover:shadow-2xl hover:-translate-y-1 transition-all bg-white/10 backdrop-blur-sm border border-white/15 hover:border-white/35">
-                  <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br ${iconGradients[index % iconGradients.length]} flex items-center justify-center shadow-lg`}>
-                      <IconComponent className="text-2xl sm:text-3xl md:text-4xl text-white" />
+                <div key={index} className="group">
+                  {/* Mobile layout — always vertical */}
+                  <div className="lg:hidden">
+                    {/* Accent bar + number */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`h-0.5 w-8 rounded-full bg-gradient-to-r ${accentColors[index]}`} />
+                      <span className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">Service 0{index + 1}</span>
                     </div>
-                    <span className="text-[10px] sm:text-xs tracking-[0.14em] uppercase text-white/60 font-semibold">Service {String(index + 1).padStart(2, '0')}</span>
+
+                    {/* Card */}
+                    <div className="rounded-xl bg-white/[0.15] backdrop-blur-sm border border-white/[0.15] p-5 sm:p-6">
+                      {/* Icon + Title */}
+                      <div className="flex items-center gap-3.5 mb-4">
+                        <div className={`w-11 h-11 rounded-lg ${iconBgs[index]} flex items-center justify-center flex-shrink-0`}>
+                          <IconComponent className={`${iconTexts[index]} text-xl`} />
+                        </div>
+                        <h3 className="font-bold text-white text-base sm:text-lg leading-snug">{item.title}</h3>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-white/90 text-sm sm:text-sm leading-relaxed mb-4">{item.description}</p>
+
+                      {/* Features — clean list */}
+                      <ul className="space-y-2.5 mb-5">
+                        {item.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 mt-1.5 flex-shrink-0" />
+                            <span className="text-white">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* CTA */}
+                      <Link to={item.buttonLink} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/[0.15] border border-white/[0.15] text-amber-300 hover:bg-white/[0.2] text-sm font-semibold transition-all">
+                        {item.buttonText} <span>&rarr;</span>
+                      </Link>
+                    </div>
                   </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 text-white leading-tight">{item.title}</h3>
-                  <p className="text-sm sm:text-base mb-4 sm:mb-5 text-white/90 leading-relaxed">{item.description}</p>
-                  <ul className="space-y-2 sm:space-y-2.5 mb-5 sm:mb-6 md:mb-7">
-                    {item.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-white/85 leading-relaxed">
-                        <span className="flex-shrink-0 font-bold text-amber-300 mt-0.5">✓</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to={item.buttonLink} className="inline-flex items-center justify-center w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 text-white rounded-lg sm:rounded-xl font-semibold transition text-xs sm:text-sm bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 hover:shadow-lg">
-                    {item.buttonText}
-                  </Link>
+
+                  {/* Desktop layout — alternating text/visual sides */}
+                  <div className={`hidden lg:grid lg:grid-cols-5 lg:gap-8 items-center ${isReversed ? '' : ''}`}>
+                    {/* Text side */}
+                    <div className={`col-span-3 ${isReversed ? 'order-2' : ''}`}>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className={`w-12 h-12 rounded-xl ${iconBgs[index]} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                          <IconComponent className={`${iconTexts[index]} text-2xl`} />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase block">Service 0{index + 1}</span>
+                          <h3 className="font-bold text-white text-xl leading-snug">{item.title}</h3>
+                        </div>
+                      </div>
+                      <p className="text-white/90 text-sm leading-relaxed mb-5 max-w-lg">{item.description}</p>
+
+                      {/* Features — 2-col grid on desktop */}
+                      <div className="grid grid-cols-2 gap-x-5 gap-y-3 mb-6">
+                        {item.features.map((feature, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5 text-sm leading-relaxed">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 mt-1.5 flex-shrink-0" />
+                            <span className="text-white">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <Link to={item.buttonLink} className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.15] border border-white/[0.15] text-amber-300 hover:bg-white/[0.2] hover:border-white/20 text-sm font-semibold transition-all">
+                        {item.buttonText}
+                        <span className="group-hover/btn:translate-x-0.5 transition-transform">&rarr;</span>
+                      </Link>
+                    </div>
+
+                    {/* Visual side — large glass number card */}
+                    <div className={`col-span-2 ${isReversed ? 'order-1' : ''}`}>
+                      <div className="relative rounded-2xl bg-white/[0.08] border border-white/[0.08] p-8 flex flex-col items-center justify-center text-center min-h-[220px] group-hover:bg-white/[0.12] transition-all duration-300">
+                        <span className={`text-7xl font-black bg-gradient-to-br ${accentColors[index]} bg-clip-text text-transparent leading-none mb-3 select-none`}>0{index + 1}</span>
+                        <div className={`w-10 h-0.5 rounded-full bg-gradient-to-r ${accentColors[index]} mb-3`} />
+                        <p className="text-white/80 text-xs font-medium tracking-wide uppercase">{item.title.split(' ')[0]} Services</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -197,119 +322,126 @@ const KolkataCorporation = () => {
         </div>
       </section>
 
-      {/* Legal Advantage Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-gray-50">
+      {/* Legal Advantage Section — Light */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-white px-3 sm:px-4">OUR USP</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight">More Than Just Filing—We Handle the Legal Hurdles</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-3xl mx-auto px-2">KMC processes often get stuck due to missing "legal links." Unlike standard agents, Khan Consultants is backed by a robust team of lawyers. We handle the drafting and execution of all necessary legal supports in-house:</p>
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Our USP</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              More Than Just Filing&#8202;&#8212;&#8202;<br className="hidden sm:block" />
+              <span className="text-[var(--color-3d6b56)]">We Handle the Legal Hurdles</span>
+            </h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-3 sm:mb-4" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              KMC processes often get stuck due to missing "legal links." Unlike standard agents, Khan Consultants is backed by a robust team of lawyers.
+            </p>
           </div>
 
-          {/* Legal Advantage Cards - 2x2 Grid */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+          {/* 2x2 Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {service.legalAdvantage.map((item, index) => (
               <div 
                 key={index} 
-                className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 bg-white border-2 border-gray-200 hover:border-[var(--color-517358)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group flex items-start gap-3 sm:gap-4 rounded-xl p-4 sm:p-5 bg-gray-50 border border-gray-100 hover:shadow-md transition-all"
               >
-                {/* Decorative Corner */}
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 opacity-10 group-hover:opacity-20 transition-all">
-                  <div className="absolute top-0 right-0 w-full h-full bg-[var(--color-2c4d3f)] transform rotate-45 translate-x-8 -translate-y-8"></div>
+                <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[var(--color-3d6b56)]/10 flex items-center justify-center">
+                  <FaCheckCircle className="text-[var(--color-3d6b56)] text-lg sm:text-xl" />
                 </div>
-                
-                {/* Icon Badge */}
-                <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-[var(--color-517358)] to-[var(--color-2c4d3f)] flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
-                    <FaCheckCircle />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed text-gray-900">{item}</p>
-                  </div>
+                <div className="flex-1 pt-1">
+                  <p className="text-sm sm:text-base font-semibold leading-relaxed text-gray-900">{item}</p>
                 </div>
-
-                {/* Bottom Accent Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-517358)] to-[var(--color-2c4d3f)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-            <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold">This ensures your matter is not handled in isolation, but as part of a complete solution.</p>
-          </div>
+          <p className="mt-6 sm:mt-8 text-center text-sm sm:text-base text-gray-600">
+            This ensures your matter is not handled in isolation, but as part of a <span className="font-semibold text-gray-900">complete solution</span>.
+          </p>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
+      {/* Process Section — Light */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-amber-300 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-[var(--color-3d6b56)] px-3 sm:px-4">OUR PROCESS</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-white leading-tight">
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Our Process</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
               How We Work
             </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-400 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-white/80 px-2">Our approach is simple, transparent, and structured:</p>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto mt-3 sm:mt-4 leading-relaxed">
+              Our approach is simple, transparent, and structured.
+            </p>
           </div>
 
-          <div className="relative">
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 hidden md:block -translate-x-px"></div>
-            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-white/40 to-amber-300 md:hidden"></div>
+          {/* Mobile: Clean vertical steps */}
+          <div className="md:hidden space-y-3">
+            {service.process.map((item, index) => {
+              const IconComponent = processVisuals[index].icon;
+              const stepColor = processVisuals[index].color;
+              return (
+                <div key={item.step} className="flex items-start gap-3.5">
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-md`}>
+                      <IconComponent className="text-white text-base" />
+                    </div>
+                    {index < service.process.length - 1 && (
+                      <div className="w-0.5 h-6 bg-gray-200 mt-1.5" />
+                    )}
+                  </div>
+                  <div className="pt-1.5 pb-2">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[10px] font-bold text-gray-400 tracking-wider">STEP 0{item.step}</span>
+                    </div>
+                    <h3 className="text-[15px] font-bold text-gray-900 mb-0.5">{item.title}</h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-            <div className="space-y-6 sm:space-y-8 md:space-y-0">
+          {/* Desktop: Alternating timeline */}
+          <div className="hidden md:block relative">
+            {/* Center line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-px" />
+
+            <div className="space-y-0">
               {service.process.map((item, index) => {
                 const IconComponent = processVisuals[index].icon;
                 const stepColor = processVisuals[index].color;
                 const isEven = index % 2 === 0;
-
                 return (
-                  <div key={item.step} className="relative md:flex md:items-center md:mb-12 last:md:mb-0">
-                    <div className="md:hidden flex gap-3 sm:gap-4 items-start">
-                      <div className="relative z-10 flex-shrink-0">
-                        <div className={`w-10 h-10 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-[var(--color-3d6b56)]`}>
-                          <IconComponent className="text-white text-base" />
+                  <div key={item.step} className="relative flex items-center mb-10 last:mb-0">
+                    {/* Left content */}
+                    <div className={`w-[calc(50%-2.5rem)] ${isEven ? '' : 'order-3'}`}>
+                      {isEven && (
+                        <div className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all mr-4">
+                          <span className="text-[10px] font-bold text-gray-400 tracking-wider">STEP 0{item.step}</span>
+                          <h3 className="text-lg font-bold text-gray-900 mt-0.5 mb-1">{item.title}</h3>
+                          <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
                         </div>
-                      </div>
-                      <div className="flex-1 bg-white/95 rounded-xl p-3.5 sm:p-4 border border-white/30 hover:shadow-md transition-all">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2 py-0.5 rounded-full">Step 0{item.step}</span>
-                        </div>
-                        <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-1">{item.title}</h3>
-                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                      )}
+                    </div>
+
+                    {/* Center icon */}
+                    <div className="relative z-10 flex-shrink-0 order-2">
+                      <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full ${stepColor} flex items-center justify-center shadow-lg ring-4 ring-gray-50`}>
+                        <IconComponent className="text-white text-lg lg:text-xl" />
                       </div>
                     </div>
 
-                    <div className="hidden md:flex md:w-full md:items-center">
-                      <div className={`w-[calc(50%-2rem)] ${isEven ? '' : 'order-3'}`}>
-                        <div className={`bg-white/95 rounded-2xl p-5 lg:p-6 border border-white/30 hover:shadow-lg transition-all duration-300 ${isEven ? 'mr-4 text-right' : 'ml-4'}`}>
-                          <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'justify-end' : ''}`}>
-                            <span className="text-xs font-bold tracking-wider uppercase bg-[var(--color-3d6b56)] text-white px-2.5 py-0.5 rounded-full">Step 0{item.step}</span>
-                          </div>
-                          <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1.5">{item.title}</h3>
-                          <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{item.description}</p>
+                    {/* Right content */}
+                    <div className={`w-[calc(50%-2.5rem)] ${isEven ? 'order-3' : ''}`}>
+                      {!isEven && (
+                        <div className="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all ml-4">
+                          <span className="text-[10px] font-bold text-gray-400 tracking-wider">STEP 0{item.step}</span>
+                          <h3 className="text-lg font-bold text-gray-900 mt-0.5 mb-1">{item.title}</h3>
+                          <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
                         </div>
-                      </div>
-
-                      <div className="relative z-10 flex-shrink-0 order-2 mx-auto">
-                        <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-full ${stepColor} flex items-center justify-center shadow-xl ring-4 ring-[var(--color-3d6b56)]`}>
-                          <IconComponent className="text-white text-xl lg:text-2xl" />
-                        </div>
-                      </div>
-
-                      <div className={`w-[calc(50%-2rem)] ${isEven ? 'order-3' : ''}`}></div>
+                      )}
                     </div>
                   </div>
                 );
@@ -319,65 +451,75 @@ const KolkataCorporation = () => {
         </div>
       </section>
 
-      {/* Why Choose Section */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          {/* Professional Header */}
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <div className="inline-block">
-              <p className="text-[10px] sm:text-xs md:text-sm tracking-[0.2em] text-gray-500 font-bold mb-2 sm:mb-3 uppercase relative">
-                <span className="relative z-10 bg-gray-50 px-3 sm:px-4">WHY CHOOSE US</span>
-                <span className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></span>
-              </p>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 text-gray-900 leading-tight px-2">Why Work With Us</h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-gray-300 to-gray-500 mx-auto mb-4 sm:mb-6 md:mb-8 rounded-full"></div>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 px-2">What sets us apart:</p>
+      {/* Why Choose Section — Dark */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+        {/* Ambient glows */}
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-emerald-400/[0.06] rounded-full -mt-48 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-amber-400/[0.04] rounded-full -mb-56 blur-3xl" />
+
+        <div className="relative max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10 sm:mb-12 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase">Why Choose Us</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+              Why <span className="text-amber-300">Work With Us</span>
+            </h2>
+            <p className="text-white/90 text-sm sm:text-base max-w-lg mx-auto">
+              What sets us apart from other consultants.
+            </p>
           </div>
 
-          {/* 2x2 Grid from Mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+          {/* 2x2 Grid — glass cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-4">
             {service.whyChoose.map((reason, index) => {
               const IconComponent = reason.icon;
-              const iconColors = ['var(--color-2563eb)', 'var(--color-7c3aed)', 'var(--color-d97706)', 'var(--color-0891b2)'];
+              const iconBgs = ['bg-blue-400/25', 'bg-violet-400/25', 'bg-amber-400/25', 'bg-cyan-400/25'];
+              const iconColors = ['text-blue-400', 'text-violet-400', 'text-amber-400', 'text-cyan-400'];
               return (
                 <div
                   key={index}
-                  className="rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 bg-gradient-to-br from-white to-emerald-50/30 border-2 border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all flex flex-col gap-3 sm:gap-4"
+                  className="group rounded-xl p-5 sm:p-5 bg-white/[0.15] backdrop-blur-sm border border-white/[0.15] shadow-lg shadow-black/10 hover:bg-white/[0.22] hover:border-white/25 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 flex items-start gap-4 sm:gap-4"
                 >
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center rounded-xl text-white shadow-lg" style={{ backgroundColor: iconColors[index] }}>
-                    <IconComponent className="text-2xl sm:text-3xl md:text-4xl" />
+                  <div className={`w-11 h-11 sm:w-11 sm:h-11 rounded-lg ${iconBgs[index]} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                    <IconComponent className={`${iconColors[index]} text-xl sm:text-2xl`} />
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold leading-relaxed">{reason.text}</p>
+                  <p className="text-white group-hover:text-white text-sm sm:text-base font-medium leading-relaxed transition-colors pt-1.5">{reason.text}</p>
                 </div>
               );
             })}
           </div>
 
-          <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 max-w-3xl mx-auto text-center space-y-3 sm:space-y-4">
-            <p className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold">Ethical, compliant, and documentation-first approach</p>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-900 font-bold">We don't promise shortcuts. We promise correct handling, clarity, and accountability.</p>
+          <div className="mt-10 sm:mt-12 max-w-3xl mx-auto text-center space-y-3 sm:space-y-3">
+            <p className="text-white/90 text-sm sm:text-base">Ethical, compliant, and documentation-first approach</p>
+            <p className="text-white text-base sm:text-lg md:text-xl font-bold">We don't promise shortcuts. We promise correct handling, clarity, and accountability.</p>
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 text-gray-900 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">Ready to Get Started?</h2>
-          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 text-gray-600">If you need assistance with any KMC-related matter, get in touch with us for an initial review. We'll assess your situation and advise the right process, required documents, and realistic next steps.</p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <Link 
-              to="/contact" 
-              className="px-8 sm:px-10 py-4 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:shadow-xl hover:-translate-y-1 btn-primary-sage text-white inline-flex items-center justify-center gap-3"
+      <section className="relative bg-gray-50 py-10 sm:py-14 md:py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Get Started</p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+            Ready to Get Started?
+          </h2>
+          <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-3 sm:mb-4" />
+          <p className="text-gray-500 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+            If you need assistance with any KMC-related matter, get in touch for an initial review. We'll assess your situation and advise the right process, required documents, and realistic next steps.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <button
+              type="button"
+              onClick={() => openServiceEnquiry({ serviceType: 'kmc' })}
+              className="inline-flex items-center justify-center gap-2 rounded-xl px-7 sm:px-8 py-3.5 sm:py-4 btn-primary-sage text-white text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all min-h-[48px]"
             >
-              Get in Touch
-            </Link>
+              Get in Touch <span>&rarr;</span>
+            </button>
             <a 
               href="tel:+916291139691" 
-              className="px-8 sm:px-10 py-4 border-2 border-gray-300 rounded-xl font-bold text-base sm:text-lg transition-all transform hover:bg-gray-50 hover:shadow-lg hover:-translate-y-1 text-gray-900 inline-flex items-center justify-center gap-3"
+              className="inline-flex items-center justify-center gap-3 rounded-xl px-7 sm:px-8 py-3.5 sm:py-4 bg-white border border-gray-200 text-gray-900 text-sm sm:text-base font-bold hover:shadow-lg hover:border-gray-300 transition-all min-h-[48px]"
             >
-              <MdPhone className="text-2xl text-[var(--color-3d6b56)]" /> Call +91-6291-139-691
+              <MdPhone className="text-xl text-[var(--color-3d6b56)]" /> Call +91-6291-139-691
             </a>
           </div>
         </div>

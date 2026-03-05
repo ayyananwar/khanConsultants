@@ -12,7 +12,7 @@ Prompt:
 
 ## 3) Booking Flow Change (High-Risk Area)
 Prompt:
-"Update Birth Certificate booking flow for [change]. Do not alter payment verification semantics or proxy/env contracts. Show which parts are UI-only vs API-contract-impacting. Keep backward compatibility with current Apps Script response envelope."
+"Update Birth Certificate booking flow for [change]. Do not alter payment verification semantics or frontend/backend env contracts. Show which parts are UI-only vs API-contract-impacting. Keep backward compatibility with current backend response envelope."
 
 ## 4) SEO Change Request
 Prompt:
@@ -40,4 +40,4 @@ Prompt:
 
 ## 10) Deploy-Readiness Checklist
 Prompt:
-"Create a deploy readiness checklist for current changes including: env vars, Netlify routing, booking proxy health, SEO assets, build output, and post-deploy validation steps."
+"Create a deploy readiness checklist for current changes including: env vars, frontend routing, backend health, SEO assets, build output, and post-deploy validation steps."

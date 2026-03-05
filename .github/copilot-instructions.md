@@ -1,13 +1,13 @@
 # Copilot Instructions — Khan Consultants
 
 ## Project Purpose
-Khan Consultants is a production website for a Kolkata consulting business. It combines marketing pages, service-detail pages, lead/contact capture, and a backendless Birth Certificate booking + payment flow.
+Khan Consultants is a production website for a Kolkata consulting business. It combines marketing pages, service-detail pages, lead/contact capture, and a Birth Certificate booking + payment flow backed by the Node/Express backend.
 
 ## Goals
 - Convert visitors into leads and bookings.
 - Present all core services with trust-first, mobile-first UX.
-- Keep deployment and SEO production-safe on Netlify.
-- Run booking/payment workflow securely without a traditional backend.
+- Keep deployment and SEO production-safe.
+- Run booking/payment workflow securely through backend APIs.
 
 ## Target Users
 - Individuals/families needing certificates and municipal document support.
@@ -24,7 +24,8 @@ Khan Consultants is a production website for a Kolkata consulting business. It c
 - Tailwind CSS: ^4.1.18
 - PostCSS: ^8.5.6
 - ESLint: ^9.39.1
-- Hosting: Netlify (SPA + Functions)
+- Backend: Express + Prisma + PostgreSQL
+- Hosting: frontend (Netlify/Vite static) + backend API deployment
 
 ## Architecture Overview
 - Frontend SPA in src with route-based pages.
@@ -35,10 +36,7 @@ Khan Consultants is a production website for a Kolkata consulting business. It c
   - Frontend API mapping: src/api/birthBookingApi.ts
   - Types/contracts: src/types/birthBooking.ts
   - Entry point on certificates page.
-- Edge/proxy layer:
-  - Netlify Function: netlify/functions/booking-proxy.mjs
-  - Route mapping in netlify.toml: /api/booking -> /.netlify/functions/booking-proxy
-- Data/payment backend (external): Google Apps Script + Google Sheets + Razorpay.
+- Data/payment backend: Node/Express API + PostgreSQL + Razorpay.
 
 ## Folder Structure Notes
 - src/pages/services/* are long-form service pages and carry most page-specific UI density.
@@ -55,13 +53,10 @@ Khan Consultants is a production website for a Kolkata consulting business. It c
 3) Added dedicated 404 route/page with noindex.
 - Why: avoid soft-404 behavior and stop unknown URLs from being indexed.
 
-4) Added Netlify booking proxy + env-based API URL preference.
-- Why: Apps Script CORS/preflight limitations make direct browser calls brittle.
+4) Moved frontend form and booking flows to backend API endpoints.
+- Why: centralized validation, safer production operations, and simpler frontend integration.
 
-5) Kept frontend booking calls as simple requests when direct mode is used.
-- Why: avoid preflight failures on Apps Script endpoint.
-
-6) Payment verification and final booking persistence are server-authoritative in Apps Script.
+5) Payment verification and booking persistence are server-authoritative in backend APIs.
 - Why: prevent tampering and race conditions; keep booking integrity.
 
 7) Mobile-first form/booking UX and strict phone validation.
@@ -71,32 +66,33 @@ Khan Consultants is a production website for a Kolkata consulting business. It c
 - Why: ensure above-the-fold hero fit with sticky header present.
 
 ## Non-obvious Workarounds / Important Explanations
-- birthBookingApi uses Content-Type text/plain for POST body even though body is JSON string.
-  - Intentional for CORS-simple request compatibility with Apps Script direct mode.
-- Netlify proxy exists to handle OPTIONS preflight and forward to Apps Script safely.
 - Unknown routes are redirected to /404 in SPA routing; canonical for unknowns is normalized to /404 in SeoManager.
 - /home is permanently redirected to / to clean historical crawl noise.
 
 ## MUST NOT Change Without Discussion
-- Booking/payment verification order and server-side validations in Apps Script template.
-- Netlify proxy routing and required env var contract.
+- Booking/payment verification order and backend-side validations.
 - SEO canonical host redirects and robots/sitemap handling.
 - /404 noindex behavior and wildcard route handling.
-- Env variable names used by deployed frontend and Netlify function.
+- Env variable names used by deployed frontend and backend.
 
 ## External APIs / Services / Config Dependencies
-- Google Apps Script Web App URL
-- Google Sheets tabs used by script: Bookings, Settings, Slots
-- Razorpay Orders/Payments APIs (server-side via Apps Script)
-- Netlify Function runtime for booking proxy
+- Backend API base URL for frontend
+- PostgreSQL database
+- Razorpay Orders/Payments APIs (server-side)
 
 ### Environment Variables
 Frontend:
-- VITE_BOOKING_API_URL (preferred, usually /api/booking)
-- VITE_BOOKING_SCRIPT_URL (fallback direct Apps Script URL)
+- VITE_BACKEND_URL
+- VITE_CONTACT_ENDPOINT
+- VITE_ENQUIRY_ENDPOINT
+- VITE_BOOKING_API_URL
 
-Netlify server env:
-- NETLIFY_BOOKING_SCRIPT_URL (upstream Apps Script endpoint used by function)
+Backend:
+- DATABASE_URL
+- PORT
+- NODE_ENV
+- CORS_ORIGIN
+- ADMIN_PASSWORD
 
 ## Known Bugs / Limitations / Tech Debt
 - src/pages/services/ImportExport.tsx is placeholder (currently empty component).
@@ -109,7 +105,7 @@ Netlify server env:
 Completed:
 - Clean routing + SEO baseline + canonical redirects + sitemap/robots hardening
 - Booking modal flow + API layer + types + certificates integration
-- Netlify booking proxy + env wiring
+- Contact/enquiry/booking flows connected to backend APIs
 - 404 page + noindex behavior
 - Mobile-first improvements across key pages
 
@@ -141,5 +137,4 @@ Next:
 
 ## Session-Critical Notes
 - User prefers mobile-first + conversion-focused UI, but wants safe incremental edits.
-- Deployment preference is GitHub push -> Netlify auto deploy.
 - Booking should be considered production-sensitive: avoid breaking payment/verification semantics.

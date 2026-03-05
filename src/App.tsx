@@ -12,8 +12,6 @@ import SeoManager from './components/SeoManager'
 // Import all service pages
 import LegalServices from './pages/services/LegalServices'
 import GSTAccounting from './pages/services/GSTAccounting'
-import ImportExport from './pages/services/ImportExport'
-import VisasImmigration from './pages/services/VisasImmigration'
 import KolkataCorporation from './pages/services/KolkataCorporation'
 import Certificates from './pages/services/Certificates'
 import Licenses from './pages/services/Licenses'
@@ -31,8 +29,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services/legal" element={<LegalServices />} />
           <Route path="/services/gst-accounting" element={<GSTAccounting />} />
-          <Route path="/services/import-export" element={<ImportExport />} />
-          <Route path="/services/visas-immigration" element={<VisasImmigration />} />
           <Route path="/services/kolkata-corporation" element={<KolkataCorporation />} />
           <Route path="/services/certificates" element={<Certificates />} />
           <Route path="/services/licenses" element={<Licenses />} />

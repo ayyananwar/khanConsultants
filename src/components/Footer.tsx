@@ -36,8 +36,6 @@ export default function Footer() {
                 <li><Link to="/services/kolkata-corporation" className="hover:text-amber-200 transition-colors">KMC Services</Link></li>
                 <li><Link to="/services/legal" className="hover:text-amber-200 transition-colors">Trade Mark & Legal</Link></li>
                 <li><Link to="/services/gst-accounting" className="hover:text-amber-200 transition-colors">GST & Accounting</Link></li>
-                <li><Link to="/services/import-export" className="hover:text-amber-200 transition-colors">Import & Export</Link></li>
-                <li><Link to="/services/visas-immigration" className="hover:text-amber-200 transition-colors">Visas & Immigration</Link></li>
               </ul>
             </div>
 

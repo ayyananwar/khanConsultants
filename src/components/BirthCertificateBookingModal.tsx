@@ -901,18 +901,24 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                         key={field}
                         type="button"
                         onClick={() => (selected ? removeCorrectionEntry(field) : addCorrectionEntry(field))}
-                        className={`rounded-2xl border px-4 py-4 text-sm font-semibold text-left min-h-[92px] transition ${
+                        className={`rounded-2xl border px-4 py-5 text-left min-h-[72px] transition flex items-center gap-3 ${
                           selected ? 'border-[var(--color-3d6b56)] bg-emerald-50 text-[var(--color-3d6b56)]' : 'border-gray-300 text-gray-700 hover:border-gray-400'
                         }`}
                       >
+                        <span className={`inline-flex items-center justify-center h-6 w-6 rounded-full border-2 shrink-0 transition ${
+                          selected ? 'border-[var(--color-3d6b56)] bg-[var(--color-3d6b56)]' : 'border-gray-300 bg-white'
+                        }`}>
+                          {selected && <FaCheckCircle className="text-white text-xs" />}
+                        </span>
                         <p className="text-base font-bold">{field}</p>
-                        <p className="text-xs mt-1">{selected ? 'Selected • Click to remove' : 'Not selected • Click to include'}</p>
                       </button>
                     );
                   })}
                 </div>
 
-                <p className="text-xs sm:text-sm text-gray-500 mb-4">Selected fields: {formData.correctionEntries.length}</p>
+                {formData.correctionEntries.length > 0 && (
+                  <p className="text-xs sm:text-sm text-gray-500 mb-4">{formData.correctionEntries.length} field{formData.correctionEntries.length > 1 ? 's' : ''} selected</p>
+                )}
               </div>
             )}
 
@@ -1108,20 +1114,21 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                   {DOCUMENT_OPTIONS.map((doc) => {
                     const checked = formData.documents.includes(doc);
                     return (
-                      <label
+                      <button
                         key={doc}
-                        className={`rounded-xl border p-3 text-left text-sm font-medium transition ${
+                        type="button"
+                        onClick={() => toggleDocument(doc)}
+                        className={`rounded-xl border px-4 py-3.5 text-left text-sm font-medium transition cursor-pointer flex items-center gap-3 min-h-[48px] ${
                           checked ? 'border-[var(--color-3d6b56)] bg-emerald-50 text-[var(--color-1f4d3b)]' : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <input
-                          type="checkbox"
-                          className="mr-2 align-middle"
-                          checked={checked}
-                          onChange={() => toggleDocument(doc)}
-                        />
-                        <span className="align-middle">{doc}</span>
-                      </label>
+                        <span className={`inline-flex items-center justify-center h-5 w-5 rounded border-2 shrink-0 transition ${
+                          checked ? 'border-[var(--color-3d6b56)] bg-[var(--color-3d6b56)]' : 'border-gray-300 bg-white'
+                        }`}>
+                          {checked && <FaCheckCircle className="text-white text-[10px]" />}
+                        </span>
+                        <span>{doc}</span>
+                      </button>
                     );
                   })}
                 </div>
@@ -1379,14 +1386,14 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                     </button>
                   </div>
 
-                  <label className="block rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-700">
+                  <label className="flex items-start gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm text-gray-700 cursor-pointer min-h-[48px]">
                     <input
                       type="checkbox"
                       checked={termsAccepted}
                       onChange={(event) => setTermsAccepted(event.target.checked)}
-                      className="mr-2 align-middle"
+                      className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-3d6b56)]"
                     />
-                    <span className="align-middle">I have read and agree to the Terms & Conditions and Privacy Policy.</span>
+                    <span>I have read and agree to the Terms & Conditions and Privacy Policy.</span>
                   </label>
                 </div>
               </div>
@@ -1465,7 +1472,7 @@ export default function BirthCertificateBookingModal({ isOpen, onClose }: BirthC
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-gray-700"
+                className="mt-5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-gray-700 min-h-[48px]"
               >
                 <FaWhatsapp className="text-emerald-600" />
                 <span>Need assistance with this step? Chat on WhatsApp</span>

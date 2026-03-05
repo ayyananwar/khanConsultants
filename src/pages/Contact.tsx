@@ -3,6 +3,9 @@ import Accordion from '../components/Accordion';
 import { designTokens } from '../tokens';
 import { MdLocationOn, MdPhone, MdEmail, MdSchedule } from 'react-icons/md';
 import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { HiSparkles } from 'react-icons/hi2';
+import { submitContactEnquiry } from '../api/contactEnquiryApi';
 
 interface FormData {
   name: string;
@@ -12,9 +15,6 @@ interface FormData {
   serviceInterest: string;
   message: string;
 }
-
-// Google Apps Script URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMVlb0hRhjW2snEFKAEgg9-IYwX_ca2mXMQOEAPPwzJYZq6T5t7b1dpdanOr8OpXky/exec";
 
 const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -83,37 +83,29 @@ const Contact = () => {
     try {
       setIsLoading(true);
 
-      // Create FormData object for CORS compatibility with Google Apps Script
-      const newFormData = new FormData();
-      newFormData.append('name', formData.name);
-      newFormData.append('email', formData.email);
-      newFormData.append('phone', formData.phone);
-      newFormData.append('company', formData.company);
-      newFormData.append('serviceInterest', formData.serviceInterest);
-      newFormData.append('message', formData.message);
+      const composedMessage = [
+        formData.message.trim(),
+        formData.company.trim() ? `Company: ${formData.company.trim()}` : '',
+      ].filter(Boolean).join('\n\n') || 'Contact enquiry from website form.';
 
-      // Send to Google Apps Script
-      const response = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: newFormData,
+      await submitContactEnquiry({
+        fullName: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        serviceType: formData.serviceInterest.trim() || undefined,
+        message: composedMessage,
       });
 
-      if (response.type === 'opaque' || response.ok) {
-        setSuccessMessage('Message sent successfully! We will contact you soon.');
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          serviceInterest: '',
-          message: '',
-        });
-        setTermsAccepted(false);
-      } else {
-        setErrorMessage('Failed to send message. Please try again or contact us directly.');
-      }
+      setSuccessMessage('Message sent successfully! We will contact you soon.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        serviceInterest: '',
+        message: '',
+      });
+      setTermsAccepted(false);
     } catch (error) {
       console.error('Error submitting form:', error);
       setErrorMessage('Failed to send message. Please try again or contact us directly.');
@@ -157,9 +149,9 @@ const Contact = () => {
 
   return (
     <div style={{ backgroundColor: designTokens.colors.neutral.white }}>
-      {/* Hero Section */}
+      {/* Hero Section — matches Home hero style */}
       <section
-        className="relative bg-cover bg-center min-h-[calc(100svh-64px)] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[calc(100svh-72px)] flex items-center"
+        className="relative min-h-[calc(100svh-56px)] sm:min-h-[520px] md:min-h-[600px] lg:min-h-[calc(100svh-72px)] flex flex-col overflow-x-clip"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: 'cover',
@@ -167,72 +159,102 @@ const Contact = () => {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="relative max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-white text-center flex flex-col items-center gap-3 sm:gap-5 md:gap-6 lg:gap-8">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[10px] sm:text-xs md:text-sm lg:text-base mx-auto bg-white/10 backdrop-blur-sm border border-white/20">
-            <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-full text-xs sm:text-sm md:text-base font-bold bg-amber-500 text-white">★</span>
-            <span className="font-semibold text-white">Licensed KMC Consultant</span>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/75" />
+
+        <div className="relative flex-1 flex flex-col justify-center px-5 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 text-white">
+          <div className="max-w-3xl lg:max-w-6xl xl:max-w-7xl mx-auto w-full text-center">
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] sm:text-xs md:text-sm mb-5 sm:mb-6 bg-white/10 backdrop-blur-sm border border-white/20">
+              <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full text-[10px] sm:text-xs font-bold bg-amber-500 text-white">★</span>
+              <span className="font-semibold">Licensed KMC Consultant</span>
+            </div>
+
+            <h1 className="text-[1.6rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.18] mb-4 sm:mb-5">
+              Get In <span className="text-amber-300">Touch</span>
+            </h1>
+
+            <p className="text-sm sm:text-base md:text-lg text-white/85 max-w-xl mx-auto leading-relaxed mb-6 sm:mb-8">
+              Let's discuss how we can help transform your business. Reach out and we'll respond within 24 hours.
+            </p>
+
+            {/* Quick contact action buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              <a
+                href="tel:+916291139691"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white min-h-[48px] btn-primary-sage shadow-lg hover:shadow-xl transition-all"
+              >
+                <MdPhone className="text-lg" />
+                Call +91-6291-139-691
+              </a>
+              <a
+                href="https://wa.me/916291139691"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 sm:py-4 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 text-white text-sm sm:text-base font-bold min-h-[48px] transition-all"
+              >
+                <BsWhatsapp className="text-lg text-[var(--color-25d366)]" />
+                Chat on WhatsApp
+              </a>
+            </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">Get In Touch</h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed text-white/85">
-            Let's discuss how we can help transform your business
-          </p>
+
+          {/* Stats Strip */}
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 max-w-lg sm:max-w-2xl mx-auto w-full mt-8 sm:mt-10">
+            {[
+              { value: '50+', label: 'Years' },
+              { value: '25+', label: 'Licensed' },
+              { value: '1K+', label: 'Clients' },
+              { value: '24h', label: 'Response' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10">
+                <div className="text-lg sm:text-2xl md:text-3xl font-bold text-amber-300">{stat.value}</div>
+                <div className="text-[9px] sm:text-xs text-white/70 font-medium mt-0.5">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Contact Section with Modern Design */}
-      <section className="relative bg-white overflow-hidden py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 px-3 sm:px-4 md:px-6">
-        <div className="relative max-w-7xl mx-auto">
-          <div className="flex justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
-            <a href="tel:+916291139691" className="group flex flex-col items-center gap-1.5" title="Call Us">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
-                <MdPhone className="text-white text-xl sm:text-2xl" />
-              </div>
-              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Call</span>
-            </a>
-            <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-1.5" title="WhatsApp">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
-                <BsWhatsapp className="text-white text-xl sm:text-2xl" />
-              </div>
-              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">WhatsApp</span>
-            </a>
-            <a href="mailto:hello@khanconsultants.in" className="group flex flex-col items-center gap-1.5" title="Email Us">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center shadow-lg hover:shadow-xl transition-all group-hover:scale-110 group-hover:-translate-y-1">
-                <MdEmail className="text-white text-xl sm:text-2xl" />
-              </div>
-              <span className="text-[10px] sm:text-xs text-gray-500 font-medium">Email</span>
-            </a>
+      {/* Contact Section — clean two-column layout */}
+      <section className="relative bg-white overflow-hidden py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6">
+        <div className="relative max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Contact Us</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              Send Us a Message
+            </h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto mt-3 sm:mt-4 leading-relaxed">
+              Fill out the form below and our team will get back to you within 24 hours.
+            </p>
           </div>
 
           {/* Two Column Layout */}
-          <div className="grid lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-            {/* Contact Form */}
-            <div className="order-1 lg:order-1 bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-7 xl:p-8 border border-gray-200 shadow-lg">
-              <div className="flex items-center gap-2 mb-4 sm:mb-5 md:mb-6">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[var(--color-3d6b56)] text-white flex items-center justify-center">
-                  <MdEmail className="text-base sm:text-lg" />
-                </div>
-                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900">Send Us a Message</h3>
-              </div>
+          <div className="grid lg:grid-cols-5 gap-5 sm:gap-6 md:gap-8">
+            {/* Contact Form — takes more space */}
+            <div className="lg:col-span-3 bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-7 border border-gray-100 shadow-sm">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1">Get Your Free Consultation</h3>
+              <p className="text-gray-400 text-xs sm:text-sm mb-4 sm:mb-5">Our experts will reach out within 24 hours.</p>
 
               {/* Success Message */}
               {successMessage && (
-                <div className="mb-4 sm:mb-5 p-3 sm:p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-gray-900 text-xs sm:text-sm">
-                  {successMessage}
+                <div className="mb-4 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs sm:text-sm">
+                  ✓ {successMessage}
                 </div>
               )}
 
               {/* Error Message */}
               {errorMessage && (
-                <div className="mb-4 sm:mb-5 p-3 sm:p-4 rounded-xl bg-red-50 border border-red-300 text-red-800 text-xs sm:text-sm">
-                  {errorMessage}
+                <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm">
+                  ✕ {errorMessage}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
                 {/* Name Field */}
                 <div>
-                  <label htmlFor="contact-name" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Full Name</label>
+                  <label htmlFor="contact-name" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Full Name</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -242,205 +264,215 @@ const Contact = () => {
                     onChange={handleChange}
                     autoComplete="name"
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
+                    className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 placeholder-gray-300 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition min-h-[44px]"
                   />
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label htmlFor="contact-email" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Email Address</label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    placeholder="rahul.sharma@example.com"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    autoComplete="email"
-                    required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
-                  />
+                {/* Email & Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                  <div>
+                    <label htmlFor="contact-email" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Email Address</label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      placeholder="rahul@example.com"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      autoComplete="email"
+                      required
+                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 placeholder-gray-300 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition min-h-[44px]"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Phone Number</label>
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      placeholder="+91 98765-43210"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                      inputMode="tel"
+                      required
+                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 placeholder-gray-300 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition min-h-[44px]"
+                    />
+                  </div>
                 </div>
 
-                {/* Phone */}
-                <div>
-                  <label htmlFor="contact-phone" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Phone Number</label>
-                  <input
-                    id="contact-phone"
-                    type="tel"
-                    placeholder="+91 98765-43210"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    autoComplete="tel"
-                    inputMode="tel"
-                    required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
-                  />
-                </div>
-
-                {/* Company */}
-                <div>
-                  <label htmlFor="contact-company" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Company Name</label>
-                  <input
-                    id="contact-company"
-                    type="text"
-                    placeholder="Sharma Enterprises Pvt Ltd"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    autoComplete="organization"
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
-                  />
-                </div>
-
-                {/* Service Interest */}
-                <div>
-                  <label htmlFor="contact-service" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Service Interested</label>
-                  <select
-                    id="contact-service"
-                    name="serviceInterest"
-                    value={formData.serviceInterest}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-gray-900 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition min-h-[44px]"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="legal">Trade Mark & Legal</option>
-                    <option value="gst">GST & Accounting</option>
-                    <option value="import-export">Import & Export</option>
-                    <option value="visas">Visas & Immigration</option>
-                    <option value="kolkata">Kolkata Corporation</option>
-                    <option value="government-ids">Government IDs</option>
-                  </select>
+                {/* Company & Service */}
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                  <div>
+                    <label htmlFor="contact-company" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Company <span className="text-gray-300">(optional)</span></label>
+                    <input
+                      id="contact-company"
+                      type="text"
+                      placeholder="Your Company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      autoComplete="organization"
+                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 placeholder-gray-300 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition min-h-[44px]"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-service" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Service Interested</label>
+                    <select
+                      id="contact-service"
+                      name="serviceInterest"
+                      value={formData.serviceInterest}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition min-h-[44px]"
+                    >
+                      <option value="">Select a service</option>
+                      <option value="legal">Trade Mark & Legal</option>
+                      <option value="gst">GST & Accounting</option>
+                      <option value="import-export">Import & Export</option>
+                      <option value="visas">Visas & Immigration</option>
+                      <option value="kolkata">Kolkata Corporation</option>
+                      <option value="government-ids">Government IDs</option>
+                    </select>
+                  </div>
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" className="block text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-1.5 md:mb-2">Message</label>
+                  <label htmlFor="contact-message" className="block text-xs sm:text-sm font-medium text-gray-600 mb-1">Message</label>
                   <textarea
                     id="contact-message"
-                    rows={4}
+                    rows={3}
                     placeholder="Tell us about your requirements..."
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     autoComplete="off"
                     required
-                    className="w-full bg-white border border-gray-200 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 sm:py-3 text-sm text-gray-900 placeholder-gray-300 focus:outline-none focus:border-[var(--color-3d6b56)] focus:ring-1 focus:ring-[var(--color-3d6b56)]/20 transition resize-none"
                   />
                 </div>
 
-                {/* Submit Button */}
-                <label className="flex items-start gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-xs sm:text-sm text-gray-700">
+                {/* Terms */}
+                <label className="flex items-start gap-2 text-xs sm:text-sm text-gray-500">
                   <input
                     type="checkbox"
                     checked={termsAccepted}
                     onChange={(event) => setTermsAccepted(event.target.checked)}
-                    className="mt-0.5"
+                    className="mt-0.5 rounded"
                   />
                   <span>
                     I agree to the{' '}
-                    <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
-                      Terms & Conditions
+                    <a href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="font-medium text-[var(--color-3d6b56)] underline">
+                      Terms
                     </a>{' '}
                     and{' '}
-                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--color-3d6b56)] underline">
+                    <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-medium text-[var(--color-3d6b56)] underline">
                       Privacy Policy
-                    </a>
-                    .
+                    </a>.
                   </span>
                 </label>
 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-semibold py-3 sm:py-3.5 text-sm sm:text-base rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg min-h-[48px]"
+                  className="w-full btn-primary-sage disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold py-3 sm:py-3.5 text-sm sm:text-base rounded-lg shadow-lg hover:shadow-xl transition-all min-h-[48px]"
                 >
-                  {isLoading ? 'Sending...' : 'Send Message'}
-                  {!isLoading && <span className="text-lg">→</span>}
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2"><span className="animate-spin">⟳</span> Sending...</span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">Send Message <span>→</span></span>
+                  )}
                 </button>
               </form>
             </div>
 
-            {/* Contact Information Cards */}
-            <div className="order-2 lg:order-2 space-y-3 sm:space-y-4 md:space-y-5">
-              {/* Business Hours Highlight */}
-              <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all">
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-[var(--color-3d6b56)] flex items-center justify-center flex-shrink-0">
-                    <MdSchedule className="text-white text-xl sm:text-2xl md:text-3xl" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">Business Hours</h4>
-                    <p className="text-gray-600 text-[10px] sm:text-xs">We're here when you need us</p>
-                  </div>
+            {/* Sidebar — compact info cards */}
+            <div className="lg:col-span-2 space-y-4 sm:space-y-5">
+              {/* Quick contact */}
+              <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm">
+                <h4 className="font-bold text-gray-900 text-sm sm:text-base mb-3 sm:mb-4">Get in Touch Directly</h4>
+                <div className="space-y-3">
+                  <a href="tel:+916291139691" className="flex items-center gap-3 group">
+                    <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                      <MdPhone className="text-blue-500 text-base" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-medium">Call Us</p>
+                      <p className="text-sm font-semibold text-gray-800">+91 629-113-9691</p>
+                    </div>
+                  </a>
+                  <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                    <div className="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                      <BsWhatsapp className="text-[var(--color-25d366)] text-base" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-medium">WhatsApp</p>
+                      <p className="text-sm font-semibold text-gray-800">Chat Now</p>
+                    </div>
+                  </a>
+                  <a href="mailto:hello@khanconsultants.in" className="flex items-center gap-3 group">
+                    <div className="w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-100 transition-colors">
+                      <MdEmail className="text-orange-500 text-base" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-medium">Email</p>
+                      <p className="text-sm font-semibold text-gray-800">hello@khanconsultants.in</p>
+                    </div>
+                  </a>
                 </div>
-                  <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-3 md:p-4 shadow-sm">
-                  <div className="flex justify-between items-center mb-1 sm:mb-2">
-                    <span className="text-sm text-gray-600">Mon - Sat</span>
+              </div>
+
+              {/* Business Hours */}
+              <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0">
+                    <MdSchedule className="text-violet-500 text-base" />
+                  </div>
+                  <h4 className="font-bold text-gray-900 text-sm sm:text-base">Business Hours</h4>
+                </div>
+                <div className="bg-white rounded-lg p-3 shadow-sm">
+                  <div className="flex justify-between items-center mb-1.5">
+                    <span className="text-sm text-gray-500">Mon - Sat</span>
                     <span className="text-sm font-semibold text-gray-900">11:00 AM - 9:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Sunday</span>
+                    <span className="text-sm text-gray-500">Sunday</span>
                     <span className="text-sm font-semibold text-red-600">Closed</span>
                   </div>
                 </div>
               </div>
 
-              {/* Contact Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                {/* Phone */}
-                <a href="tel:+916291139691" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 transition-all hover:shadow-lg border border-gray-200 hover:bg-gray-100 min-h-[84px] flex items-center gap-3 sm:block">
-                  <div className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-blue-600 flex items-center justify-center sm:mb-2 md:mb-3 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <MdPhone className="text-white text-lg sm:text-xl md:text-2xl" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Call Now</h4>
-                  <p className="text-[10px] sm:text-xs text-gray-600">+91-6291-139-691</p>
-                </a>
-
-                {/* Email */}
-                <a href="mailto:hello@khanconsultants.in" className="group bg-gray-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 transition-all hover:shadow-lg border border-gray-200 hover:bg-gray-100 min-h-[84px] flex items-center gap-3 sm:block">
-                  <div className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg bg-orange-600 flex items-center justify-center sm:mb-2 md:mb-3 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <MdEmail className="text-white text-lg sm:text-xl md:text-2xl" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 text-xs sm:text-sm mb-0.5 sm:mb-1">Email</h4>
-                  <p className="text-[10px] sm:text-xs text-gray-600">Within 24 hours</p>
-                </a>
-              </div>
-
-              {/* Location Card */}
-              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="group block bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 hover:bg-gray-100 hover:shadow-lg transition-all">
-                <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <MdLocationOn className="text-white text-xl sm:text-2xl md:text-3xl" />
+              {/* Office location */}
+              <a href="https://maps.google.com/?q=26/1+Rafi+Ahmed+Kidwai+Road+Kolkata" target="_blank" rel="noopener noreferrer" className="block bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
+                    <MdLocationOn className="text-amber-500 text-base" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-1 sm:mb-2">Visit Our Office</h4>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                      26/1 Rafi Ahmed Kidwai Road<br />
-                      Kolkata - 700016<br />
-                      West Bengal, India
+                    <h4 className="font-bold text-gray-900 text-sm sm:text-base">Visit Our Office</h4>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-relaxed">
+                      26/1 Rafi Ahmed Kidwai Road<br />Kolkata - 700016, India
                     </p>
                   </div>
                 </div>
+                <span className="text-[var(--color-3d6b56)] text-xs sm:text-sm font-semibold group-hover:underline">
+                  Get Directions →
+                </span>
               </a>
 
-              {/* Social Media */}
-              <div className="bg-gray-50 rounded-xl sm:rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-6 border border-gray-200 shadow-lg">
-                <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-3 sm:mb-4">Follow Us</h4>
-                <div className="flex gap-2 sm:gap-3">
-                  <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-1877f2)] hover:bg-[var(--color-0f6ae6)] text-white hover:scale-110 transition-transform shadow-lg">
-                    <BsFacebook className="text-base sm:text-lg md:text-xl" />
+              {/* Social */}
+              <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-sm">
+                <h4 className="font-bold text-gray-900 text-sm sm:text-base mb-3">Follow Us</h4>
+                <div className="flex gap-2">
+                  <a href="https://www.facebook.com/KhanConsultants2025" target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--color-1877f2)] text-white hover:opacity-90 transition-opacity">
+                    <BsFacebook className="text-sm" />
                   </a>
-                  <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-[var(--color-f58529)] via-[var(--color-dd2a7b)] to-[var(--color-8134af)] text-white hover:scale-110 transition-transform shadow-lg">
-                    <BsInstagram className="text-base sm:text-lg md:text-xl" />
+                  <a href="https://www.instagram.com/khanconsultants2025/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-f58529)] via-[var(--color-dd2a7b)] to-[var(--color-8134af)] text-white hover:opacity-90 transition-opacity">
+                    <BsInstagram className="text-sm" />
                   </a>
-                  <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-25d366)] hover:bg-[var(--color-1ebe5d)] text-white hover:scale-110 transition-transform shadow-lg">
-                    <BsWhatsapp className="text-base sm:text-lg md:text-xl" />
-                  </a>
-                  <a href="mailto:hello@khanconsultants.in" className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center rounded-lg sm:rounded-xl bg-[var(--color-ea4335)] hover:bg-[var(--color-d93025)] text-white hover:scale-110 transition-transform shadow-lg">
-                    <MdEmail className="text-base sm:text-lg md:text-xl" />
+                  <a href="https://wa.me/916291139691" target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--color-25d366)] text-white hover:opacity-90 transition-opacity">
+                    <BsWhatsapp className="text-sm" />
                   </a>
                 </div>
               </div>
@@ -449,12 +481,22 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 bg-[var(--color-3d6b56)]">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-12 text-center text-white">Visit Our Office</h2>
-          
-          <div className="rounded-lg sm:rounded-xl overflow-hidden shadow-lg">
+      {/* Map Section — dark section */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/[0.07] rounded-full -mr-48 -mt-48 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[28rem] h-[28rem] bg-amber-400/[0.05] rounded-full -ml-56 -mb-56 blur-3xl" />
+
+        <div className="relative max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-emerald-300 font-bold mb-2 sm:mb-3 uppercase">Our Location</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+              Visit Our <span className="text-amber-300">Office</span>
+            </h2>
+            <div className="w-12 sm:w-16 h-1 bg-emerald-400 mx-auto rounded-full" />
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-white/[0.15]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.6098169267256!2d88.36395!3d22.571356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0275ed4e6b9d5d%3A0x4b2e4e4b4e4e4e4e!2s26%2F1%20Rafi%20Ahmed%20Kidwai%20Road%2C%20Kolkata%2C%20West%20Bengal%20700016!5e0!3m2!1sen!2sin!4v1234567890"
               width="100%"
@@ -463,34 +505,62 @@ const Contact = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px]"
+              className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px]"
             ></iframe>
           </div>
 
-          <div className="mt-4 sm:mt-6 md:mt-8 lg:mt-10 text-center">
+          <div className="mt-6 sm:mt-8 text-center">
             <a
               href="https://www.google.com/maps/search/?api=1&query=26%2F1+Rafi+Ahmed+Kidwai+Road,+Kolkata,+700016"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 text-white rounded-lg sm:rounded-xl font-semibold transition-all text-xs sm:text-sm md:text-base bg-white/15 hover:bg-white/25 border border-white/20 shadow-lg hover:shadow-xl"
+              className="group inline-flex items-center gap-2 rounded-xl px-6 sm:px-7 py-3 sm:py-3.5 bg-amber-400 hover:bg-amber-300 text-[var(--color-1f3a30)] text-sm sm:text-base font-bold transition-all min-h-[48px]"
             >
-              Get Directions →
+              Get Directions
+              <span className="group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6" style={{ backgroundColor: designTokens.colors.neutral.white }}>
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 px-2 text-gray-900">Frequently Asked Questions</h2>
-            <p className="text-sm sm:text-base md:text-lg px-3 sm:px-4 text-gray-600">
-              Find answers to common questions about our services and process
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Help Center</p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              Frequently Asked Questions
+            </h2>
+            <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full" />
+            <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto mt-3 sm:mt-4 leading-relaxed">
+              Find answers to common questions about our services and process.
             </p>
           </div>
 
           <Accordion items={faqItems} />
+
+          {/* Bottom CTA */}
+          <div className="mt-8 sm:mt-10 text-center">
+            <p className="text-gray-500 text-sm mb-4">Still have questions?</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-xl px-6 sm:px-7 py-3 sm:py-3.5 btn-primary-sage text-white text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all min-h-[48px]"
+              >
+                <HiSparkles className="text-lg" />
+                Schedule Consultation
+              </Link>
+              <a
+                href="https://wa.me/916291139691"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl px-6 sm:px-7 py-3 sm:py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm sm:text-base font-bold transition-all min-h-[48px]"
+              >
+                <BsWhatsapp className="text-lg text-[var(--color-25d366)]" />
+                Ask on WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>
