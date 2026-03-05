@@ -185,16 +185,21 @@ const Certificates = () => {
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
             <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">CONSULTATION</p>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">What you get?</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">What You Get In The Rs 199 Consultation</h2>
             <div className="w-12 sm:w-16 h-1 bg-[var(--color-3d6b56)] mx-auto rounded-full mb-3 sm:mb-5" />
-            <p className="text-gray-500 text-sm sm:text-base">With our Consultation Slot:</p>
+            <p className="text-gray-500 text-sm sm:text-base">A quick, clear plan before you spend time and money on filing.</p>
           </div>
 
           {/* Checklist + CTA Card */}
           <div className="rounded-xl sm:rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 md:p-8 shadow-sm mb-6 sm:mb-8">
             <div className="flex flex-col items-center text-center">
               <div className="space-y-2 sm:space-y-2.5 mb-5 sm:mb-6">
-                {['Get full guidance.', 'Professional guidance from Licensed Consultant.'].map((item) => (
+                {[
+                  '1-on-1 case review with a licensed consultant.',
+                  'Exact document checklist based on your case type.',
+                  'Clear action plan: where to apply, what to submit, and what to avoid.',
+                  'KMC appointment support for the right application category.',
+                ].map((item) => (
                   <div key={item} className="flex items-center gap-2 justify-center">
                     <FaCheckCircle className="text-[var(--color-25d366)] text-sm sm:text-base flex-shrink-0" />
                     <span className="text-sm sm:text-base text-gray-700 font-medium">{item}</span>
@@ -204,7 +209,7 @@ const Certificates = () => {
               <button type="button" onClick={openBirthBooking} className="btn-book-slot inline-flex items-center justify-center gap-2 rounded-full px-10 sm:px-14 py-3 sm:py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider text-white transition-all transform hover:shadow-xl hover:-translate-y-1 min-h-[48px] shadow-lg mb-3 sm:mb-4">
                 Book Now
               </button>
-              <p className="text-base sm:text-lg font-bold text-gray-900">Book a Consultation!</p>
+              <p className="text-base sm:text-lg font-bold text-gray-900">Book Your Consultation Slot</p>
             </div>
           </div>
 

@@ -4,6 +4,19 @@ import { IoMdCheckmarkCircle, IoMdClose, IoMdPeople, IoMdGlobe, IoMdTrophy, IoMd
 import { openServiceEnquiry } from '../../lib/serviceEnquiryLauncher';
 
 const LegalServices = () => {
+  const clientLogos = [
+    { src: '/1.png', alt: 'Darlington Borough Council' },
+    { src: '/2.png', alt: 'Legafit Immigration Experts UK' },
+    { src: '/3.png', alt: "Kaspa's Desserts" },
+    { src: '/4.png', alt: 'Beauty Haven' },
+    { src: '/5.png', alt: 'Nazkhan Productions' },
+    { src: '/6.png', alt: 'SME Champ' },
+    { src: '/7.jpg', alt: 'The Forum Darlington' },
+    { src: '/8.png', alt: 'Raptoro' },
+    { src: '/9.png', alt: 'Baccanalia' },
+    { src: '/10.png', alt: 'The Steam Machine Brewing Co.' },
+  ];
+
   const service = {
     title: 'Trade Mark & Legal',
     heroDescription: 'Is your Business Name Legally Protected?',
@@ -482,6 +495,32 @@ const LegalServices = () => {
                 <p className="text-sm sm:text-base md:text-lg font-bold text-amber-900 leading-tight">
                   Your trademark must be accurate and perfect—or you'll pay double to fix it later.
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Clients Logo Slider */}
+      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 sm:px-6 md:px-8 py-7 sm:py-8 md:py-10">
+
+            <div className="relative text-center mb-5 sm:mb-7">
+              <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 uppercase">Trusted By</p>
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-900">Trusted By Local and International Brands</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mt-2">From Kolkata businesses to international teams for trademark, legal, and marketplace compliance support.</p>
+            </div>
+
+            <div className="relative">
+              <div className="logo-marquee logo-marquee--premium group">
+                <div className="logo-marquee__track group-hover:[animation-play-state:paused]" aria-label="Trusted client logos">
+                  {[...clientLogos, ...clientLogos].map((logo, idx) => (
+                    <div key={`single-${logo.src}-${idx}`} className="logo-marquee__item" role="img" aria-label={logo.alt}>
+                      <img src={logo.src} alt={logo.alt} loading="lazy" className="h-11 sm:h-12 md:h-14 w-auto object-contain" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
