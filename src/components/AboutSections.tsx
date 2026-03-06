@@ -100,6 +100,7 @@ function LeadershipTeam() {
       role: 'CEO',
       bio: 'Visionary leader with 25+ years of consulting experience.',
       image: '/ceo.jpeg',
+      photoPosition: '50% 22%',
       linkedin: 'https://www.linkedin.com/in/nazk/',
     },
     {
@@ -107,6 +108,7 @@ function LeadershipTeam() {
       role: 'Technology Lead',
       bio: 'Leads digital systems, product technology, and online growth initiatives.',
       image: '/ayyan.jpg',
+      photoPosition: '50% 26%',
       linkedin: 'https://www.linkedin.com/in/ayyan-anwar/',
     },
   ];
@@ -130,31 +132,34 @@ function LeadershipTeam() {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
           {leaders.map((leader, index) => (
             <div
               key={index}
-              className="rounded-xl sm:rounded-2xl overflow-hidden h-full flex flex-col bg-white/[0.15] backdrop-blur-sm border border-white/[0.15] shadow-lg shadow-black/10 hover:bg-white/[0.2] transition-colors duration-300"
+              className="rounded-2xl h-full flex flex-col items-center text-center bg-white/[0.14] backdrop-blur-sm border border-white/[0.16] shadow-lg shadow-black/10 hover:bg-white/[0.2] transition-all duration-300 px-5 sm:px-6 pt-6 sm:pt-7 pb-5 sm:pb-6"
             >
-              <div className="h-52 sm:h-56 md:h-60 bg-black/10">
-                <img
-                  src={leader.image}
-                  alt={leader.name}
-                  className="w-full h-full object-cover"
-                />
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full p-1.5 bg-gradient-to-br from-amber-300 via-emerald-300 to-cyan-300 shadow-lg shadow-black/20 mb-4 sm:mb-5">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white/90">
+                  <img
+                    src={leader.image}
+                    alt={leader.name}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: leader.photoPosition }}
+                  />
+                </div>
               </div>
 
-              <div className="p-4 sm:p-6 md:p-7 flex-1 flex flex-col">
+              <div className="w-full flex-1 flex flex-col items-center">
                 <h3 className="text-base sm:text-lg font-bold text-white mb-1">{leader.name}</h3>
                 <p className="text-emerald-300 text-xs sm:text-sm font-semibold mb-2.5">{leader.role}</p>
-                <p className="text-white/80 text-sm leading-relaxed mb-4 sm:mb-5">{leader.bio}</p>
+                <p className="text-white/85 text-sm leading-relaxed mb-4 sm:mb-5 max-w-[30ch]">{leader.bio}</p>
 
-                <div className="pt-3 border-t border-white/[0.15] mt-auto">
+                <div className="pt-3 border-t border-white/[0.15] mt-auto w-full flex justify-center">
                   <a
                     href={leader.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all text-xs sm:text-sm font-semibold"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 bg-white/12 text-white/85 hover:bg-white/22 hover:text-white transition-all text-xs sm:text-sm font-semibold"
                     title="LinkedIn"
                     aria-label={`${leader.name} LinkedIn profile`}
                   >

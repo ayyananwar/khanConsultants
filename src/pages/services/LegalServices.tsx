@@ -5,16 +5,16 @@ import { openServiceEnquiry } from '../../lib/serviceEnquiryLauncher';
 
 const LegalServices = () => {
   const clientLogos = [
-    { src: '/1.png', alt: 'Darlington Borough Council' },
-    { src: '/2.png', alt: 'Legafit Immigration Experts UK' },
-    { src: '/3.png', alt: "Kaspa's Desserts" },
-    { src: '/4.png', alt: 'Beauty Haven' },
-    { src: '/5.png', alt: 'Nazkhan Productions' },
-    { src: '/6.png', alt: 'SME Champ' },
-    { src: '/7.jpg', alt: 'The Forum Darlington' },
-    { src: '/8.png', alt: 'Raptoro' },
-    { src: '/9.png', alt: 'Baccanalia' },
-    { src: '/10.png', alt: 'The Steam Machine Brewing Co.' },
+    { src: '/1.png', alt: 'Darlington Borough Council', scale: 1.2 },
+    { src: '/2.png', alt: 'Legafit Immigration Experts UK', scale: 1.2 },
+    { src: '/3.png', alt: "Kaspa's Desserts", scale: 1.32 },
+    { src: '/4.png', alt: 'Beauty Haven', scale: 1.24 },
+    { src: '/5.png', alt: 'Nazkhan Productions', scale: 1.25 },
+    { src: '/6.png', alt: 'SME Champ', scale: 1.2 },
+    { src: '/7.jpg', alt: 'The Forum Darlington', scale: 1.16 },
+    { src: '/8.png', alt: 'Raptoro', scale: 1.22 },
+    { src: '/9.png', alt: 'Baccanalia', scale: 1.24 },
+    { src: '/10.png', alt: 'The Steam Machine Brewing Co.', scale: 1.18 },
   ];
 
   const service = {
@@ -146,7 +146,7 @@ const LegalServices = () => {
       </section>
 
       {/* Warning Section */}
-      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
+      <section className="py-8 sm:py-10 md:py-14 lg:py-16 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Clean Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -179,7 +179,7 @@ const LegalServices = () => {
       </section>
 
       {/* Process Section — Dark */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-20 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
         {/* Ambient glows */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/[0.07] rounded-full -mr-48 -mt-48 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[28rem] h-[28rem] bg-amber-400/[0.05] rounded-full -ml-56 -mb-56 blur-3xl" />
@@ -267,7 +267,7 @@ const LegalServices = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-gray-50">
+      <section className="py-8 sm:py-10 md:py-14 lg:py-16 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           {/* Clean Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -334,7 +334,7 @@ const LegalServices = () => {
       </section>
 
       {/* Timeline Section — Dark */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-20 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
         {/* Ambient glows */}
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-emerald-400/[0.06] rounded-full -mt-48 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-amber-400/[0.04] rounded-full -mb-56 blur-3xl" />
@@ -377,7 +377,7 @@ const LegalServices = () => {
       </section>
 
       {/* Who Is This For Section */}
-      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
+      <section className="py-8 sm:py-10 md:py-14 lg:py-16 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           {/* Clean Header */}
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
@@ -421,7 +421,7 @@ const LegalServices = () => {
       </section>
 
       {/* Why Choose Section — Dark */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
+      <section className="py-10 sm:py-12 md:py-16 lg:py-20 px-5 sm:px-6 bg-[var(--color-3d6b56)] relative overflow-hidden">
         {/* Ambient glows */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/[0.07] rounded-full -mr-48 -mt-48 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-[28rem] h-[28rem] bg-amber-400/[0.05] rounded-full -ml-56 -mb-56 blur-3xl" />
@@ -459,7 +459,7 @@ const LegalServices = () => {
           </div>
 
           {/* Budget Services Warning — Embedded light card */}
-          <div className="mt-10 sm:mt-12 md:mt-16 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-10 bg-gradient-to-br from-amber-50 via-white to-orange-50 border border-amber-200">
+          <div className="mt-8 sm:mt-10 md:mt-12 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-10 bg-gradient-to-br from-amber-50 via-white to-orange-50 border border-amber-200">
             <div className="text-center mb-6 sm:mb-8">
               <p className="text-[10px] sm:text-xs tracking-[0.2em] text-amber-700 font-bold mb-2 sm:mb-3 uppercase">The Truth</p>
               <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 text-gray-900 leading-tight">
@@ -501,26 +501,30 @@ const LegalServices = () => {
         </div>
       </section>
 
-      {/* Trusted Clients Logo Slider */}
-      <section className="py-10 sm:py-14 md:py-20 lg:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 sm:px-6 md:px-8 py-7 sm:py-8 md:py-10">
+      {/* Trusted By Section */}
+      <section className="py-8 sm:py-10 md:py-14 lg:py-16 px-5 sm:px-6 bg-[var(--color-f8fdf9)] relative overflow-hidden">
 
-            <div className="relative text-center mb-5 sm:mb-7">
-              <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 uppercase">Trusted By</p>
-              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-900">Trusted By Local and International Brands</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-2">From Kolkata businesses to international teams for trademark, legal, and marketplace compliance support.</p>
-            </div>
+        <div className="relative max-w-6xl mx-auto">
+          <div className="text-center mb-5 sm:mb-6 md:mb-7">
+            <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 uppercase">Trusted By</p>
+            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-900">Brands We Have Worked With</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mt-2">From Kolkata businesses to international teams.</p>
+          </div>
 
-            <div className="relative">
-              <div className="logo-marquee logo-marquee--premium group">
-                <div className="logo-marquee__track group-hover:[animation-play-state:paused]" aria-label="Trusted client logos">
-                  {[...clientLogos, ...clientLogos].map((logo, idx) => (
-                    <div key={`single-${logo.src}-${idx}`} className="logo-marquee__item" role="img" aria-label={logo.alt}>
-                      <img src={logo.src} alt={logo.alt} loading="lazy" className="h-11 sm:h-12 md:h-14 w-auto object-contain" />
-                    </div>
-                  ))}
-                </div>
+          <div className="rounded-2xl bg-[var(--color-3d6b56)] px-2 sm:px-3 md:px-4 py-3 sm:py-4 shadow-lg shadow-[rgba(61,107,86,0.25)]">
+            <div className="logo-marquee logo-marquee--showcase group">
+              <div className="logo-marquee__track group-hover:[animation-play-state:paused]" aria-label="Trusted client logos">
+                {[...clientLogos, ...clientLogos].map((logo, idx) => (
+                  <div key={`single-${logo.src}-${idx}`} className="logo-marquee__item" role="img" aria-label={logo.alt}>
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      loading="lazy"
+                      className="h-16 sm:h-20 md:h-24 w-auto max-w-none object-contain"
+                      style={{ transform: `scale(${logo.scale ?? 1})` }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -528,7 +532,7 @@ const LegalServices = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="relative bg-gray-50 py-10 sm:py-14 md:py-20 lg:py-24">
+      <section className="relative bg-gray-50 py-8 sm:py-10 md:py-14 lg:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-[10px] sm:text-xs tracking-[0.2em] text-[var(--color-3d6b56)] font-bold mb-2 sm:mb-3 uppercase">Get Started</p>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">

@@ -283,19 +283,43 @@ section :is(h3, h4) {
 .logo-marquee__item {
   min-width: 10.5rem;
   height: 4.75rem;
-  border: 1px solid rgba(17, 24, 39, 0.1);
-  border-radius: 0.75rem;
-  background: #0f172a;
-  padding: 0.65rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.25rem 0.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .logo-marquee--premium .logo-marquee__item {
-  border-color: rgba(61, 107, 86, 0.22);
-  background: #111827;
+  border-color: transparent;
+  background: transparent;
   box-shadow: none;
+}
+
+.logo-marquee--showcase .logo-marquee__track {
+  gap: 1.25rem;
+  animation-duration: 46s;
+}
+
+.logo-marquee--showcase {
+  padding: 0.35rem 0;
+}
+
+.logo-marquee--showcase .logo-marquee__item {
+  min-width: 11.25rem;
+  height: 6.15rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.25rem 0.45rem;
+}
+
+.logo-marquee--showcase .logo-marquee__item img {
+  filter: none;
+  opacity: 1;
 }
 
 @media (min-width: 640px) {
@@ -306,6 +330,11 @@ section :is(h3, h4) {
   .logo-marquee__item {
     min-width: 12rem;
     height: 5.2rem;
+  }
+
+  .logo-marquee--showcase .logo-marquee__item {
+    min-width: 12.75rem;
+    height: 7rem;
   }
 }
 
