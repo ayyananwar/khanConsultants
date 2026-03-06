@@ -3,6 +3,12 @@
   command = "npm run build"
   functions = "netlify/functions"
 
+[build.environment]
+  VITE_BACKEND_URL = "https://khan-consultants-api.onrender.com"
+  VITE_BOOKING_API_URL = "https://khan-consultants-api.onrender.com/api/v1/birth/action"
+  VITE_SERVICE_ENQUIRY_API_URL = "https://khan-consultants-api.onrender.com/api/v1/enquiries/submit"
+  VITE_CONTACT_ENQUIRY_API_URL = "https://khan-consultants-api.onrender.com/api/v1/contact/submit"
+
 [[redirects]]
   from = "http://khanconsultants.in/*"
   to = "https://khanconsultants.in/:splat"
